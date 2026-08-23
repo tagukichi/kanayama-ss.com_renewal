@@ -1,0 +1,63 @@
+<!--meta
+title: お問い合わせ
+slug: contact
+en: Contact
+ph: ［写真］打ち合わせ風景 ／ 1920×540px
+desc: 有限会社金山製作所へのお問い合わせ。現地調査・お見積りは無料です。
+-->
+<section class="sec">
+  <div class="wrap rail reveal">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h2 class="h-sec">お問い合わせ</h2>
+      <div class="cta__tel mt-m" style="background:var(--soft);border-color:var(--line-strong);color:var(--ink)">
+        <small style="color:var(--muted)">お電話でのご相談</small>
+        <b style="color:var(--green)">03-XXXX-XXXX</b>
+        <span style="color:var(--muted)">平日 8:00–18:00／土日祝休</span>
+      </div>
+      <p class="p mt-m" style="font-size:13.5px">現地調査・お見積りは無料です。販売店様・元請け会社様からの施工のご依頼もこちらから承ります。</p>
+    </div>
+
+    <div>
+      <p class="form__note">これはプロトタイプのため、送信は行われません。本番では WordPress のフォームプラグイン（Contact Form 7 等）と連携します。項目は現行サイトの内容に合わせて調整します。</p>
+      <form class="form mt-m" onsubmit="return false;">
+        <div class="field">
+          <label class="field__l" for="f-type">お問い合わせ種別 <span class="req">必須</span></label>
+          <select id="f-type" name="type">
+            <option>太陽光発電・蓄電池について</option>
+            <option>電気・水道工事について</option>
+            <option>施工のご依頼（販売店・元請け様）</option>
+            <option>採用へのご応募</option>
+            <option>その他</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__l" for="f-name">お名前 <span class="req">必須</span></label>
+          <input id="f-name" name="name" type="text" autocomplete="name" placeholder="金山 太郎">
+        </div>
+        <div class="field">
+          <label class="field__l" for="f-company">会社名 <span class="opt">任意</span></label>
+          <input id="f-company" name="company" type="text" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label class="field__l" for="f-email">メールアドレス <span class="req">必須</span></label>
+          <input id="f-email" name="email" type="email" autocomplete="email" placeholder="example@example.com">
+        </div>
+        <div class="field">
+          <label class="field__l" for="f-tel">電話番号 <span class="opt">任意</span></label>
+          <input id="f-tel" name="tel" type="tel" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label class="field__l" for="f-addr">工事予定のご住所 <span class="opt">任意</span></label>
+          <input id="f-addr" name="addr" type="text" placeholder="東京都墨田区">
+        </div>
+        <div class="field">
+          <label class="field__l" for="f-body">お問い合わせ内容 <span class="req">必須</span></label>
+          <textarea id="f-body" name="body" placeholder="築年数、屋根の種類、ご検討中の内容などをお書きください。"></textarea>
+        </div>
+        <p style="font-size:13px;color:var(--muted)"><a href="privacy.html" style="color:var(--green);text-decoration:underline;text-underline-offset:3px">プライバシーポリシー</a>に同意のうえ送信してください。</p>
+        <button class="btn btn--accent form__submit" type="submit">入力内容を確認する</button>
+      </form>
+    </div>
+  </div>
+</section>
