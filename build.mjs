@@ -191,6 +191,9 @@ ${js}
 </body>
 </html>`;
 
+// プロトタイプは検索エンジンに拾わせない（本番テーマ化の際に削除する）
+writeFileSync(join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
+
 writeFileSync(join(OUT, 'preview.html'), preview);
 
 /* ---------- Artifact 公開用（doctype/html/head/body を持たない断片） ---------- */

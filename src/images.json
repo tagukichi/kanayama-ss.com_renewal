@@ -1,5 +1,5 @@
 {
-  "_readme": "src にURLを入れると <img> に置き換わります。空欄の枠はプレースホルダー表示のまま。alt が空なら label から補完します。",
+  "_readme": "src にURLを入れると <img> に置き換わります。空欄の枠はプレースホルダー表示のまま。現在の割り当ては画像の中身を未確認のままの暫定です — prototype/assign.html で差し替えられます。",
   "images": [
     {
       "id": "index-01",
@@ -8,7 +8,7 @@
       "label": "メインビジュアル ／ 屋根上でのソーラーパネル施工",
       "size": "2000×1125px 以上",
       "eager": true,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150043.jpg",
       "alt": ""
     },
     {
@@ -18,7 +18,7 @@
       "label": "太陽光パネル設置の施工風景",
       "size": "1600×1000px",
       "eager": false,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150042.jpg",
       "alt": ""
     },
     {
@@ -28,7 +28,7 @@
       "label": "電気工事・水道工事の作業風景",
       "size": "1600×1000px",
       "eager": false,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150041.jpg",
       "alt": ""
     },
     {
@@ -38,7 +38,7 @@
       "label": "施工事例サムネイル",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_2187.jpg",
       "alt": ""
     },
     {
@@ -48,7 +48,7 @@
       "label": "施工事例サムネイル",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150037.jpg",
       "alt": ""
     },
     {
@@ -58,7 +58,7 @@
       "label": "施工事例サムネイル",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150018.jpg",
       "alt": ""
     },
     {
@@ -68,7 +68,7 @@
       "label": "チームでの作業風景・集合写真",
       "size": "1800×1013px",
       "eager": false,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150035.jpg",
       "alt": ""
     },
     {
@@ -78,7 +78,7 @@
       "label": "屋根の上の作業風景（引き）",
       "size": "1920×540px",
       "eager": true,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150002.jpg",
       "alt": ""
     },
     {
@@ -98,7 +98,7 @@
       "label": "屋根に設置されたソーラーパネル",
       "size": "1920×540px",
       "eager": true,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_9921-scaled.jpg",
       "alt": ""
     },
     {
@@ -168,7 +168,7 @@
       "label": "電気工事の作業風景",
       "size": "1920×540px",
       "eager": true,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_5376-scaled.jpg",
       "alt": ""
     },
     {
@@ -218,7 +218,7 @@
       "label": "完成後の屋根（引き）",
       "size": "1920×540px",
       "eager": true,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_3406-scaled.jpg",
       "alt": ""
     },
     {
@@ -288,7 +288,7 @@
       "label": "この事例のメイン写真",
       "size": "1920×540px",
       "eager": true,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1615.jpg",
       "alt": ""
     },
     {
@@ -328,7 +328,7 @@
       "label": "社屋または作業車",
       "size": "1920×540px",
       "eager": true,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1609.jpg",
       "alt": ""
     },
     {
@@ -348,7 +348,7 @@
       "label": "代表者ポートレート",
       "size": "1920×540px",
       "eager": true,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/06/b922a090f4fec8beda83191428714a0a.jpg",
       "alt": ""
     },
     {
@@ -368,7 +368,7 @@
       "label": "現場のチーム",
       "size": "1920×540px",
       "eager": true,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1610.jpg",
       "alt": ""
     },
     {
@@ -388,7 +388,7 @@
       "label": "社員の集合カット",
       "size": "1920×540px",
       "eager": true,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_3347-scaled.jpg",
       "alt": ""
     },
     {
@@ -428,7 +428,7 @@
       "label": "事務所または作業風景",
       "size": "1920×540px",
       "eager": true,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/a3c0a17351e772e04774f332595e85c5-scaled.jpg",
       "alt": ""
     },
     {
@@ -438,7 +438,7 @@
       "label": "打ち合わせ風景",
       "size": "1920×540px",
       "eager": true,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1616.jpg",
       "alt": ""
     },
     {
@@ -448,7 +448,7 @@
       "label": "ページヘッダー背景",
       "size": "1920×540px",
       "eager": true,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150002.jpg",
       "alt": ""
     }
   ]

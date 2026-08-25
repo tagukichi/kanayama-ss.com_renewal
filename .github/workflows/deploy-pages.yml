@@ -1,0 +1,51 @@
+name: Deploy prototype to GitHub Pages
+
+on:
+  push:
+    branches: [claude/site-design-renewal-1kk52a]
+    paths: ['src/**', 'build.mjs', 'make-assigner.mjs', '.github/workflows/deploy-pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 進行中のデプロイは中断せず、後続を1本だけ待たせる
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # 依存パッケージなし。build.mjs が prototype/ を生成する
+      - name: Build
+        run: node build.mjs
+
+      - name: Check build output
+        run: |
+          test -f prototype/index.html || { echo "index.html が生成されていません"; exit 1; }
+          echo "生成ページ数: $(ls prototype/*.html | wc -l)"
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: prototype
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
