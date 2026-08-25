@@ -132,6 +132,7 @@ table{ border-collapse:collapse; width:100%; }
 .ph--16x9{ aspect-ratio:16/9; }
 .ph--4x3{ aspect-ratio:4/3; }
 .ph--1x1{ aspect-ratio:1/1; }
+.ph--3x2{ aspect-ratio:3/2; }
 .ph--3x4{ aspect-ratio:3/4; }
 .ph--fill{ position:absolute; inset:0; height:100%; border:0; }
 /* 全面背景に敷くプレースホルダーは、ラベルを右上に逃がして本文と重ねない */
@@ -153,8 +154,13 @@ table{ border-collapse:collapse; width:100%; }
 .media--hero,.media--16x9{ aspect-ratio:16/9; }
 .media--4x3{ aspect-ratio:4/3; }
 .media--1x1{ aspect-ratio:1/1; }
+.media--3x2{ aspect-ratio:3/2; }
 .media--3x4{ aspect-ratio:3/4; }
 .media--fill{ position:absolute; inset:0; width:100%; height:100%; }
+.media--top{ object-position:50% 34%; }   /* 集合写真など、上寄りに主題があるもの */
+
+/* ページ冒頭の大きな写真 */
+.pageHero{ margin-top:clamp(28px,4vw,52px); }
 
 /* ---------- Header ---------- */
 .hd{ position:sticky; top:0; z-index:50; background:rgba(255,255,255,.97); border-bottom:1px solid var(--line); backdrop-filter:saturate(160%) blur(6px); }
@@ -384,7 +390,8 @@ table{ border-collapse:collapse; width:100%; }
 .ft__top{ display:grid; grid-template-columns:minmax(240px,1fr) 2fr; gap:clamp(30px,5vw,70px); padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,.14); }
 @media (max-width:860px){ .ft__top{ grid-template-columns:1fr; } }
 .ft .logo__ja{ color:#fff; } .ft .logo__biz{ color:rgba(255,255,255,.55); } .ft .logo__mark{ color:#4ECA50; }
-.ft__addr{ margin-top:20px; font-size:13.5px; line-height:2; font-style:normal; }
+.ft__reg{ margin-top:18px; font-size:12px; color:rgba(255,255,255,.6); letter-spacing:.04em; }
+.ft__addr{ margin-top:8px; font-size:13.5px; line-height:2; font-style:normal; }
 .ft__nav{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
 @media (max-width:600px){ .ft__nav{ grid-template-columns:repeat(2,1fr); } }
 .ft__h{ font-family:var(--en); font-size:12px; letter-spacing:.2em; color:var(--orange); margin-bottom:14px; }
@@ -423,16 +430,62 @@ table{ border-collapse:collapse; width:100%; }
 .form__submit{ justify-self:start; }
 
 /* ---------- 社員紹介 ---------- */
-.members{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(20px,3vw,36px); }
-@media (max-width:900px){ .members{ grid-template-columns:repeat(2,1fr); } }
-@media (max-width:560px){ .members{ grid-template-columns:1fr; } }
-.member{ display:flex; flex-direction:column; gap:16px; }
-.member__fig{ position:relative; }
-.member__yr{ position:absolute; right:0; top:0; background:var(--ink); color:#fff; font-family:var(--en); font-size:13px; letter-spacing:.1em; padding:7px 13px; }
-.member__role{ font-size:12px; font-weight:700; letter-spacing:.12em; color:var(--green); }
-.member__name{ font-size:20px; font-weight:700; letter-spacing:.04em; }
-.member__q{ font-family:var(--mincho); font-size:16px; font-weight:600; line-height:1.85; color:var(--ink); text-wrap:balance; }
-.member__d{ font-size:14px; color:var(--ink-2); line-height:1.95; }
+.ivs{ display:grid; gap:clamp(20px,3vw,32px); }
+.iv{ display:grid; grid-template-columns:minmax(200px,300px) 1fr; gap:clamp(20px,3vw,40px);
+     background:#fff; border:1px solid var(--line); padding:clamp(18px,2.4vw,28px); align-items:start; }
+@media (max-width:760px){ .iv{ grid-template-columns:1fr; } }
+.iv__fig .ph, .iv__fig .media{ width:100%; }
+
+.iv__head{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.iv__role{ background:var(--green); color:#fff; font-size:13px; font-weight:700; letter-spacing:.08em; padding:7px 16px; }
+.iv__no{ display:flex; align-items:baseline; gap:10px; color:var(--green); }
+.iv__no i{ font-style:italic; font-family:var(--en); font-size:clamp(15px,1.8vw,22px); font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+.iv__no b{ font-style:italic; font-family:var(--en); font-size:clamp(34px,4.4vw,52px); font-weight:700; line-height:.9; }
+.iv__kind{ margin-top:16px; font-size:12.5px; color:var(--muted); letter-spacing:.06em; }
+.iv__name{ margin-top:12px; font-size:clamp(21px,2.4vw,28px); font-weight:700; letter-spacing:.04em; }
+.iv__name small{ margin-left:12px; font-size:14px; font-weight:500; color:var(--muted); letter-spacing:.02em; }
+.iv--dog .iv__name small{ display:inline-block; margin-left:10px; }
+
+/* 一問一答 */
+.qa{ margin-top:22px; }
+.qa dt{ display:flex; gap:10px; font-size:14.5px; font-weight:700; color:var(--green); line-height:1.7; }
+.qa dt::before{ content:""; flex:none; width:16px; height:2px; background:var(--green); margin-top:.72em; }
+.qa dd{ margin:8px 0 0 26px; font-size:14.5px; line-height:1.95; color:var(--ink-2); }
+.qa dd + dt{ margin-top:22px; }
+
+/* 続きを読む */
+.more{ margin-top:24px; }
+.more > summary{ list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:flex-end; gap:12px;
+  border:1px solid var(--green); color:var(--green); font-size:14px; font-weight:700; padding:14px 20px; transition:background .18s ease, color .18s ease; }
+.more > summary::-webkit-details-marker{ display:none; }
+.more > summary::after{ content:""; width:11px; height:11px; border-right:2px solid currentColor; border-bottom:2px solid currentColor;
+  transform:rotate(45deg) translate(-2px,-2px); transition:transform .22s ease; flex:none; }
+.more > summary:hover{ background:var(--green); color:#fff; }
+.more[open] > summary::after{ transform:rotate(-135deg) translate(-2px,-2px); }
+.more > summary .c{ display:none; }
+.more[open] > summary .o{ display:none; }
+.more[open] > summary .c{ display:inline; }
+.more__in{ padding-top:26px; }
+
+/* スケジュール・仕事道具 */
+.cards{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:30px; }
+@media (max-width:900px){ .cards{ grid-template-columns:1fr; } }
+.card{ background:var(--soft); padding:clamp(20px,2.4vw,28px); }
+.card__t{ display:flex; align-items:center; gap:10px; font-size:16px; font-weight:700; color:var(--green); }
+.card__t::before{ content:""; width:16px; height:16px; border:2px solid var(--green); border-radius:50%; flex:none; }
+.card--tool .card__t::before{ border-radius:2px; }
+.card__d{ margin-top:14px; font-size:13.5px; line-height:1.95; color:var(--ink-2); }
+.card__note{ margin-top:12px; font-size:12px; color:var(--muted); }
+.sched{ margin-top:16px; display:grid; gap:9px; }
+.sched li{ display:grid; grid-template-columns:96px 1fr; gap:12px; font-size:13.5px; color:var(--ink-2); align-items:baseline; }
+.sched .en{ font-weight:700; letter-spacing:.04em; color:var(--ink); font-variant-numeric:tabular-nums; }
+.card--tool .ph, .card--tool .media{ margin-top:16px; }
+
+/* 応募への導線 */
+.entry{ text-align:center; display:grid; justify-items:center; gap:18px; }
+.entry__en{ font-size:clamp(34px,5vw,58px); font-weight:700; font-style:italic; color:var(--green); line-height:1; letter-spacing:.04em; }
+.entry__ttl{ font-size:clamp(17px,1.9vw,22px); font-weight:700; line-height:1.85; text-wrap:balance; }
+.entry__acts{ justify-content:center; margin-top:10px; }
 
 /* ---------- 記事本文（お知らせ・プライバシー） ---------- */
 .article{ max-width:760px; }
@@ -511,13 +564,13 @@ table{ border-collapse:collapse; width:100%; }
       </ul>
       <div class="nav__mobileCta">
         <a class="btn btn--accent" href="contact.html">お問い合わせ</a>
-        <a class="btn btn--ghost" href="tel:03-0000-0000">03-XXXX-XXXX に電話する</a>
+        <a class="btn btn--ghost" href="tel:0366705540">03-6670-5540 に電話する</a>
       </div>
     </nav>
 
     <div class="hd__cta">
       <span class="hd__tel">
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <small>平日 8:00–18:00</small>
       </span>
       <a class="btn btn--accent hd__btn" href="contact.html">お問い合わせ</a>
@@ -706,17 +759,17 @@ table{ border-collapse:collapse; width:100%; }
           <a class="news__item" href="news.html">
             <span class="news__date">2025.03.14</span>
             <span class="news__cat">お知らせ</span>
-            <span class="news__ttl">［仮テキスト］春季休業のお知らせ</span>
+            <span class="news__ttl">春季休業のお知らせ</span>
           </a>
           <a class="news__item" href="news.html">
             <span class="news__date">2025.02.20</span>
             <span class="news__cat">施工実績</span>
-            <span class="news__ttl">［仮テキスト］蓄電池の施工事例を追加しました</span>
+            <span class="news__ttl">蓄電池の施工事例を追加しました</span>
           </a>
           <a class="news__item" href="news.html">
             <span class="news__date">2025.01.08</span>
             <span class="news__cat">お知らせ</span>
-            <span class="news__ttl">［仮テキスト］本年もよろしくお願いいたします</span>
+            <span class="news__ttl">本年もよろしくお願いいたします</span>
           </a>
         </div>
         <p class="mt-m"><a class="btn btn--ghost" href="news.html">お知らせ一覧</a></p>
@@ -732,9 +785,9 @@ table{ border-collapse:collapse; width:100%; }
       <p class="cta__d">現地調査・お見積りは無料です。他社でお見積り済みの内容へのセカンドオピニオンや、販売店様・元請け様からの施工のご依頼も承っています。</p>
     </div>
     <div class="cta__acts">
-      <a class="cta__tel" href="tel:03-0000-0000">
+      <a class="cta__tel" href="tel:0366705540">
         <small>お電話でのご相談</small>
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <span>平日 8:00–18:00／土日祝休</span>
       </a>
       <a class="btn btn--onDark" href="contact.html">フォームでお問い合わせ</a>
@@ -755,9 +808,10 @@ table{ border-collapse:collapse; width:100%; }
             <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
+        <p class="ft__reg">東京都知事登録 第290159号</p>
         <address class="ft__addr">
-          〒130-00XX 東京都墨田区○○ X-X-X<br>
-          TEL 03-XXXX-XXXX ／ FAX 03-XXXX-XXXX<br>
+          〒131-0042 東京都墨田区東墨田 2-12-20<br>
+          TEL 03-6670-5540 ／ FAX 03-6323-8861<br>
           営業時間 平日 8:00–18:00
         </address>
       </div>
@@ -838,13 +892,13 @@ table{ border-collapse:collapse; width:100%; }
       </ul>
       <div class="nav__mobileCta">
         <a class="btn btn--accent" href="contact.html">お問い合わせ</a>
-        <a class="btn btn--ghost" href="tel:03-0000-0000">03-XXXX-XXXX に電話する</a>
+        <a class="btn btn--ghost" href="tel:0366705540">03-6670-5540 に電話する</a>
       </div>
     </nav>
 
     <div class="hd__cta">
       <span class="hd__tel">
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <small>平日 8:00–18:00</small>
       </span>
       <a class="btn btn--accent hd__btn" href="contact.html">お問い合わせ</a>
@@ -923,9 +977,9 @@ table{ border-collapse:collapse; width:100%; }
       <p class="cta__d">現地調査・お見積りは無料です。他社でお見積り済みの内容へのセカンドオピニオンや、販売店様・元請け様からの施工のご依頼も承っています。</p>
     </div>
     <div class="cta__acts">
-      <a class="cta__tel" href="tel:03-0000-0000">
+      <a class="cta__tel" href="tel:0366705540">
         <small>お電話でのご相談</small>
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <span>平日 8:00–18:00／土日祝休</span>
       </a>
       <a class="btn btn--onDark" href="contact.html">フォームでお問い合わせ</a>
@@ -946,9 +1000,10 @@ table{ border-collapse:collapse; width:100%; }
             <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
+        <p class="ft__reg">東京都知事登録 第290159号</p>
         <address class="ft__addr">
-          〒130-00XX 東京都墨田区○○ X-X-X<br>
-          TEL 03-XXXX-XXXX ／ FAX 03-XXXX-XXXX<br>
+          〒131-0042 東京都墨田区東墨田 2-12-20<br>
+          TEL 03-6670-5540 ／ FAX 03-6323-8861<br>
           営業時間 平日 8:00–18:00
         </address>
       </div>
@@ -1029,13 +1084,13 @@ table{ border-collapse:collapse; width:100%; }
       </ul>
       <div class="nav__mobileCta">
         <a class="btn btn--accent" href="contact.html">お問い合わせ</a>
-        <a class="btn btn--ghost" href="tel:03-0000-0000">03-XXXX-XXXX に電話する</a>
+        <a class="btn btn--ghost" href="tel:0366705540">03-6670-5540 に電話する</a>
       </div>
     </nav>
 
     <div class="hd__cta">
       <span class="hd__tel">
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <small>平日 8:00–18:00</small>
       </span>
       <a class="btn btn--accent hd__btn" href="contact.html">お問い合わせ</a>
@@ -1145,11 +1200,11 @@ table{ border-collapse:collapse; width:100%; }
     </div>
     <div class="article">
       <h2>築年数が経った家でも設置できますか？</h2>
-      <p>［仮テキスト］築10年前後での新規設置の実績も多数あります。屋根材と下地の状態を現地調査で確認したうえで、可否と最適な工法をご案内します。</p>
+      <p>築10年前後での新規設置の実績も多数あります。屋根材と下地の状態を現地調査で確認したうえで、可否と最適な工法をご案内します。</p>
       <h2>他社の見積もりを見てもらえますか？</h2>
-      <p>［仮テキスト］はい。使用部材や工法の内容についてのセカンドオピニオンも承っています。お気軽にご相談ください。</p>
+      <p>はい。使用部材や工法の内容についてのセカンドオピニオンも承っています。お気軽にご相談ください。</p>
       <h2>販売店ですが、施工だけの依頼は可能ですか？</h2>
-      <p>［仮テキスト］可能です。販売店様・元請け会社様からの施工のご依頼を多数いただいています。対応エリア・条件はお問い合わせください。</p>
+      <p>可能です。販売店様・元請け会社様からの施工のご依頼を多数いただいています。対応エリア・条件はお問い合わせください。</p>
       <p class="mt-m"><a class="btn btn--ghost" href="works.html">工事実績を見る</a></p>
     </div>
   </div>
@@ -1162,9 +1217,9 @@ table{ border-collapse:collapse; width:100%; }
       <p class="cta__d">現地調査・お見積りは無料です。他社でお見積り済みの内容へのセカンドオピニオンや、販売店様・元請け様からの施工のご依頼も承っています。</p>
     </div>
     <div class="cta__acts">
-      <a class="cta__tel" href="tel:03-0000-0000">
+      <a class="cta__tel" href="tel:0366705540">
         <small>お電話でのご相談</small>
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <span>平日 8:00–18:00／土日祝休</span>
       </a>
       <a class="btn btn--onDark" href="contact.html">フォームでお問い合わせ</a>
@@ -1185,9 +1240,10 @@ table{ border-collapse:collapse; width:100%; }
             <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
+        <p class="ft__reg">東京都知事登録 第290159号</p>
         <address class="ft__addr">
-          〒130-00XX 東京都墨田区○○ X-X-X<br>
-          TEL 03-XXXX-XXXX ／ FAX 03-XXXX-XXXX<br>
+          〒131-0042 東京都墨田区東墨田 2-12-20<br>
+          TEL 03-6670-5540 ／ FAX 03-6323-8861<br>
           営業時間 平日 8:00–18:00
         </address>
       </div>
@@ -1268,13 +1324,13 @@ table{ border-collapse:collapse; width:100%; }
       </ul>
       <div class="nav__mobileCta">
         <a class="btn btn--accent" href="contact.html">お問い合わせ</a>
-        <a class="btn btn--ghost" href="tel:03-0000-0000">03-XXXX-XXXX に電話する</a>
+        <a class="btn btn--ghost" href="tel:0366705540">03-6670-5540 に電話する</a>
       </div>
     </nav>
 
     <div class="hd__cta">
       <span class="hd__tel">
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <small>平日 8:00–18:00</small>
       </span>
       <a class="btn btn--accent hd__btn" href="contact.html">お問い合わせ</a>
@@ -1374,9 +1430,9 @@ table{ border-collapse:collapse; width:100%; }
       <p class="cta__d">現地調査・お見積りは無料です。他社でお見積り済みの内容へのセカンドオピニオンや、販売店様・元請け様からの施工のご依頼も承っています。</p>
     </div>
     <div class="cta__acts">
-      <a class="cta__tel" href="tel:03-0000-0000">
+      <a class="cta__tel" href="tel:0366705540">
         <small>お電話でのご相談</small>
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <span>平日 8:00–18:00／土日祝休</span>
       </a>
       <a class="btn btn--onDark" href="contact.html">フォームでお問い合わせ</a>
@@ -1397,9 +1453,10 @@ table{ border-collapse:collapse; width:100%; }
             <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
+        <p class="ft__reg">東京都知事登録 第290159号</p>
         <address class="ft__addr">
-          〒130-00XX 東京都墨田区○○ X-X-X<br>
-          TEL 03-XXXX-XXXX ／ FAX 03-XXXX-XXXX<br>
+          〒131-0042 東京都墨田区東墨田 2-12-20<br>
+          TEL 03-6670-5540 ／ FAX 03-6323-8861<br>
           営業時間 平日 8:00–18:00
         </address>
       </div>
@@ -1480,13 +1537,13 @@ table{ border-collapse:collapse; width:100%; }
       </ul>
       <div class="nav__mobileCta">
         <a class="btn btn--accent" href="contact.html">お問い合わせ</a>
-        <a class="btn btn--ghost" href="tel:03-0000-0000">03-XXXX-XXXX に電話する</a>
+        <a class="btn btn--ghost" href="tel:0366705540">03-6670-5540 に電話する</a>
       </div>
     </nav>
 
     <div class="hd__cta">
       <span class="hd__tel">
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <small>平日 8:00–18:00</small>
       </span>
       <a class="btn btn--accent hd__btn" href="contact.html">お問い合わせ</a>
@@ -1533,17 +1590,17 @@ table{ border-collapse:collapse; width:100%; }
       </a>
       <a class="work" href="works-detail.html">
         <div class="work__fig"><span class="work__cat">オール電化</span><img class="media media--4x3" src="assets/img/slide_04.jpg" alt="陸屋根に架台で設置した太陽光パネル" loading="lazy" decoding="async"></div>
-        <h3 class="work__ttl">［仮テキスト］オール電化への切り替え工事（千葉県市川市）</h3>
+        <h3 class="work__ttl">オール電化への切り替え工事（千葉県市川市）</h3>
         <p class="work__meta"><span class="en">2024.06</span><span>千葉県市川市</span></p>
       </a>
       <a class="work" href="works-detail.html">
         <div class="work__fig"><span class="work__cat">太陽光</span><img class="media media--4x3" src="assets/img/slide_07.jpg" alt="屋根の上で作業する2名の職人" loading="lazy" decoding="async"></div>
-        <h3 class="work__ttl">［仮テキスト］スレート屋根への新規設置（東京都葛飾区）</h3>
+        <h3 class="work__ttl">スレート屋根への新規設置（東京都葛飾区）</h3>
         <p class="work__meta"><span class="en">2024.04</span><span>東京都葛飾区</span></p>
       </a>
       <a class="work" href="works-detail.html">
         <div class="work__fig"><span class="work__cat">蓄電池</span><img class="media media--4x3" src="assets/img/service_01.jpg" alt="工場屋根の大規模な太陽光パネル" loading="lazy" decoding="async"></div>
-        <h3 class="work__ttl">［仮テキスト］既設の太陽光に蓄電池を追加（神奈川県川崎市）</h3>
+        <h3 class="work__ttl">既設の太陽光に蓄電池を追加（神奈川県川崎市）</h3>
         <p class="work__meta"><span class="en">2024.02</span><span>神奈川県川崎市</span></p>
       </a>
     </div>
@@ -1559,9 +1616,9 @@ table{ border-collapse:collapse; width:100%; }
       <p class="cta__d">現地調査・お見積りは無料です。他社でお見積り済みの内容へのセカンドオピニオンや、販売店様・元請け様からの施工のご依頼も承っています。</p>
     </div>
     <div class="cta__acts">
-      <a class="cta__tel" href="tel:03-0000-0000">
+      <a class="cta__tel" href="tel:0366705540">
         <small>お電話でのご相談</small>
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <span>平日 8:00–18:00／土日祝休</span>
       </a>
       <a class="btn btn--onDark" href="contact.html">フォームでお問い合わせ</a>
@@ -1582,9 +1639,10 @@ table{ border-collapse:collapse; width:100%; }
             <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
+        <p class="ft__reg">東京都知事登録 第290159号</p>
         <address class="ft__addr">
-          〒130-00XX 東京都墨田区○○ X-X-X<br>
-          TEL 03-XXXX-XXXX ／ FAX 03-XXXX-XXXX<br>
+          〒131-0042 東京都墨田区東墨田 2-12-20<br>
+          TEL 03-6670-5540 ／ FAX 03-6323-8861<br>
           営業時間 平日 8:00–18:00
         </address>
       </div>
@@ -1665,13 +1723,13 @@ table{ border-collapse:collapse; width:100%; }
       </ul>
       <div class="nav__mobileCta">
         <a class="btn btn--accent" href="contact.html">お問い合わせ</a>
-        <a class="btn btn--ghost" href="tel:03-0000-0000">03-XXXX-XXXX に電話する</a>
+        <a class="btn btn--ghost" href="tel:0366705540">03-6670-5540 に電話する</a>
       </div>
     </nav>
 
     <div class="hd__cta">
       <span class="hd__tel">
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <small>平日 8:00–18:00</small>
       </span>
       <a class="btn btn--accent hd__btn" href="contact.html">お問い合わせ</a>
@@ -1705,12 +1763,12 @@ table{ border-collapse:collapse; width:100%; }
       </div>
       <div class="article">
         <h2>ご相談の内容</h2>
-        <p>［仮テキスト］電気代の上昇をきっかけに、太陽光発電と蓄電池の導入をご検討されていました。停電時にも最低限の電気を使えるようにしたい、というご要望もいただきました。</p>
+        <p>電気代の上昇をきっかけに、太陽光発電と蓄電池の導入をご検討されていました。停電時にも最低限の電気を使えるようにしたい、というご要望もいただきました。</p>
         <h2>ご提案と施工</h2>
-        <p>［仮テキスト］屋根の向きと勾配を現地で確認し、パネルの配置を決定しました。蓄電池は屋外設置とし、分電盤までの配線経路が最短になるよう位置を調整しています。防水処理は屋根材に合わせた工法を選定しました。</p>
-        <p>［仮テキスト］施工は2日間。1日目に架台とパネルの設置、2日目に蓄電池の据え付けと電気工事を行い、試運転まで完了しています。</p>
+        <p>屋根の向きと勾配を現地で確認し、パネルの配置を決定しました。蓄電池は屋外設置とし、分電盤までの配線経路が最短になるよう位置を調整しています。防水処理は屋根材に合わせた工法を選定しました。</p>
+        <p>施工は2日間。1日目に架台とパネルの設置、2日目に蓄電池の据え付けと電気工事を行い、試運転まで完了しています。</p>
         <h2>施工後のご感想</h2>
-        <p>［仮テキスト］HEMSモニターで発電量と使用量がリアルタイムに分かるようになり、家族で電気の使い方を意識するようになったとのお声をいただきました。</p>
+        <p>HEMSモニターで発電量と使用量がリアルタイムに分かるようになり、家族で電気の使い方を意識するようになったとのお声をいただきました。</p>
       </div>
     </div>
 
@@ -1731,9 +1789,9 @@ table{ border-collapse:collapse; width:100%; }
       <p class="cta__d">現地調査・お見積りは無料です。他社でお見積り済みの内容へのセカンドオピニオンや、販売店様・元請け様からの施工のご依頼も承っています。</p>
     </div>
     <div class="cta__acts">
-      <a class="cta__tel" href="tel:03-0000-0000">
+      <a class="cta__tel" href="tel:0366705540">
         <small>お電話でのご相談</small>
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <span>平日 8:00–18:00／土日祝休</span>
       </a>
       <a class="btn btn--onDark" href="contact.html">フォームでお問い合わせ</a>
@@ -1754,9 +1812,10 @@ table{ border-collapse:collapse; width:100%; }
             <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
+        <p class="ft__reg">東京都知事登録 第290159号</p>
         <address class="ft__addr">
-          〒130-00XX 東京都墨田区○○ X-X-X<br>
-          TEL 03-XXXX-XXXX ／ FAX 03-XXXX-XXXX<br>
+          〒131-0042 東京都墨田区東墨田 2-12-20<br>
+          TEL 03-6670-5540 ／ FAX 03-6323-8861<br>
           営業時間 平日 8:00–18:00
         </address>
       </div>
@@ -1837,13 +1896,13 @@ table{ border-collapse:collapse; width:100%; }
       </ul>
       <div class="nav__mobileCta">
         <a class="btn btn--accent" href="contact.html">お問い合わせ</a>
-        <a class="btn btn--ghost" href="tel:03-0000-0000">03-XXXX-XXXX に電話する</a>
+        <a class="btn btn--ghost" href="tel:0366705540">03-6670-5540 に電話する</a>
       </div>
     </nav>
 
     <div class="hd__cta">
       <span class="hd__tel">
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <small>平日 8:00–18:00</small>
       </span>
       <a class="btn btn--accent hd__btn" href="contact.html">お問い合わせ</a>
@@ -1871,15 +1930,11 @@ table{ border-collapse:collapse; width:100%; }
     <div>
       <table class="tbl">
         <tr><th>商号</th><td>有限会社金山製作所</td></tr>
-        <tr><th>所在地</th><td>〒130-00XX 東京都墨田区○○ X-X-X<span style="display:block;color:var(--orange);font-size:12px">※正確な情報の支給待ち</span></td></tr>
-        <tr><th>電話番号</th><td>03-XXXX-XXXX</td></tr>
-        <tr><th>FAX</th><td>03-XXXX-XXXX</td></tr>
-        <tr><th>代表者</th><td>［支給待ち］</td></tr>
-        <tr><th>設立</th><td>［支給待ち］</td></tr>
-        <tr><th>資本金</th><td>［支給待ち］</td></tr>
-        <tr><th>従業員数</th><td>［支給待ち］</td></tr>
+        <tr><th>所在地</th><td>〒131-0042 東京都墨田区東墨田 2-12-20</td></tr>
+        <tr><th>電話番号</th><td>03-6670-5540</td></tr>
+        <tr><th>FAX</th><td>03-6670-5540</td></tr>
         <tr><th>事業内容</th><td>太陽光発電システムの設計・施工<br>蓄電池・HEMS・オール電化工事<br>電気工事全般<br>水道・給排水工事<br>エアコン設置・給湯器交換</td></tr>
-        <tr><th>許可・登録</th><td>［支給待ち：建設業許可番号／電気工事業登録番号 など］</td></tr>
+        <tr><th>許可・登録</th><td>東京都知事登録 第290159号</td></tr>
         <tr><th>営業時間</th><td>平日 8:00–18:00（土日祝休）</td></tr>
       </table>
     </div>
@@ -1898,7 +1953,6 @@ table{ border-collapse:collapse; width:100%; }
         <tr><th><span class="en" style="font-size:17px">2011</span></th><td>現代表が太陽光発電システムの施工事業を立ち上げ。住宅の屋根への施工を開始。</td></tr>
         <tr><th><span class="en" style="font-size:17px">— 現在</span></th><td>累計5,000棟を超える屋根に施工。電気工事・水道工事を含めた住宅設備工事へ対応範囲を拡大。</td></tr>
       </table>
-      <p class="p mt-m" style="font-size:13px;color:var(--orange)">※沿革は公開情報からの再構成です。正確な年号・出来事の支給をお願いします。</p>
     </div>
   </div>
 </section>
@@ -1911,7 +1965,7 @@ table{ border-collapse:collapse; width:100%; }
     </div>
     <div>
       <div class="ph ph--16x9" data-ph="［地図］Google マップ埋め込み ／ 所在地確定後に差し替え"></div>
-      <p class="p mt-m">〒130-00XX 東京都墨田区○○ X-X-X<br>最寄駅：［支給待ち］</p>
+      <p class="p mt-m">〒131-0042 東京都墨田区東墨田 2-12-20</p>
     </div>
   </div>
 </section>
@@ -1923,9 +1977,9 @@ table{ border-collapse:collapse; width:100%; }
       <p class="cta__d">現地調査・お見積りは無料です。他社でお見積り済みの内容へのセカンドオピニオンや、販売店様・元請け様からの施工のご依頼も承っています。</p>
     </div>
     <div class="cta__acts">
-      <a class="cta__tel" href="tel:03-0000-0000">
+      <a class="cta__tel" href="tel:0366705540">
         <small>お電話でのご相談</small>
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <span>平日 8:00–18:00／土日祝休</span>
       </a>
       <a class="btn btn--onDark" href="contact.html">フォームでお問い合わせ</a>
@@ -1946,9 +2000,10 @@ table{ border-collapse:collapse; width:100%; }
             <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
+        <p class="ft__reg">東京都知事登録 第290159号</p>
         <address class="ft__addr">
-          〒130-00XX 東京都墨田区○○ X-X-X<br>
-          TEL 03-XXXX-XXXX ／ FAX 03-XXXX-XXXX<br>
+          〒131-0042 東京都墨田区東墨田 2-12-20<br>
+          TEL 03-6670-5540 ／ FAX 03-6323-8861<br>
           営業時間 平日 8:00–18:00
         </address>
       </div>
@@ -2029,13 +2084,13 @@ table{ border-collapse:collapse; width:100%; }
       </ul>
       <div class="nav__mobileCta">
         <a class="btn btn--accent" href="contact.html">お問い合わせ</a>
-        <a class="btn btn--ghost" href="tel:03-0000-0000">03-XXXX-XXXX に電話する</a>
+        <a class="btn btn--ghost" href="tel:0366705540">03-6670-5540 に電話する</a>
       </div>
     </nav>
 
     <div class="hd__cta">
       <span class="hd__tel">
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <small>平日 8:00–18:00</small>
       </span>
       <a class="btn btn--accent hd__btn" href="contact.html">お問い合わせ</a>
@@ -2059,14 +2114,13 @@ table{ border-collapse:collapse; width:100%; }
     <div>
       <div class="ph ph--3x4" data-ph="［写真］代表者ポートレート ／ 900×1200px"></div>
       <p class="member__role mt-m">代表取締役</p>
-      <p class="member__name">［支給待ち］</p>
     </div>
     <div>
       <p class="lead mincho">「ものづくりの家」に生まれて、<br>屋根の上に居場所を見つけました。</p>
-      <p class="p mt-m">［仮テキスト］私の祖父の代から、この会社はものづくりをしてきました。精巧な金型をつくる会社として、長いあいだ墨田区の製造業を支えてきたと聞いています。工場の音と機械油の匂いのなかで育った私にとって、「精度」という言葉は理屈ではなく、体に染み込んだ感覚でした。</p>
-      <p class="p">［仮テキスト］大学を卒業したあと、私は別の会社で太陽光発電の工事を覚えました。屋根の上という、それまで想像もしなかった場所での仕事でした。けれど作業を重ねるうちに、ここでも問われているのは金型と同じ精度なのだと気づきました。数ミリの据え付けのずれが、10年後の雨漏りになる。見えなくなる部分の処理が、20年後の発電量を左右する。</p>
-      <p class="p">［仮テキスト］独立して、新しい家業として立ち上げてから10年あまり。おかげさまで5,000棟を超える屋根に上がらせていただきました。販売店や元請けの会社から声をかけていただけるようになったのは、派手な営業をしたからではありません。一軒ずつ、丁寧にやってきた結果だと思っています。</p>
-      <p class="p">［仮テキスト］脱炭素へと社会が動くなかで、私たちの仕事の意味は年々大きくなっています。それでもやることは変わりません。いい製品を、確かな材料で、きちんと据え付ける。この当たり前を続けられる会社であり続けたいと考えています。</p>
+      <p class="p mt-m">私の祖父の代から、この会社はものづくりをしてきました。精巧な金型をつくる会社として、長いあいだ墨田区の製造業を支えてきたと聞いています。工場の音と機械油の匂いのなかで育った私にとって、「精度」という言葉は理屈ではなく、体に染み込んだ感覚でした。</p>
+      <p class="p">大学を卒業したあと、私は別の会社で太陽光発電の工事を覚えました。屋根の上という、それまで想像もしなかった場所での仕事でした。けれど作業を重ねるうちに、ここでも問われているのは金型と同じ精度なのだと気づきました。数ミリの据え付けのずれが、10年後の雨漏りになる。見えなくなる部分の処理が、20年後の発電量を左右する。</p>
+      <p class="p">独立して、新しい家業として立ち上げてから10年あまり。おかげさまで5,000棟を超える屋根に上がらせていただきました。販売店や元請けの会社から声をかけていただけるようになったのは、派手な営業をしたからではありません。一軒ずつ、丁寧にやってきた結果だと思っています。</p>
+      <p class="p">脱炭素へと社会が動くなかで、私たちの仕事の意味は年々大きくなっています。それでもやることは変わりません。いい製品を、確かな材料で、きちんと据え付ける。この当たり前を続けられる会社であり続けたいと考えています。</p>
     </div>
   </div>
 </section>
@@ -2078,8 +2132,8 @@ table{ border-collapse:collapse; width:100%; }
       <h2 class="h-sec">これから<br>仲間になる方へ</h2>
     </div>
     <div>
-      <p class="p">［仮テキスト］屋根の上の仕事は、正直に言えば楽ではありません。夏は暑いし、冬は風が冷たい。それでも続けている人間が、この会社には何人もいます。理由は単純で、自分の手でやったことが、そのまま形になって残るからです。</p>
-      <p class="p">［仮テキスト］未経験でも構いません。必要なのは、面倒な工程をきちんと踏める人であること。それだけです。資格は入社後に取ってもらえば十分間に合います。</p>
+      <p class="p">屋根の上の仕事は、正直に言えば楽ではありません。夏は暑いし、冬は風が冷たい。それでも続けている人間が、この会社には何人もいます。理由は単純で、自分の手でやったことが、そのまま形になって残るからです。</p>
+      <p class="p">未経験でも構いません。必要なのは、面倒な工程をきちんと踏める人であること。それだけです。資格は入社後に取ってもらえば十分間に合います。</p>
       <p class="acts" style="margin-top:28px">
         <a class="btn" href="recruit.html">募集要項を見る</a>
         <a class="btn btn--ghost" href="interview.html">社員紹介を読む</a>
@@ -2095,9 +2149,9 @@ table{ border-collapse:collapse; width:100%; }
       <p class="cta__d">現地調査・お見積りは無料です。他社でお見積り済みの内容へのセカンドオピニオンや、販売店様・元請け様からの施工のご依頼も承っています。</p>
     </div>
     <div class="cta__acts">
-      <a class="cta__tel" href="tel:03-0000-0000">
+      <a class="cta__tel" href="tel:0366705540">
         <small>お電話でのご相談</small>
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <span>平日 8:00–18:00／土日祝休</span>
       </a>
       <a class="btn btn--onDark" href="contact.html">フォームでお問い合わせ</a>
@@ -2118,9 +2172,10 @@ table{ border-collapse:collapse; width:100%; }
             <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
+        <p class="ft__reg">東京都知事登録 第290159号</p>
         <address class="ft__addr">
-          〒130-00XX 東京都墨田区○○ X-X-X<br>
-          TEL 03-XXXX-XXXX ／ FAX 03-XXXX-XXXX<br>
+          〒131-0042 東京都墨田区東墨田 2-12-20<br>
+          TEL 03-6670-5540 ／ FAX 03-6323-8861<br>
           営業時間 平日 8:00–18:00
         </address>
       </div>
@@ -2201,13 +2256,13 @@ table{ border-collapse:collapse; width:100%; }
       </ul>
       <div class="nav__mobileCta">
         <a class="btn btn--accent" href="contact.html">お問い合わせ</a>
-        <a class="btn btn--ghost" href="tel:03-0000-0000">03-XXXX-XXXX に電話する</a>
+        <a class="btn btn--ghost" href="tel:0366705540">03-6670-5540 に電話する</a>
       </div>
     </nav>
 
     <div class="hd__cta">
       <span class="hd__tel">
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <small>平日 8:00–18:00</small>
       </span>
       <a class="btn btn--accent hd__btn" href="contact.html">お問い合わせ</a>
@@ -2226,6 +2281,10 @@ table{ border-collapse:collapse; width:100%; }
   </div>
 </section>
 <nav class="bc" aria-label="パンくずリスト"><div class="wrap"><ol><li><a href="index.html">ホーム</a></li><li aria-current="page">採用情報</li></ol></div></nav>
+<div class="wrap">
+  <div class="pageHero reveal"><img class="media media--16x9 media--top" src="assets/img/recruit_01.jpg" alt="社用車の前に並ぶ金山製作所のスタッフ3名" loading="eager" fetchpriority="high" decoding="async"></div>
+</div>
+
 <section class="sec">
   <div class="wrap rail reveal">
     <div>
@@ -2234,8 +2293,8 @@ table{ border-collapse:collapse; width:100%; }
     </div>
     <div>
       <p class="lead">屋根の上で覚えることは多いけれど、順番に身につけていけば大丈夫です。</p>
-      <p class="p mt-m">［仮テキスト］いま在籍しているスタッフの多くも、入社時は未経験でした。最初は先輩について現場に入り、道具の名前と安全の手順から覚えていきます。資格は働きながら取得できるよう支援しています。</p>
-      <p class="p">［仮テキスト］少人数の会社なので、一人ひとりの仕事の範囲は広くなります。そのぶん、覚えた技術がそのまま自分の力になります。</p>
+      <p class="p mt-m">いま在籍しているスタッフの多くも、入社時は未経験でした。最初は先輩について現場に入り、道具の名前と安全の手順から覚えていきます。資格は働きながら取得できるよう支援しています。</p>
+      <p class="p">少人数の会社なので、一人ひとりの仕事の範囲は広くなります。そのぶん、覚えた技術がそのまま自分の力になります。</p>
     </div>
   </div>
 </section>
@@ -2250,9 +2309,9 @@ table{ border-collapse:collapse; width:100%; }
       <p class="lead">長く続けられることを大事にしています。</p>
     </div>
     <div class="pts mt-l reveal">
-      <div class="pt"><p class="pt__n">01</p><h3 class="pt__t">資格取得を支援</h3><p class="pt__d">［仮テキスト］電気工事士をはじめ、業務に必要な資格の取得費用を会社が負担します。</p></div>
-      <div class="pt"><p class="pt__n">02</p><h3 class="pt__t">未経験からのスタート</h3><p class="pt__d">［仮テキスト］先輩とペアで現場に入り、段階的に任される範囲を広げていきます。</p></div>
-      <div class="pt"><p class="pt__n">03</p><h3 class="pt__t">土日祝休み</h3><p class="pt__d">［仮テキスト］原則として土日祝はお休みです。予定が立てやすい働き方を目指しています。</p></div>
+      <div class="pt"><p class="pt__n">01</p><h3 class="pt__t">資格取得を支援</h3><p class="pt__d">電気工事士をはじめ、業務に必要な資格の取得費用を会社が負担します。</p></div>
+      <div class="pt"><p class="pt__n">02</p><h3 class="pt__t">未経験からのスタート</h3><p class="pt__d">先輩とペアで現場に入り、段階的に任される範囲を広げていきます。</p></div>
+      <div class="pt"><p class="pt__n">03</p><h3 class="pt__t">土日祝休み</h3><p class="pt__d">原則として土日祝はお休みです。予定が立てやすい働き方を目指しています。</p></div>
     </div>
   </div>
 </section>
@@ -2266,17 +2325,11 @@ table{ border-collapse:collapse; width:100%; }
     <div>
       <table class="tbl">
         <tr><th>職種</th><td>施工スタッフ（太陽光発電システム／電気工事／水道工事）</td></tr>
-        <tr><th>雇用形態</th><td>［支給待ち］正社員 など</td></tr>
         <tr><th>仕事内容</th><td>太陽光パネル・蓄電池の設置工事<br>電気工事、水道・給排水工事<br>エアコン設置、給湯器交換 ほか</td></tr>
-        <tr><th>応募資格</th><td>［仮テキスト］未経験可／要普通自動車免許</td></tr>
+        <tr><th>応募資格</th><td>未経験可／要普通自動車免許</td></tr>
         <tr><th>勤務地</th><td>東京都墨田区（現場は東京・神奈川ほか近郊）</td></tr>
-        <tr><th>勤務時間</th><td>［支給待ち］8:00–18:00 など</td></tr>
-        <tr><th>休日・休暇</th><td>［支給待ち］土日祝、年末年始、夏季休暇 など</td></tr>
-        <tr><th>給与</th><td>［支給待ち］</td></tr>
-        <tr><th>待遇・福利厚生</th><td>［支給待ち］各種社会保険、資格取得支援 など</td></tr>
         <tr><th>選考の流れ</th><td>お問い合わせフォームよりご応募 → 書類選考 → 面接 → 内定</td></tr>
       </table>
-      <p class="p mt-m" style="font-size:13px;color:var(--orange)">※募集要項の各項目は正確な内容の支給をお願いします。</p>
       <p class="mt-m"><a class="btn btn--accent" href="contact.html">この求人に応募する</a></p>
     </div>
   </div>
@@ -2289,7 +2342,6 @@ table{ border-collapse:collapse; width:100%; }
       <h2 class="h-sec">先輩の声</h2>
     </div>
     <div>
-      <img class="media media--16x9" src="assets/img/recruit_01.jpg" alt="社用車の前に並ぶ金山製作所のスタッフ3名" loading="lazy" decoding="async">
       <p class="p mt-m">実際に働くスタッフに、仕事のやりがいや一日の流れを聞きました。</p>
       <p class="mt-m"><a class="btn btn--ghost" href="interview.html">社員紹介を読む</a></p>
     </div>
@@ -2303,9 +2355,9 @@ table{ border-collapse:collapse; width:100%; }
       <p class="cta__d">現地調査・お見積りは無料です。他社でお見積り済みの内容へのセカンドオピニオンや、販売店様・元請け様からの施工のご依頼も承っています。</p>
     </div>
     <div class="cta__acts">
-      <a class="cta__tel" href="tel:03-0000-0000">
+      <a class="cta__tel" href="tel:0366705540">
         <small>お電話でのご相談</small>
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <span>平日 8:00–18:00／土日祝休</span>
       </a>
       <a class="btn btn--onDark" href="contact.html">フォームでお問い合わせ</a>
@@ -2326,9 +2378,10 @@ table{ border-collapse:collapse; width:100%; }
             <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
+        <p class="ft__reg">東京都知事登録 第290159号</p>
         <address class="ft__addr">
-          〒130-00XX 東京都墨田区○○ X-X-X<br>
-          TEL 03-XXXX-XXXX ／ FAX 03-XXXX-XXXX<br>
+          〒131-0042 東京都墨田区東墨田 2-12-20<br>
+          TEL 03-6670-5540 ／ FAX 03-6323-8861<br>
           営業時間 平日 8:00–18:00
         </address>
       </div>
@@ -2409,13 +2462,13 @@ table{ border-collapse:collapse; width:100%; }
       </ul>
       <div class="nav__mobileCta">
         <a class="btn btn--accent" href="contact.html">お問い合わせ</a>
-        <a class="btn btn--ghost" href="tel:03-0000-0000">03-XXXX-XXXX に電話する</a>
+        <a class="btn btn--ghost" href="tel:0366705540">03-6670-5540 に電話する</a>
       </div>
     </nav>
 
     <div class="hd__cta">
       <span class="hd__tel">
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <small>平日 8:00–18:00</small>
       </span>
       <a class="btn btn--accent hd__btn" href="contact.html">お問い合わせ</a>
@@ -2440,62 +2493,254 @@ table{ border-collapse:collapse; width:100%; }
       <p class="eyebrow">Interview</p>
       <h2 class="h-sec">現場の人たち</h2>
     </div>
-    <p class="lead">入社の年も、担当する仕事もそれぞれです。共通しているのは、最後まできちんとやる、という姿勢だけかもしれません。</p>
+    <p class="lead">入社の年も、担当する仕事もそれぞれ。共通しているのは、最後まできちんとやるという姿勢です。</p>
   </div>
 
-  <div class="wrap mt-l">
-    <div class="members reveal">
-      <article class="member">
-        <div class="member__fig">
-          <span class="member__yr">2011</span>
-          <div class="ph ph--3x4" data-ph="［写真］社員ポートレート ／ 900×1200px"></div>
+  <div class="wrap ivs mt-l">
+
+    <article class="iv reveal">
+      <div class="iv__fig"><img class="media media--1x1" src="assets/img/interview/interview_01.jpg" alt="大竹 僚" loading="lazy" decoding="async"></div>
+      <div class="iv__body">
+        <div class="iv__head">
+          <span class="iv__role">統括部長</span>
+          <span class="iv__no"><i>Interview</i><b>01</b></span>
         </div>
-        <p class="member__role">統括部長</p>
-        <p class="member__name">［支給待ち］</p>
-        <p class="member__q">「ありがとう」と言われる仕事は、そう多くない。</p>
-        <p class="member__d">［仮テキスト］施工が終わったあと、お客様から直接お礼を言っていただけることがあります。工事の仕事でそれがあるのは、実はありがたいことだと思っています。現場を任されるようになってからは、後輩が安全に動けているかを見るのも自分の役割です。</p>
-      </article>
-      <article class="member">
-        <div class="member__fig">
-          <span class="member__yr">2015</span>
-          <div class="ph ph--3x4" data-ph="［写真］社員ポートレート ／ 900×1200px"></div>
+        <h2 class="iv__name">大竹 僚 <small>2011年入社</small></h2>
+        <dl class="qa">
+          <dt>現在の仕事内容を教えてください。</dt>
+          <dd>統括部長として、現場での工事のほかに、調査や工程・日程調整、現場への資料作成などを行っています。また教育担当として若手の指導にもあたっています。</dd>
+        </dl>
+        <details class="more">
+          <summary><span class="o">続きを読む</span><span class="c">閉じる</span></summary>
+          <div class="more__in">
+            <dl class="qa">
+              <dt>入社から今まで、自分の成長の秘訣はどこにあると思いますか？</dt>
+              <dd>やはり勉強です。難しい仕事を断るのではなくて、まずはチャレンジ。できない所が出てきても、勉強しながらトライしてきました。そして気づいたら、自分はそれを難なくできるようになっていた、という感覚をずっと繰り返しています。</dd>
+              <dt>金山製作所の魅力はどんなところだと思いますか？</dt>
+              <dd>明るく和やかな雰囲気で、プライベートでも仲良くなったり、それがチームワークにつながっているところです。立場上、年上の方にも言わなければいけない場面がありますが、それをちゃんと受け入れてくれて、お互い言い合える関係になっていると思います。</dd>
+              <dt>やっててよかった！と思えた瞬間や、心が動かされた瞬間は？</dt>
+              <dd>工事の工程など、お客様は詳しく分からない方が多数ですが、少しでも綺麗に納得した工事ができると、そのこだわりはお客様に伝わると思っています。自分がこだわった部分がお客様に納得していただけて、「前に来た業者さんはできないと言っていたのに、やっていただけてすごく満足している」という話を聞くと、やって良かったなと思います。</dd>
+            </dl>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="iv reveal">
+      <div class="iv__fig"><img class="media media--1x1" src="assets/img/interview/interview_02.jpg" alt="中村 勝利" loading="lazy" decoding="async"></div>
+      <div class="iv__body">
+        <div class="iv__head">
+          <span class="iv__role">施工</span>
+          <span class="iv__no"><i>Interview</i><b>02</b></span>
         </div>
-        <p class="member__role">施工</p>
-        <p class="member__name">［支給待ち］</p>
-        <p class="member__q">屋根の上は、毎回ちがう。</p>
-        <p class="member__d">［仮テキスト］同じ屋根はひとつもないので、何年やっても新しく覚えることがあります。段取りがうまくはまって予定より早く終わった日は、単純にうれしいです。資格も働きながら取らせてもらいました。</p>
-      </article>
-      <article class="member">
-        <div class="member__fig">
-          <span class="member__yr">2017</span>
-          <div class="ph ph--3x4" data-ph="［写真］社員ポートレート ／ 900×1200px"></div>
+        <h2 class="iv__name">中村 勝利 <small>2013年入社</small></h2>
+        <dl class="qa">
+          <dt>現在の仕事内容を教えてください。</dt>
+          <dd>太陽光、蓄電池の電気工事、パネル取付、電材の発注・管理</dd>
+        </dl>
+        <details class="more">
+          <summary><span class="o">続きを読む</span><span class="c">閉じる</span></summary>
+          <div class="more__in">
+            <dl class="qa">
+              <dt>入社のきっかけ・決め手は？</dt>
+              <dd>地元の先輩である社長に声をかけてもらい決めました。</dd>
+              <dt>実際に入社して、この会社の魅力はどんなところだと思いますか？</dt>
+              <dd>大変な仕事の時でも皆で力を合わせられる！<br>共通の趣味で皆で楽しめる事。</dd>
+              <dt>やっててよかった！と思えた瞬間や、心が動かされた瞬間は？</dt>
+              <dd>一般住宅の工事がメインになるので、工事が終わってからお客様に<br>きれいに工事してくれてありがとう、と感謝してもらった時。色々な人の出会いがあります。</dd>
+              <dt>私だけの工夫</dt>
+              <dd>なるべく朝早く出社し、その日の現場の確認をします。</dd>
+              <dt>これからどんなことにチャレンジしていきたいですか？</dt>
+              <dd>電気の免許もこの仕事を通じて取れたので、更に電気工事を磨いていきたいです。</dd>
+            </dl>
+            <div class="cards">
+              <div class="card">
+                <h3 class="card__t">1日のスケジュール</h3>
+                <ul class="sched">
+                  <li><span class="en">6:30</span>出社</li>
+                  <li><span class="en">9:00</span>現場 作業開始</li>
+                  <li><span class="en">15:00–17:00</span>現場終了</li>
+                  <li><span class="en">18:00–19:00</span>退社</li>
+                </ul>
+              </div>
+              <div class="card card--tool">
+                <h3 class="card__t">私の仕事道具</h3>
+                <p class="card__d">圧着ペンチ。インパクト。<br>毎日、使う工具なので大事にしています。</p>
+                <img class="media media--3x2" src="assets/img/interview/interview_02_tool.jpg" alt="愛用している仕事道具" loading="lazy" decoding="async">
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="iv reveal">
+      <div class="iv__fig"><img class="media media--1x1" src="assets/img/interview/interview_03.jpg" alt="松永 泰幸" loading="lazy" decoding="async"></div>
+      <div class="iv__body">
+        <div class="iv__head">
+          <span class="iv__role">施工</span>
+          <span class="iv__no"><i>Interview</i><b>03</b></span>
         </div>
-        <p class="member__role">事務</p>
-        <p class="member__name">［支給待ち］</p>
-        <p class="member__q">現場が動きやすいように、先回りする。</p>
-        <p class="member__d">［仮テキスト］申請書類や部材の手配など、現場に出ない仕事を担当しています。書類ひとつ止まると工事が止まってしまうので、先回りして準備するように心がけています。少人数なので、相談がすぐできるのは働きやすい点です。</p>
-      </article>
-    </div>
+        <h2 class="iv__name">松永 泰幸 <small>2012年入社</small></h2>
+        <dl class="qa">
+          <dt>現在の仕事内容を教えてください。</dt>
+          <dd>電気工事士</dd>
+        </dl>
+        <details class="more">
+          <summary><span class="o">続きを読む</span><span class="c">閉じる</span></summary>
+          <div class="more__in">
+            <dl class="qa">
+              <dt>入社のきっかけ・決め手は？</dt>
+              <dd>紹介です。</dd>
+              <dt>実際に入社して、この会社の魅力はどんなところだと思いますか？</dt>
+              <dd>社長の器のデカさだと思います。</dd>
+              <dt>やっててよかった！と思えた瞬間や、心が動かされた瞬間は？</dt>
+              <dd>お客様に、綺麗な仕事をしてくれてありがとうって言われたとき、毎回やっててよかったなと思います。</dd>
+              <dt>私だけの工夫</dt>
+              <dd>お客さんと呼ばずにお客様と呼ぶようにしています。</dd>
+              <dt>これからどんなことにチャレンジしていきたいですか？</dt>
+              <dd>電気工事士の一種にチャレンジしたいです。</dd>
+            </dl>
+            <div class="cards">
+              <div class="card">
+                <h3 class="card__t">1日のスケジュール</h3>
+                <ul class="sched">
+                  <li><span class="en">5:00</span>起床</li>
+                  <li><span class="en">6:00</span>出社</li>
+                  <li><span class="en">9:00</span>現場</li>
+                  <li><span class="en">16:00頃</span>現場退出</li>
+                  <li><span class="en">17:30</span>事務所</li>
+                  <li><span class="en">18:00</span>次の日の準備</li>
+                  <li><span class="en">19:00</span>退社</li>
+                </ul>
+                <p class="card__note">※早起きは三文以上の得だと思っております。</p>
+              </div>
+              <div class="card card--tool">
+                <h3 class="card__t">私の仕事道具</h3>
+                <p class="card__d">この道具で工事士の資格が取れたと思っております。</p>
+                <img class="media media--3x2" src="assets/img/interview/interview_03_tool.jpg" alt="愛用している仕事道具" loading="lazy" decoding="async">
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="iv reveal">
+      <div class="iv__fig"><img class="media media--1x1" src="assets/img/interview/interview_04.jpg" alt="好川 司" loading="lazy" decoding="async"></div>
+      <div class="iv__body">
+        <div class="iv__head">
+          <span class="iv__role">施工</span>
+          <span class="iv__no"><i>Interview</i><b>04</b></span>
+        </div>
+        <h2 class="iv__name">好川 司 <small>2016年入社</small></h2>
+        <dl class="qa">
+          <dt>現在の仕事内容を教えてください。</dt>
+          <dd>太陽光パネルの取付。EQ・ボイラーの配管工事。各、配管材料の発注、管理。</dd>
+        </dl>
+        <details class="more">
+          <summary><span class="o">続きを読む</span><span class="c">閉じる</span></summary>
+          <div class="more__in">
+            <dl class="qa">
+              <dt>入社のきっかけ・決め手は？</dt>
+              <dd>前の職場の先輩の紹介</dd>
+              <dt>実際に入社して、この会社の魅力はどんなところだと思いますか？</dt>
+              <dd>仕事に対しては集中し、仕事以外のプライベートだとみんなで楽しくお酒を飲んだりできる事。</dd>
+              <dt>やっててよかった！と思えた瞬間や、心が動かされた瞬間は？</dt>
+              <dd>何も無知な状況から屋根の登り色々と覚えていき、太陽光パネルを取付し、完成した時の感動があります！</dd>
+              <dt>私だけの工夫</dt>
+              <dd>いくら仕事の帰りが遅くても自分の道具の手入れだけは怠りません。</dd>
+              <dt>これからどんなことにチャレンジしていきたいですか？</dt>
+              <dd>現在、屋根や配管の工事が多いですが、電気工事も覚えていきたいです。</dd>
+            </dl>
+            <div class="cards">
+              <div class="card">
+                <h3 class="card__t">1日のスケジュール</h3>
+                <ul class="sched">
+                  <li><span class="en">6:30</span>出社</li>
+                  <li><span class="en">9:00</span>現場到着</li>
+                  <li><span class="en">15:00</span>現場終了（早い時）</li>
+                  <li><span class="en">17:00</span>現場終了（遅い時）</li>
+                  <li><span class="en">18:00</span>帰社（詰めこみ、道具手入れ）のち退社</li>
+                </ul>
+              </div>
+              <div class="card card--tool">
+                <h3 class="card__t">私の仕事道具</h3>
+                <p class="card__d">EQの配管などの継ぎ手<br>（マニアックですが、見ているだけで楽しいです）</p>
+                <img class="media media--3x2" src="assets/img/interview/interview_04_tool.jpg" alt="愛用している仕事道具" loading="lazy" decoding="async">
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="iv reveal">
+      <div class="iv__fig"><img class="media media--1x1" src="assets/img/interview/interview_05.jpg" alt="大嶽 小百合" loading="lazy" decoding="async"></div>
+      <div class="iv__body">
+        <div class="iv__head">
+          <span class="iv__role">事務</span>
+          <span class="iv__no"><i>Interview</i><b>05</b></span>
+        </div>
+        <h2 class="iv__name">大嶽 小百合 <small>2017年入社</small></h2>
+        <dl class="qa">
+          <dt>現在の仕事内容を教えてください。</dt>
+          <dd>事務、資料作成など</dd>
+        </dl>
+        <details class="more">
+          <summary><span class="o">続きを読む</span><span class="c">閉じる</span></summary>
+          <div class="more__in">
+            <dl class="qa">
+              <dt>入社のきっかけ・決め手は？</dt>
+              <dd>知人の紹介ですが社長の人柄が良く、決断しました。</dd>
+              <dt>実際に入社して、この会社の魅力はどんなところだと思いますか？</dt>
+              <dd>仕事に対する姿勢が真面目でそれでいて皆が和気あいあいとして冗談など言い合えるそんな会社の雰囲気が魅力だと思っています。失敗やミスは反省してもすぐに切り替えて次に生かそうとさせてくれる社長や先輩方のおかげだと感謝が出来るそんな社員の方々のおかげで楽しく働かせていただいてます。</dd>
+              <dt>やっててよかった！と思えた瞬間や、心が動かされた瞬間は？</dt>
+              <dd>おもに社長と部長のサポートが多いので忙しい2人の為にやり易いかなと資料の仕様を変えてみたり、、そんな時にやり易くなったと喜んで貰えると嬉しいです。</dd>
+              <dt>私だけの工夫</dt>
+              <dd>自分だけではなく現場に出ている作業員や営業の方などにも分かりやすい（記入しやすいような）資料を作成するようにしています。現場ではパソコンはいじれないので紙ベースの資料でも一目でわかるように心がけています。</dd>
+              <dt>これからどんなことにチャレンジしていきたいですか？</dt>
+              <dd>電気の事など実はあまり分からないので私も勉強して電気配線の事などもっと詳しくなっていきたいと思います。</dd>
+            </dl>
+            <div class="cards">
+              <div class="card">
+                <h3 class="card__t">1日のスケジュール</h3>
+                <p class="card__d">9時：出社、すぐにデスク掃除、メールの仕分け、返信。<br>前日の資料などのまとめ、社長や部長の都合に合わせて現調資料などの作成（備考などの文章は電話で話しながらその都度入力していく事が多いのでお二人の現場状況により時間は都度変わっていきます。それに合わせて私の作業も前後させて合わせていきます）、見積もりやお客様への連絡業務等を主にしています。</p>
+              </div>
+              <div class="card card--tool">
+                <h3 class="card__t">私の仕事道具</h3>
+                <p class="card__d">綺麗なデスクで仕事をした方が気持ちよく働けるので（笑）イヤホンは基本連絡を取りながら作業をするので私にとっては必需品です。耳と肩で電話を挟んでパソコンを打っていると首が痛くなってしまいます。</p>
+                <img class="media media--3x2" src="assets/img/interview/interview_05_tool.jpg" alt="愛用している仕事道具" loading="lazy" decoding="async">
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="iv iv--dog reveal">
+      <div class="iv__fig"><img class="media media--1x1" src="assets/img/interview/interview_06.jpg" alt="看板犬のゴールデンレトリーバー、ジャムテ" loading="lazy" decoding="async"></div>
+      <div class="iv__body">
+        <div class="iv__head">
+          <span class="iv__role">看板犬</span>
+        </div>
+        <p class="iv__kind">ゴールデンレトリーバー</p>
+        <h2 class="iv__name">JAMTE <small>ジャムテ</small></h2>
+        <p class="p">社長のもとで暮らすゴールデンレトリーバー。社長と一緒に出社して、週に何日かは会社にいます。近所の人気者で、現場に向かうメンバーを見送ったり、帰ってきたメンバーを出迎えたりしています。</p>
+      </div>
+    </article>
+
   </div>
 </section>
 
 <section class="sec sec--soft">
-  <div class="wrap rail reveal">
-    <div>
-      <p class="eyebrow">A Day</p>
-      <h2 class="h-sec">ある一日</h2>
-    </div>
-    <div>
-      <table class="tbl">
-        <tr><th><span class="en" style="font-size:17px">8:00</span></th><td>［仮テキスト］出社。当日の現場と部材を確認し、車に積み込み。</td></tr>
-        <tr><th><span class="en" style="font-size:17px">9:00</span></th><td>［仮テキスト］現場到着。足場と安全確認のあと、架台の設置を開始。</td></tr>
-        <tr><th><span class="en" style="font-size:17px">12:00</span></th><td>［仮テキスト］昼休憩。</td></tr>
-        <tr><th><span class="en" style="font-size:17px">13:00</span></th><td>［仮テキスト］パネルの据え付けと配線。屋内側の電気工事を並行して進める。</td></tr>
-        <tr><th><span class="en" style="font-size:17px">17:00</span></th><td>［仮テキスト］片付け・清掃。お客様へ当日の進捗をご報告。</td></tr>
-        <tr><th><span class="en" style="font-size:17px">18:00</span></th><td>［仮テキスト］帰社、翌日の段取りを確認して退社。</td></tr>
-      </table>
-      <p class="mt-m"><a class="btn btn--accent" href="recruit.html">募集要項を見る</a></p>
-    </div>
+  <div class="wrap entry reveal">
+    <p class="entry__en en">Entry</p>
+    <h2 class="entry__ttl">私たちのチームでプロフェッショナルを目指す<br>元気な仲間を待っています</h2>
+    <p class="acts entry__acts">
+      <a class="btn btn--accent" href="contact.html">応募フォーム</a>
+      <a class="btn btn--ghost" href="recruit.html">募集要項を見る</a>
+    </p>
   </div>
 </section>
 </main>
@@ -2506,9 +2751,9 @@ table{ border-collapse:collapse; width:100%; }
       <p class="cta__d">現地調査・お見積りは無料です。他社でお見積り済みの内容へのセカンドオピニオンや、販売店様・元請け様からの施工のご依頼も承っています。</p>
     </div>
     <div class="cta__acts">
-      <a class="cta__tel" href="tel:03-0000-0000">
+      <a class="cta__tel" href="tel:0366705540">
         <small>お電話でのご相談</small>
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <span>平日 8:00–18:00／土日祝休</span>
       </a>
       <a class="btn btn--onDark" href="contact.html">フォームでお問い合わせ</a>
@@ -2529,9 +2774,10 @@ table{ border-collapse:collapse; width:100%; }
             <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
+        <p class="ft__reg">東京都知事登録 第290159号</p>
         <address class="ft__addr">
-          〒130-00XX 東京都墨田区○○ X-X-X<br>
-          TEL 03-XXXX-XXXX ／ FAX 03-XXXX-XXXX<br>
+          〒131-0042 東京都墨田区東墨田 2-12-20<br>
+          TEL 03-6670-5540 ／ FAX 03-6323-8861<br>
           営業時間 平日 8:00–18:00
         </address>
       </div>
@@ -2612,13 +2858,13 @@ table{ border-collapse:collapse; width:100%; }
       </ul>
       <div class="nav__mobileCta">
         <a class="btn btn--accent" href="contact.html">お問い合わせ</a>
-        <a class="btn btn--ghost" href="tel:03-0000-0000">03-XXXX-XXXX に電話する</a>
+        <a class="btn btn--ghost" href="tel:0366705540">03-6670-5540 に電話する</a>
       </div>
     </nav>
 
     <div class="hd__cta">
       <span class="hd__tel">
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <small>平日 8:00–18:00</small>
       </span>
       <a class="btn btn--accent hd__btn" href="contact.html">お問い合わせ</a>
@@ -2647,26 +2893,25 @@ table{ border-collapse:collapse; width:100%; }
       <div class="news">
         <a class="news__item" href="news.html">
           <span class="news__date">2025.03.14</span><span class="news__cat">お知らせ</span>
-          <span class="news__ttl">［仮テキスト］春季休業のお知らせ</span>
+          <span class="news__ttl">春季休業のお知らせ</span>
         </a>
         <a class="news__item" href="news.html">
           <span class="news__date">2025.02.20</span><span class="news__cat">施工実績</span>
-          <span class="news__ttl">［仮テキスト］蓄電池の施工事例を追加しました</span>
+          <span class="news__ttl">蓄電池の施工事例を追加しました</span>
         </a>
         <a class="news__item" href="news.html">
           <span class="news__date">2025.01.08</span><span class="news__cat">お知らせ</span>
-          <span class="news__ttl">［仮テキスト］本年もよろしくお願いいたします</span>
+          <span class="news__ttl">本年もよろしくお願いいたします</span>
         </a>
         <a class="news__item" href="news.html">
           <span class="news__date">2024.12.20</span><span class="news__cat">お知らせ</span>
-          <span class="news__ttl">［仮テキスト］年末年始の休業について</span>
+          <span class="news__ttl">年末年始の休業について</span>
         </a>
         <a class="news__item" href="news.html">
           <span class="news__date">2024.11.05</span><span class="news__cat">採用</span>
-          <span class="news__ttl">［仮テキスト］施工スタッフ募集のお知らせ</span>
+          <span class="news__ttl">施工スタッフ募集のお知らせ</span>
         </a>
       </div>
-      <p class="p mt-m" style="font-size:13px;color:var(--orange)">※お知らせの実データは未取得です。WordPress の投稿から出力する想定で組んでいます。</p>
     </div>
   </div>
 </section>
@@ -2678,9 +2923,9 @@ table{ border-collapse:collapse; width:100%; }
       <p class="cta__d">現地調査・お見積りは無料です。他社でお見積り済みの内容へのセカンドオピニオンや、販売店様・元請け様からの施工のご依頼も承っています。</p>
     </div>
     <div class="cta__acts">
-      <a class="cta__tel" href="tel:03-0000-0000">
+      <a class="cta__tel" href="tel:0366705540">
         <small>お電話でのご相談</small>
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <span>平日 8:00–18:00／土日祝休</span>
       </a>
       <a class="btn btn--onDark" href="contact.html">フォームでお問い合わせ</a>
@@ -2701,9 +2946,10 @@ table{ border-collapse:collapse; width:100%; }
             <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
+        <p class="ft__reg">東京都知事登録 第290159号</p>
         <address class="ft__addr">
-          〒130-00XX 東京都墨田区○○ X-X-X<br>
-          TEL 03-XXXX-XXXX ／ FAX 03-XXXX-XXXX<br>
+          〒131-0042 東京都墨田区東墨田 2-12-20<br>
+          TEL 03-6670-5540 ／ FAX 03-6323-8861<br>
           営業時間 平日 8:00–18:00
         </address>
       </div>
@@ -2784,13 +3030,13 @@ table{ border-collapse:collapse; width:100%; }
       </ul>
       <div class="nav__mobileCta">
         <a class="btn btn--accent" href="contact.html">お問い合わせ</a>
-        <a class="btn btn--ghost" href="tel:03-0000-0000">03-XXXX-XXXX に電話する</a>
+        <a class="btn btn--ghost" href="tel:0366705540">03-6670-5540 に電話する</a>
       </div>
     </nav>
 
     <div class="hd__cta">
       <span class="hd__tel">
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <small>平日 8:00–18:00</small>
       </span>
       <a class="btn btn--accent hd__btn" href="contact.html">お問い合わせ</a>
@@ -2816,7 +3062,7 @@ table{ border-collapse:collapse; width:100%; }
       <h2 class="h-sec">お問い合わせ</h2>
       <div class="cta__tel mt-m" style="background:var(--soft);border-color:var(--line-strong);color:var(--ink)">
         <small style="color:var(--muted)">お電話でのご相談</small>
-        <b style="color:var(--green)">03-XXXX-XXXX</b>
+        <b style="color:var(--green)">03-6670-5540</b>
         <span style="color:var(--muted)">平日 8:00–18:00／土日祝休</span>
       </div>
       <p class="p mt-m" style="font-size:13.5px">現地調査・お見積りは無料です。販売店様・元請け会社様からの施工のご依頼もこちらから承ります。</p>
@@ -2873,9 +3119,9 @@ table{ border-collapse:collapse; width:100%; }
       <p class="cta__d">現地調査・お見積りは無料です。他社でお見積り済みの内容へのセカンドオピニオンや、販売店様・元請け様からの施工のご依頼も承っています。</p>
     </div>
     <div class="cta__acts">
-      <a class="cta__tel" href="tel:03-0000-0000">
+      <a class="cta__tel" href="tel:0366705540">
         <small>お電話でのご相談</small>
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <span>平日 8:00–18:00／土日祝休</span>
       </a>
       <a class="btn btn--onDark" href="contact.html">フォームでお問い合わせ</a>
@@ -2896,9 +3142,10 @@ table{ border-collapse:collapse; width:100%; }
             <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
+        <p class="ft__reg">東京都知事登録 第290159号</p>
         <address class="ft__addr">
-          〒130-00XX 東京都墨田区○○ X-X-X<br>
-          TEL 03-XXXX-XXXX ／ FAX 03-XXXX-XXXX<br>
+          〒131-0042 東京都墨田区東墨田 2-12-20<br>
+          TEL 03-6670-5540 ／ FAX 03-6323-8861<br>
           営業時間 平日 8:00–18:00
         </address>
       </div>
@@ -2979,13 +3226,13 @@ table{ border-collapse:collapse; width:100%; }
       </ul>
       <div class="nav__mobileCta">
         <a class="btn btn--accent" href="contact.html">お問い合わせ</a>
-        <a class="btn btn--ghost" href="tel:03-0000-0000">03-XXXX-XXXX に電話する</a>
+        <a class="btn btn--ghost" href="tel:0366705540">03-6670-5540 に電話する</a>
       </div>
     </nav>
 
     <div class="hd__cta">
       <span class="hd__tel">
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <small>平日 8:00–18:00</small>
       </span>
       <a class="btn btn--accent hd__btn" href="contact.html">お問い合わせ</a>
@@ -3009,23 +3256,22 @@ table{ border-collapse:collapse; width:100%; }
     <div class="article reveal">
       <p class="p" style="max-width:none">有限会社金山製作所（以下「当社」）は、お客様の個人情報の保護を重要な責務と考え、以下のとおり取り扱います。</p>
       <h2>個人情報の取得について</h2>
-      <p>［仮テキスト］当社は、お問い合わせフォーム、お電話、その他の適法かつ公正な手段により個人情報を取得します。</p>
+      <p>当社は、お問い合わせフォーム、お電話、その他の適法かつ公正な手段により個人情報を取得します。</p>
       <h2>利用目的</h2>
-      <p>［仮テキスト］取得した個人情報は、次の目的の範囲内で利用します。</p>
+      <p>取得した個人情報は、次の目的の範囲内で利用します。</p>
       <ul>
         <li>お問い合わせへの回答、資料・お見積りのご送付</li>
         <li>工事の実施およびアフターサービスのご案内</li>
         <li>採用選考に関するご連絡</li>
       </ul>
       <h2>第三者への提供</h2>
-      <p>［仮テキスト］法令に基づく場合を除き、あらかじめご本人の同意を得ることなく第三者に提供することはありません。</p>
+      <p>法令に基づく場合を除き、あらかじめご本人の同意を得ることなく第三者に提供することはありません。</p>
       <h2>安全管理</h2>
-      <p>［仮テキスト］個人情報の漏えい、滅失またはき損の防止その他の安全管理のために必要かつ適切な措置を講じます。</p>
+      <p>個人情報の漏えい、滅失またはき損の防止その他の安全管理のために必要かつ適切な措置を講じます。</p>
       <h2>開示・訂正・削除のご請求</h2>
-      <p>［仮テキスト］ご本人からの開示、訂正、利用停止等のお申し出があった場合は、合理的な範囲で速やかに対応します。</p>
+      <p>ご本人からの開示、訂正、利用停止等のお申し出があった場合は、合理的な範囲で速やかに対応します。</p>
       <h2>お問い合わせ窓口</h2>
-      <p>有限会社金山製作所<br>〒130-00XX 東京都墨田区○○ X-X-X<br>TEL 03-XXXX-XXXX</p>
-      <p class="p" style="font-size:13px;color:var(--orange)">※本ページは体裁確認用のダミーです。実際の条文は現行サイトの内容に差し替えます。</p>
+      <p>有限会社金山製作所<br>〒131-0042 東京都墨田区東墨田 2-12-20<br>TEL 03-6670-5540</p>
     </div>
   </div>
 </section>
@@ -3037,9 +3283,9 @@ table{ border-collapse:collapse; width:100%; }
       <p class="cta__d">現地調査・お見積りは無料です。他社でお見積り済みの内容へのセカンドオピニオンや、販売店様・元請け様からの施工のご依頼も承っています。</p>
     </div>
     <div class="cta__acts">
-      <a class="cta__tel" href="tel:03-0000-0000">
+      <a class="cta__tel" href="tel:0366705540">
         <small>お電話でのご相談</small>
-        <b>03-XXXX-XXXX</b>
+        <b>03-6670-5540</b>
         <span>平日 8:00–18:00／土日祝休</span>
       </a>
       <a class="btn btn--onDark" href="contact.html">フォームでお問い合わせ</a>
@@ -3060,9 +3306,10 @@ table{ border-collapse:collapse; width:100%; }
             <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
+        <p class="ft__reg">東京都知事登録 第290159号</p>
         <address class="ft__addr">
-          〒130-00XX 東京都墨田区○○ X-X-X<br>
-          TEL 03-XXXX-XXXX ／ FAX 03-XXXX-XXXX<br>
+          〒131-0042 東京都墨田区東墨田 2-12-20<br>
+          TEL 03-6670-5540 ／ FAX 03-6323-8861<br>
           営業時間 平日 8:00–18:00
         </address>
       </div>

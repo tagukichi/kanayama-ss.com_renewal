@@ -1,14 +1,14 @@
-# 画像スロット一覧（33/44 割り当て済み）
+# 画像スロット一覧（43/51 割り当て済み）
 
-`src/images.json` の `src` に画像URL、または `assets/img/…` のパスを入れると実画像に切り替わります。
-ローカル参照は**実ファイルが置かれるまでプレースホルダーのまま**なので、壊れ画像にはなりません。
+`src/images.json` にURLか `assets/img/…` のパスを入れると実画像に切り替わります。
+ローカル参照は実ファイルが置かれるまでプレースホルダーのままです。
 
-`prototype/assign.html` をブラウザで開くとクリックで割り当てられます。
+`src/assets/img/<ページのスラッグ>/` に置けば空き枠へ自動割り当てされます。
 
 | 状態 | 意味 |
 |---|---|
 | ✅ | 割り当て済み |
-| — | 未割当（該当する写真が未支給） |
+| — | 未割当 |
 
 
 ## トップページ　`index.html`
@@ -84,23 +84,30 @@
 | | ID | 用途 | 使用画像 |
 |---|---|---|---|
 | ✅ | `message-header` | 代表者ポートレート | slide_05.jpg |
-| — | `message-01` | 代表者ポートレート（縦） | — |
+| — | `message-01` | 代表者ポートレート | — |
 
 ## 採用情報　`recruit.html`
 
 | | ID | 用途 | 使用画像 |
 |---|---|---|---|
 | ✅ | `recruit-header` | 現場のチーム | bg_02.jpg |
-| ✅ | `recruit-01` | 社員の作業風景 | recruit_01.jpg |
+| ✅ | `recruit-hero` | 採用ページ冒頭の集合写真 | recruit_01.jpg |
 
 ## 社員紹介　`interview.html`
 
 | | ID | 用途 | 使用画像 |
 |---|---|---|---|
 | ✅ | `interview-header` | 社員の集合カット | recruit_01.jpg |
-| — | `interview-01` | 社員ポートレート（縦） | — |
-| — | `interview-02` | 社員ポートレート（縦） | — |
-| — | `interview-03` | 社員ポートレート（縦） | — |
+| ✅ | `interview-01` | 大竹 僚（統括部長） のポートレート | interview_01.jpg |
+| ✅ | `interview-02` | 中村 勝利（施工） のポートレート | interview_02.jpg |
+| ✅ | `interview-03` | 松永 泰幸（施工） のポートレート | interview_03.jpg |
+| ✅ | `interview-04` | 好川 司（施工） のポートレート | interview_04.jpg |
+| ✅ | `interview-05` | 大嶽 小百合（事務） のポートレート | interview_05.jpg |
+| ✅ | `interview-t02` | 中村 勝利 の仕事道具 | interview_02_tool.jpg |
+| ✅ | `interview-t03` | 松永 泰幸 の仕事道具 | interview_03_tool.jpg |
+| ✅ | `interview-t04` | 好川 司 の仕事道具 | interview_04_tool.jpg |
+| ✅ | `interview-t05` | 大嶽 小百合 の仕事道具 | interview_05_tool.jpg |
+| ✅ | `interview-06` | 看板犬 JAMTE | interview_06.jpg |
 
 ## お知らせ　`news.html`
 
@@ -122,7 +129,7 @@
 
 ---
 
-## まだ写真がない枠（11件）
+## まだ写真がない枠（8件）
 
 | ID | 必要な写真 |
 |---|---|
@@ -133,10 +140,4 @@
 | `electric-03` | エアコン室外機の設置 |
 | `works-detail-01` | 施工前 |
 | `about-01` | Google マップ埋め込み ／ 所在地確定後に差し替え |
-| `message-01` | 代表者ポートレート（縦） |
-| `interview-01` | 社員ポートレート（縦） |
-| `interview-02` | 社員ポートレート（縦） |
-| `interview-03` | 社員ポートレート（縦） |
-
-蓄電池・ソーラーカーポート・給排水・エアコンの施工写真と、
-**代表と社員のポートレート（縦位置 3:4）**があると全枠が埋まります。
+| `message-01` | 代表者ポートレート |

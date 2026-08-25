@@ -362,12 +362,12 @@
       "alt": ""
     },
     {
-      "id": "recruit-01",
+      "id": "recruit-hero",
       "page": "recruit",
       "kind": "写真",
-      "label": "社員の作業風景",
+      "label": "採用ページ冒頭の集合写真",
       "size": "1800×1013px",
-      "eager": false,
+      "eager": true,
       "src": "assets/img/recruit_01.jpg",
       "alt": "社用車の前に並ぶ金山製作所のスタッフ3名"
     },
@@ -385,31 +385,101 @@
       "id": "interview-01",
       "page": "interview",
       "kind": "写真",
-      "label": "社員ポートレート",
-      "size": "900×1200px",
+      "label": "大竹 僚（統括部長） のポートレート",
+      "size": "900×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/interview/interview_01.jpg",
+      "alt": "大竹 僚"
     },
     {
       "id": "interview-02",
       "page": "interview",
       "kind": "写真",
-      "label": "社員ポートレート",
-      "size": "900×1200px",
+      "label": "中村 勝利（施工） のポートレート",
+      "size": "900×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/interview/interview_02.jpg",
+      "alt": "中村 勝利"
     },
     {
       "id": "interview-03",
       "page": "interview",
       "kind": "写真",
-      "label": "社員ポートレート",
-      "size": "900×1200px",
+      "label": "松永 泰幸（施工） のポートレート",
+      "size": "900×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/interview/interview_03.jpg",
+      "alt": "松永 泰幸"
+    },
+    {
+      "id": "interview-04",
+      "page": "interview",
+      "kind": "写真",
+      "label": "好川 司（施工） のポートレート",
+      "size": "900×900px",
+      "eager": false,
+      "src": "assets/img/interview/interview_04.jpg",
+      "alt": "好川 司"
+    },
+    {
+      "id": "interview-05",
+      "page": "interview",
+      "kind": "写真",
+      "label": "大嶽 小百合（事務） のポートレート",
+      "size": "900×900px",
+      "eager": false,
+      "src": "assets/img/interview/interview_05.jpg",
+      "alt": "大嶽 小百合"
+    },
+    {
+      "id": "interview-t02",
+      "page": "interview",
+      "kind": "写真",
+      "label": "中村 勝利 の仕事道具",
+      "size": "1000×667px",
+      "eager": false,
+      "src": "assets/img/interview/interview_02_tool.jpg",
+      "alt": "愛用している仕事道具"
+    },
+    {
+      "id": "interview-t03",
+      "page": "interview",
+      "kind": "写真",
+      "label": "松永 泰幸 の仕事道具",
+      "size": "1000×667px",
+      "eager": false,
+      "src": "assets/img/interview/interview_03_tool.jpg",
+      "alt": "愛用している仕事道具"
+    },
+    {
+      "id": "interview-t04",
+      "page": "interview",
+      "kind": "写真",
+      "label": "好川 司 の仕事道具",
+      "size": "1000×667px",
+      "eager": false,
+      "src": "assets/img/interview/interview_04_tool.jpg",
+      "alt": "愛用している仕事道具"
+    },
+    {
+      "id": "interview-t05",
+      "page": "interview",
+      "kind": "写真",
+      "label": "大嶽 小百合 の仕事道具",
+      "size": "1000×667px",
+      "eager": false,
+      "src": "assets/img/interview/interview_05_tool.jpg",
+      "alt": "愛用している仕事道具"
+    },
+    {
+      "id": "interview-06",
+      "page": "interview",
+      "kind": "写真",
+      "label": "看板犬 JAMTE",
+      "size": "900×900px",
+      "eager": false,
+      "src": "assets/img/interview/interview_06.jpg",
+      "alt": "看板犬のゴールデンレトリーバー、ジャムテ"
     },
     {
       "id": "news-header",
