@@ -72,14 +72,14 @@
       "alt": ""
     },
     {
-      "id": "concept-01",
+      "id": "concept-photo",
       "page": "concept",
       "kind": "写真",
-      "label": "代表または職人の手元のカット",
-      "size": "1800×1013px",
-      "eager": false,
-      "src": "assets/img/slide_05.jpg",
-      "alt": "空を背に屋根の上に立つ職人"
+      "label": "代表（横長・右寄せで使用）",
+      "size": "2000×1000px",
+      "eager": true,
+      "src": "assets/img/message/concept_back.jpg",
+      "alt": "青空を見上げる代表取締役 金山 準"
     },
     {
       "id": "solar-header",
@@ -338,8 +338,8 @@
       "label": "代表者ポートレート",
       "size": "900×1200px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/message/concept_back.jpg",
+      "alt": "青空を見上げる代表取締役 金山 準"
     },
     {
       "id": "recruit-header",

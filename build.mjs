@@ -14,6 +14,7 @@ const layout = read(join(SRC, 'layout.html'));
 const header = read(join(SRC, 'partials/header.html'));
 const footer = read(join(SRC, 'partials/footer.html'));
 const css = read(join(SRC, 'assets/style.css'));
+const gateJs = read(join(SRC, 'assets/gate.js'));
 const manifest = JSON.parse(read(join(SRC, 'images.json')));
 const byId = new Map(manifest.images.map((e) => [e.id, e]));
 
@@ -165,6 +166,7 @@ const preview = `<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600&display=swap">
+<script>${gateJs}</script>
 <style>
 ${css}
 

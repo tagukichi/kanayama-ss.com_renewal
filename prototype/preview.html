@@ -7,6 +7,79 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600&display=swap">
+<script>/**
+ * プロトタイプの簡易ゲート
+ *
+ * ⚠️ これはアクセス制御ではありません。
+ *    GitHub Pages は静的配信のためサーバー側で認証できず、この判定はすべて
+ *    ブラウザ内で完結します。ページや画像のURLを直接叩けば素通しになります。
+ *    確実に隠す必要がある場合は Xserver 等に置いて Basic認証をかけてください。
+ *
+ * <head> から同期読み込みして、本文が描画される前に施錠する（ちらつき防止）。
+ */
+(function () {
+  var KEY = 'kanayama-prototype-gate';
+  var HASH = 'vi9rb3';           // djb2("<ID>:<パスワード>") の値。平文は置かない
+  var doc = document;
+
+  function djb2(s) {
+    var h = 5381;
+    for (var i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0;
+    return h.toString(36);
+  }
+
+  try {
+    if (localStorage.getItem(KEY) === HASH) return;   // 認証済み（同じブラウザなら以後は素通し）
+  } catch (e) { /* プライベートモード等で参照できない場合は施錠したまま進む */ }
+
+  doc.documentElement.classList.add('is-locked');
+
+  function unlock() {
+    try { localStorage.setItem(KEY, HASH); } catch (e) {}
+    doc.documentElement.classList.remove('is-locked');
+    var g = doc.querySelector('.gate');
+    if (g) g.remove();
+  }
+
+  function render() {
+    var g = doc.createElement('div');
+    g.className = 'gate';
+    g.innerHTML =
+      '<form class="gate__box" novalidate>' +
+        '<svg class="gate__logo" viewBox="0 0 81.962 59.95" aria-hidden="true">' +
+          '<path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>' +
+        '</svg>' +
+        '<p class="gate__en">Prototype</p>' +
+        '<h1 class="gate__ttl">有限会社 金山製作所<br>サイトリニューアル案</h1>' +
+        '<p class="gate__note">デザイン検証用のプロトタイプです。<br>IDとパスワードを入力してください。</p>' +
+        '<label class="gate__f"><span>ID</span>' +
+          '<input name="id" type="text" autocomplete="username" autocapitalize="off" autocorrect="off" spellcheck="false" required></label>' +
+        '<label class="gate__f"><span>パスワード</span>' +
+          '<input name="pw" type="password" autocomplete="current-password" required></label>' +
+        '<p class="gate__err" role="alert" hidden>IDまたはパスワードが違います。</p>' +
+        '<button class="btn btn--accent gate__submit" type="submit">閲覧する</button>' +
+      '</form>';
+
+    var form = g.querySelector('form');
+    var err = g.querySelector('.gate__err');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var id = form.id.value.trim();
+      var pw = form.pw.value;
+      if (djb2(id + ':' + pw) === HASH) { unlock(); return; }
+      err.hidden = false;
+      form.pw.value = '';
+      form.pw.focus();
+    });
+
+    doc.body.appendChild(g);
+    form.id.focus();
+  }
+
+  if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', render);
+  else render();
+})();
+</script>
 <style>
 @charset "UTF-8";
 /* ============================================================
@@ -140,6 +213,7 @@ table{ border-collapse:collapse; width:100%; }
 .ph--4x3{ aspect-ratio:4/3; }
 .ph--1x1{ aspect-ratio:1/1; }
 .ph--3x2{ aspect-ratio:3/2; }
+.ph--2x1{ aspect-ratio:2/1; }
 .ph--3x4{ aspect-ratio:3/4; }
 .ph--fill{ position:absolute; inset:0; height:100%; border:0; }
 /* 全面背景に敷くプレースホルダーは、ラベルを右上に逃がして本文と重ねない */
@@ -162,12 +236,35 @@ table{ border-collapse:collapse; width:100%; }
 .media--4x3{ aspect-ratio:4/3; }
 .media--1x1{ aspect-ratio:1/1; }
 .media--3x2{ aspect-ratio:3/2; }
+.media--2x1{ aspect-ratio:2/1; }
+.media--right{ object-position:72% 50%; }
 .media--3x4{ aspect-ratio:3/4; }
 .media--fill{ position:absolute; inset:0; width:100%; height:100%; }
 .media--top{ object-position:50% 34%; }   /* 集合写真など、上寄りに主題があるもの */
 
 /* ページ冒頭の大きな写真 */
 .pageHero{ margin-top:clamp(28px,4vw,52px); }
+
+/* ---------- 簡易ゲート（プロトタイプ閲覧用） ---------- */
+/* 施錠中はゲート以外を隠す。<head> で先に class が付くのでちらつかない */
+html.is-locked body{ overflow:hidden; }
+html.is-locked body > *:not(.gate){ visibility:hidden; }
+
+.gate{ position:fixed; inset:0; z-index:999; display:grid; place-items:center; padding:24px;
+  background:linear-gradient(160deg,#F4F6F2,#E4EDE3 60%,#DCE9DB); overflow-y:auto; }
+.gate__box{ width:min(420px,100%); background:#fff; border:1px solid var(--line);
+  padding:clamp(28px,5vw,44px); display:grid; gap:16px; box-shadow:0 24px 60px rgba(11,74,12,.12); }
+.gate__logo{ width:62px; height:45px; color:var(--green); }
+.gate__en{ font-family:var(--en); font-size:12px; font-weight:700; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--orange); }
+.gate__ttl{ font-size:19px; font-weight:700; line-height:1.6; letter-spacing:.02em; }
+.gate__note{ font-size:13px; line-height:1.9; color:var(--muted); }
+.gate__f{ display:grid; gap:7px; font-size:13px; font-weight:700; }
+.gate__f input{ font:inherit; font-size:15px; font-weight:400; padding:13px 15px;
+  background:var(--soft); border:1px solid var(--line-strong); color:var(--ink); width:100%; }
+.gate__f input:focus{ background:#fff; border-color:var(--green); }
+.gate__err{ font-size:13px; font-weight:700; color:#C23A00; }
+.gate__submit{ justify-content:center; margin-top:4px; }
 
 /* ---------- Header ---------- */
 .hd{ position:sticky; top:0; z-index:50; background:rgba(255,255,255,.97); border-bottom:1px solid var(--line); backdrop-filter:saturate(160%) blur(6px); }
@@ -313,6 +410,34 @@ table{ border-collapse:collapse; width:100%; }
 
 /* 汎用のボタン並び（下層でも使う） */
 .acts{ display:flex; flex-wrap:wrap; gap:14px; }
+
+/* ---------- 私たちの想い ---------- */
+/* 右端まで抜けた横長写真の左に見出し、その下に本文。既存サイトの組み方を踏襲 */
+.cnc{ position:relative; overflow:hidden; padding-block:clamp(40px,6vw,80px) clamp(56px,8vw,110px); }
+.cnc__media{ position:absolute; top:0; right:0; width:min(58%,880px); }
+.cnc__media .ph, .cnc__media .media{ clip-path:polygon(15% 0, 100% 0, 100% 100%, 0 100%); }
+.cnc__in{ position:relative; }
+/* 見出しの高さを写真の高さに合わせ、本文が写真の下から始まるようにする */
+.cnc__head{ min-height:calc(min(58vw, 880px) / 2); display:flex; flex-direction:column; justify-content:center;
+  max-width:min(40%, 460px); }
+.cnc__ttl{ margin-top:14px; font-size:clamp(22px,2.9vw,38px); font-weight:700; line-height:1.6;
+  letter-spacing:.02em; color:var(--green); text-wrap:balance; }
+.cnc__body{ margin-top:clamp(26px,4vw,52px); max-width:52em; }
+.cnc__body > p{ font-size:clamp(14.5px,1.15vw,16px); line-height:2.15; color:var(--ink-2); }
+.cnc__body > p + p{ margin-top:2em; }
+.cnc__sign{ margin-top:2.6em; font-size:14px; line-height:2; color:var(--ink); }
+.cnc__sign b{ font-size:16px; letter-spacing:.06em; }
+.cnc__acts{ margin-top:clamp(30px,4vw,48px); }
+
+@media (max-width:860px){
+  /* 縦画面は「写真 → 見出し → 本文」と積む */
+  .cnc{ padding-top:0; }
+  .cnc__media{ position:relative; width:auto; margin-inline:calc(var(--pad) * -1); }
+  .cnc__media .ph, .cnc__media .media{ clip-path:none; }
+  .cnc__head{ min-height:0; max-width:none; margin-top:clamp(26px,5vw,40px); }
+  .cnc__body{ margin-top:26px; }
+  br.pc{ display:none; }
+}
 
 /* ---------- 下層ページヘッダー ---------- */
 .phd{ position:relative; background:var(--green-ink); color:#fff; overflow:hidden; }
@@ -935,54 +1060,49 @@ table{ border-collapse:collapse; width:100%; }
   </div>
 </section>
 <nav class="bc" aria-label="パンくずリスト"><div class="wrap"><ol><li><a href="index.html">ホーム</a></li><li aria-current="page">私たちの想い</li></ol></div></nav>
-<section class="sec">
-  <div class="wrap rail reveal">
-    <div>
-      <p class="eyebrow">Our Roots</p>
-      <h2 class="h-sec">金型から、<br>屋根の上へ。</h2>
-    </div>
-    <div>
-      <p class="lead mincho">受け継いだのは設備ではなく、<br>精度に対する考え方でした。</p>
-      <p class="p mt-m">祖父の代から、この墨田区で「ものづくり」をしてきた会社です。精巧な金型をつくり、長いあいだ、まちの製造業を支えてきました。ミクロン単位のずれが製品の良し悪しを決める世界で、私たちが身につけたのは「見えないところで手を抜かない」という当たり前でした。</p>
-      <p class="p">その家業のかたちを、現在の代で大きく変えました。代表が大学卒業後に他社で身につけた太陽光発電工事の技術をもって独立し、新しい家業として立ち上げたのです。扱うものは金属から電気へ、仕事場は工場から屋根の上へ。それでも、根っこにある考え方は何ひとつ変わっていません。</p>
-    </div>
+<section class="cnc">
+  <div class="cnc__media" aria-hidden="true">
+    <img class="media media--2x1 media--right" src="assets/img/message/concept_back.jpg" alt="青空を見上げる代表取締役 金山 準" loading="eager" fetchpriority="high" decoding="async">
   </div>
-</section>
 
-<section class="sec sec--soft">
-  <div class="wrap">
-    <img class="media media--16x9" src="assets/img/slide_05.jpg" alt="空を背に屋根の上に立つ職人" loading="lazy" decoding="async">
-  </div>
-</section>
+  <div class="wrap cnc__in">
+    <div class="cnc__head reveal">
+      <p class="eyebrow">Concept</p>
+      <h2 class="cnc__ttl">未来まで続く価値を、<br>確かな工事で形にする。</h2>
+    </div>
 
-<section class="sec">
-  <div class="wrap rail reveal">
-    <div>
-      <p class="eyebrow">What We Value</p>
-      <h2 class="h-sec">大切にしてきたこと</h2>
-    </div>
-    <div>
-      <p class="lead">丁寧な工事。<br>結局のところ、これに尽きます。</p>
-      <p class="p mt-m">住宅用の太陽光発電が広まるよりも前から、私たちは屋根に上がってきました。立ち上げから10年あまりで、5,000棟を超える屋根に上がっています。数を重ねるほどに分かってきたのは、同じ屋根はひとつもないということでした。屋根材の種類、築年数、勾配、日当たり。条件が違えば、正しい工法も変わります。</p>
-      <p class="p">だからこそ、いい製品を選び、確かな材料を使い、きちんと据え付ける。防水処理や架台の固定といった、完成すれば見えなくなる部分にこそ時間をかける。そして、見栄えも美しく仕上げる。仕上がりの美しさは、丁寧に仕事をした結果として自然についてくるものだと考えています。</p>
-      <p class="p">こうした積み重ねが、販売店様や元請け会社様からの信頼につながってきました。</p>
-    </div>
-  </div>
-</section>
+    <div class="cnc__body reveal">
+      <p>地球に負荷のないつくり方で、<br class="pc">
+        自分で使うエネルギーは、自分でつくる。<br class="pc">
+        脱炭素社会へのシフトが進むなか、太陽光での自家発電、<br class="pc">
+        さらにつくった電気を蓄電池で貯めながら、<br class="pc">
+        より有効に使う暮らしが広がっています。<br class="pc">
+        私たちも工事を通じて、新しい時代の到来に<br class="pc">
+        貢献できていることを誇りに思います。</p>
 
-<section class="sec sec--soft">
-  <div class="wrap rail reveal">
-    <div>
-      <p class="eyebrow">For The Future</p>
-      <h2 class="h-sec">これからのこと</h2>
-    </div>
-    <div>
-      <p class="lead">新しい時代の到来に、<br>一軒ずつ関わっていく。</p>
-      <p class="p mt-m">脱炭素社会へのシフトが進むなかで、太陽光による自家発電と、蓄電池に貯めた電気の有効活用は、これからの住まいの当たり前になっていきます。その入口に立ち会えていることを、私たちは誇りに思っています。</p>
-      <p class="p">大きなことを掲げるつもりはありません。目の前の一軒の屋根に、きちんと上がること。その積み重ねの先にしか、次の時代はないと思っています。</p>
-      <p class="acts" style="margin-top:28px">
-        <a class="btn" href="message.html">代表メッセージ</a>
+      <p>2011年からたくさんの住宅の屋根の上で経験を積みながら、<br class="pc">
+        私たち金山製作所が大切にしてきたこと、強みとしていること、<br class="pc">
+        それは丁寧な工事です。いい製品を、確かな材料を使って、<br class="pc">
+        間違いなく据え付けること。据え付け方によっても<br class="pc">
+        製品のパフォーマンスや寿命は変わるため、<br class="pc">
+        その価値が長く続くための技を磨いてきました。</p>
+
+      <p>そして目指すのはお客様のご満足です。<br class="pc">
+        大切なお住まいに設置いただくのだから、<br class="pc">
+        丁寧にご要望を汲み取り、見栄えも美しい工事をすること。<br class="pc">
+        屋根の上のことだけでなく、電気工事、給排水工事など、<br class="pc">
+        住まいのお困りごとに幅広くお応えできる技術を持つこと。<br class="pc">
+        頼りにしていただける工事屋であろうと、みんなで頑張ってきました。</p>
+
+      <p>ずっと続く製品の性能、暮らしやすい地球、お客様のしあわせ。<br class="pc">
+        私たちの仕事が生み出す価値が、はるか先の未来まで続くことを想って、<br class="pc">
+        今日も一つひとつ丁寧な工事を続けます。</p>
+
+      <p class="cnc__sign">有限会社 金山製作所<br><b>代表取締役　金山　準</b></p>
+
+      <p class="acts cnc__acts">
         <a class="btn btn--ghost" href="about.html">会社案内</a>
+        <a class="btn btn--ghost" href="works.html">工事実績を見る</a>
       </p>
     </div>
   </div>
@@ -2135,7 +2255,7 @@ table{ border-collapse:collapse; width:100%; }
 <section class="sec">
   <div class="wrap rail reveal">
     <div>
-      <div class="ph ph--3x4" data-ph="［写真］代表者ポートレート ／ 900×1200px"></div>
+      <img class="media media--3x4" src="assets/img/message/concept_back.jpg" alt="青空を見上げる代表取締役 金山 準" loading="lazy" decoding="async">
       <p class="member__role mt-m">代表取締役</p>
     </div>
     <div>

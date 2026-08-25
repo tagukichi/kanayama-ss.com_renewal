@@ -156,3 +156,35 @@ URL参照は旧サイトが生きている間だけ有効です。テーマ化�
 | **works の構造** | カスタム投稿タイプ名、カスタムフィールド、カテゴリー |
 
 詳細は `docs/request-list.md`、必要な画像の一覧は `docs/asset-slots.md` を参照してください。
+
+---
+
+## プロトタイプの簡易ゲートについて
+
+`prototype/assets/gate.js` で、閲覧前にID・パスワードを求めています。
+
+| | |
+|---|---|
+| ID / パスワード | `kanayama` / `kanayama` |
+| 保持 | `localStorage`。同じブラウザなら一度入力すれば以後は素通し |
+| 対象 | 全13ページ＋`preview.html`＋`assign.html` |
+
+### ⚠️ これはアクセス制御ではありません
+
+GitHub Pages は静的配信のため、**サーバー側で認証できません。** 判定はすべてブラウザ内で
+完結するので、次の方法で回避できます。
+
+- ページのソースを見れば判定ロジックが読める（平文は置いていませんが、突破は容易です）
+- `…/interview.html` や `…/assets/img/interview/interview_01.jpg` を**直接開けば素通し**
+
+見せたくない相手に確実に見せない必要がある場合は、**Xserver のテストドメインに置いて
+`.htaccess` で Basic認証**をかけてください。そちらはサーバー側で処理されるため、
+画像を含むすべてのファイルが保護されます。
+
+```apache
+# .htaccess
+AuthType Basic
+AuthName "Prototype"
+AuthUserFile /home/<アカウント>/<ドメイン>/.htpasswd
+Require valid-user
+```

@@ -130,6 +130,7 @@ table{ border-collapse:collapse; width:100%; }
 .ph--4x3{ aspect-ratio:4/3; }
 .ph--1x1{ aspect-ratio:1/1; }
 .ph--3x2{ aspect-ratio:3/2; }
+.ph--2x1{ aspect-ratio:2/1; }
 .ph--3x4{ aspect-ratio:3/4; }
 .ph--fill{ position:absolute; inset:0; height:100%; border:0; }
 /* 全面背景に敷くプレースホルダーは、ラベルを右上に逃がして本文と重ねない */
@@ -152,12 +153,35 @@ table{ border-collapse:collapse; width:100%; }
 .media--4x3{ aspect-ratio:4/3; }
 .media--1x1{ aspect-ratio:1/1; }
 .media--3x2{ aspect-ratio:3/2; }
+.media--2x1{ aspect-ratio:2/1; }
+.media--right{ object-position:72% 50%; }
 .media--3x4{ aspect-ratio:3/4; }
 .media--fill{ position:absolute; inset:0; width:100%; height:100%; }
 .media--top{ object-position:50% 34%; }   /* 集合写真など、上寄りに主題があるもの */
 
 /* ページ冒頭の大きな写真 */
 .pageHero{ margin-top:clamp(28px,4vw,52px); }
+
+/* ---------- 簡易ゲート（プロトタイプ閲覧用） ---------- */
+/* 施錠中はゲート以外を隠す。<head> で先に class が付くのでちらつかない */
+html.is-locked body{ overflow:hidden; }
+html.is-locked body > *:not(.gate){ visibility:hidden; }
+
+.gate{ position:fixed; inset:0; z-index:999; display:grid; place-items:center; padding:24px;
+  background:linear-gradient(160deg,#F4F6F2,#E4EDE3 60%,#DCE9DB); overflow-y:auto; }
+.gate__box{ width:min(420px,100%); background:#fff; border:1px solid var(--line);
+  padding:clamp(28px,5vw,44px); display:grid; gap:16px; box-shadow:0 24px 60px rgba(11,74,12,.12); }
+.gate__logo{ width:62px; height:45px; color:var(--green); }
+.gate__en{ font-family:var(--en); font-size:12px; font-weight:700; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--orange); }
+.gate__ttl{ font-size:19px; font-weight:700; line-height:1.6; letter-spacing:.02em; }
+.gate__note{ font-size:13px; line-height:1.9; color:var(--muted); }
+.gate__f{ display:grid; gap:7px; font-size:13px; font-weight:700; }
+.gate__f input{ font:inherit; font-size:15px; font-weight:400; padding:13px 15px;
+  background:var(--soft); border:1px solid var(--line-strong); color:var(--ink); width:100%; }
+.gate__f input:focus{ background:#fff; border-color:var(--green); }
+.gate__err{ font-size:13px; font-weight:700; color:#C23A00; }
+.gate__submit{ justify-content:center; margin-top:4px; }
 
 /* ---------- Header ---------- */
 .hd{ position:sticky; top:0; z-index:50; background:rgba(255,255,255,.97); border-bottom:1px solid var(--line); backdrop-filter:saturate(160%) blur(6px); }
@@ -303,6 +327,34 @@ table{ border-collapse:collapse; width:100%; }
 
 /* 汎用のボタン並び（下層でも使う） */
 .acts{ display:flex; flex-wrap:wrap; gap:14px; }
+
+/* ---------- 私たちの想い ---------- */
+/* 右端まで抜けた横長写真の左に見出し、その下に本文。既存サイトの組み方を踏襲 */
+.cnc{ position:relative; overflow:hidden; padding-block:clamp(40px,6vw,80px) clamp(56px,8vw,110px); }
+.cnc__media{ position:absolute; top:0; right:0; width:min(58%,880px); }
+.cnc__media .ph, .cnc__media .media{ clip-path:polygon(15% 0, 100% 0, 100% 100%, 0 100%); }
+.cnc__in{ position:relative; }
+/* 見出しの高さを写真の高さに合わせ、本文が写真の下から始まるようにする */
+.cnc__head{ min-height:calc(min(58vw, 880px) / 2); display:flex; flex-direction:column; justify-content:center;
+  max-width:min(40%, 460px); }
+.cnc__ttl{ margin-top:14px; font-size:clamp(22px,2.9vw,38px); font-weight:700; line-height:1.6;
+  letter-spacing:.02em; color:var(--green); text-wrap:balance; }
+.cnc__body{ margin-top:clamp(26px,4vw,52px); max-width:52em; }
+.cnc__body > p{ font-size:clamp(14.5px,1.15vw,16px); line-height:2.15; color:var(--ink-2); }
+.cnc__body > p + p{ margin-top:2em; }
+.cnc__sign{ margin-top:2.6em; font-size:14px; line-height:2; color:var(--ink); }
+.cnc__sign b{ font-size:16px; letter-spacing:.06em; }
+.cnc__acts{ margin-top:clamp(30px,4vw,48px); }
+
+@media (max-width:860px){
+  /* 縦画面は「写真 → 見出し → 本文」と積む */
+  .cnc{ padding-top:0; }
+  .cnc__media{ position:relative; width:auto; margin-inline:calc(var(--pad) * -1); }
+  .cnc__media .ph, .cnc__media .media{ clip-path:none; }
+  .cnc__head{ min-height:0; max-width:none; margin-top:clamp(26px,5vw,40px); }
+  .cnc__body{ margin-top:26px; }
+  br.pc{ display:none; }
+}
 
 /* ---------- 下層ページヘッダー ---------- */
 .phd{ position:relative; background:var(--green-ink); color:#fff; overflow:hidden; }

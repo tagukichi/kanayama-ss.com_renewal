@@ -8,6 +8,13 @@ import { readFileSync, writeFileSync } from 'node:fs';
 const manifest = JSON.parse(readFileSync('src/images.json', 'utf8'));
 const pool = JSON.parse(readFileSync('src/media-pool.json', 'utf8')).media;
 
+// ゲートの見た目は style.css の該当ブロックを切り出して使う（定義を二重に持たない）
+const fullCss = readFileSync('src/assets/style.css', 'utf8');
+const gateCss = fullCss.slice(
+  fullCss.indexOf('/* ---------- 簡易ゲート'),
+  fullCss.indexOf('/* ---------- Header ----------')
+);
+
 const PAGE_NAMES = {
   index:'トップページ', concept:'私たちの想い', solar:'太陽光発電・蓄電', electric:'電気・水道工事',
   works:'工事実績（一覧）', 'works-detail':'工事実績（詳細）', about:'会社案内', message:'代表メッセージ',
@@ -33,7 +40,11 @@ writeFileSync('prototype/assign.html', `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>画像割り当てツール</title>
+<script src="assets/gate.js"></script>
 <style>
+${gateCss}
+:root{ --green:#179918; --orange:#FF6900; --en:"Barlow Condensed","Arial Narrow",sans-serif;
+       --line-strong:#C3CCC1; --soft:#F4F6F2; }
 :root{ --green:#179918; --orange:#FF6900; --ink:#161A15; --muted:#5B655A; --line:#DEE3DC; --soft:#F4F6F2; }
 *,*::before,*::after{ box-sizing:border-box; }
 body{ margin:0; background:var(--soft); color:var(--ink); font:14px/1.7 "Hiragino Kaku Gothic ProN",Meiryo,sans-serif; }
