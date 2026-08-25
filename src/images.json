@@ -322,16 +322,6 @@
       "alt": ""
     },
     {
-      "id": "about-01",
-      "page": "about",
-      "kind": "地図",
-      "label": "Google マップ埋め込み ／ 所在地確定後に差し替え",
-      "size": "",
-      "eager": false,
-      "src": "",
-      "alt": ""
-    },
-    {
       "id": "message-header",
       "page": "message",
       "kind": "写真",
