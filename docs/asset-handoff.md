@@ -4,19 +4,32 @@
 
 | | 方針 |
 |---|---|
-| **メディア** | git に入れず、**現行サイトの URL を参照**する（プロトタイプ段階） |
-| **プレビュー** | **Xserver テストドメイン**（Basic認証つき）。GitHub Pages は使わない |
+| **メディア** | git に入れず、**現行サイトの URL を参照**する |
+| **プレビュー** | **GitHub Pages**（GitHub Actions でデプロイ）。`robots.txt` と `noindex` で検索避け |
 | **リポジトリ** | メディアを入れないので **public のままで可** |
-| **組み方** | 静的HTML → WPテーマ変換 の現行方針を継続（WPで直接組み直さない） |
+| **組み方** | 静的HTML → WPテーマ変換 の現行方針を継続 |
 
----
+公開URL: https://tagukichi.github.io/kanayama-ss.com_renewal/
 
-## なぜ GitHub Pages をやめるか
+`src/` を編集して push すると、GitHub Actions が `node build.mjs` を実行して自動デプロイします
+（`.github/workflows/deploy-pages.yml`）。依存パッケージはありません。
 
-1. **どのみち PHP が動かない。** 最終成果物は WordPress テーマなので、Pages では動作確認できません。
-2. private にすると Pages は Free プランで使えません（Pro 以上が必要）。
-3. **Xserver テストドメインがあるなら、そちらが上位互換**です。本番と同じ PHP + WordPress で確認でき、
-   Basic認証をかければ社員・お客様の写真を公開せずに共有できます。
+> ⚠️ GitHub Pages は**認証をかけられません**（公開ページになります）。
+> 掲載している写真はいずれも現行サイトで公開中のものなので新たな露出はありませんが、
+> 検索に拾われないよう `robots.txt` と `<meta name="robots" content="noindex, nofollow">` を出力しています。
+> 認証が必要になったら Xserver のテストドメインに Basic認証をかけて移す方が確実です。
+
+## Pages と Xserver の使い分け
+
+| | GitHub Pages | Xserver テストドメイン |
+|---|---|---|
+| 用途 | **今のデザイン確認** | **WPテーマ化後の動作確認** |
+| PHP | 動かない | 動く |
+| 認証 | かけられない | Basic認証をかけられる |
+| 更新 | push で自動 | FTP/SSH で転送 |
+
+デザインを固める段階は Pages で十分です。**テーマ化に入ったら PHP が必要になる**ので、
+そのタイミングで Xserver に移します。
 
 ## なぜメディアを git に入れないか
 
