@@ -37,6 +37,12 @@
   - 根拠1: 全ページで Gutenberg コアパレット色（`#FF6900` `#FCB900` `#CF2E2E` `#F78DA7` `#ABB8C3`）を検出 → `wp-block-library` の CSS が読み込まれている
   - 根拠2: `/works/185/` `/works/140/` という**数値パーマリンク** → `/works/%post_id%/` 構造
   - 根拠3: `/wp-json/wp/v2/types` が **403** → REST API が外部から制限（セキュリティ系プラグインの可能性）
+- **WordPress の設置場所: `/wp/` サブディレクトリ**（2026-08-25 判明）
+  - メディアURLが `https://kanayama-ss.com/wp/wp-content/uploads/...` の形式
+  - つまり「WordPress を専用ディレクトリに配置」する構成（`WP_SITEURL` = `/wp/`、`WP_HOME` = `/`）
+  - **テーマの配置先は `/wp/wp-content/themes/<テーマ名>/` になる**
+  - REST API は `/wp/wp-json/...` が正しいパスだが、**そちらも 403**。
+    外部からは遮断されている（管理画面にログインしたブラウザからは開ける可能性あり）
 - **Google Fonts**: 不使用（検出0件）。英字は **Adobe Fonts（Typekit）** を使用
 
 ---

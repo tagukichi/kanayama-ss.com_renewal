@@ -1,0 +1,23 @@
+{
+  "_readme": "現行サイトのメディアURL。assign.html でスロットに割り当てます。追加分はここに足してください。",
+  "media": [
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150043.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150042.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150041.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_2187.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150037.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150018.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150035.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150002.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_9921-scaled.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_5376-scaled.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_3406-scaled.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1615.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1609.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1610.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_3347-scaled.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/a3c0a17351e772e04774f332595e85c5-scaled.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1616.jpg",
+    "https://kanayama-ss.com/wp/wp-content/uploads/2021/06/b922a090f4fec8beda83191428714a0a.jpg"
+  ]
+}

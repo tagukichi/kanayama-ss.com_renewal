@@ -217,4 +217,5 @@ ${artifact}`);
 
 const filled = manifest.images.filter((e) => e.src).length;
 console.log(`画像スロット: ${filled}/${manifest.images.length} 件にURL設定済み`);
+await import('./make-assigner.mjs');
 console.log('built ' + pages.length + ' pages -> ' + OUT + '/ (+ preview.html, preview.artifact.html)');
