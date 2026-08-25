@@ -4,7 +4,7 @@
  *   → prototype/*.html          … 通常の静的サイト
  *   → prototype/preview.html    … 全ページを1ファイルにまとめた確認用（CSS/JSインライン）
  */
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, cpSync, rmSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, cpSync, rmSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 const SRC = 'src', OUT = 'prototype';
@@ -16,6 +16,30 @@ const footer = read(join(SRC, 'partials/footer.html'));
 const css = read(join(SRC, 'assets/style.css'));
 const manifest = JSON.parse(read(join(SRC, 'images.json')));
 const byId = new Map(manifest.images.map((e) => [e.id, e]));
+
+/**
+ * src/assets/img/<ページのスラッグ>/ に置かれた写真を、
+ * そのページの「まだ空いている枠」へファイル名順で自動的に流し込む。
+ * → 画像を追加して push するだけで反映される（images.json を触らなくてよい）
+ */
+const IMG_DIR = join(SRC, 'assets/img');
+if (existsSync(IMG_DIR)) {
+  for (const page of readdirSync(IMG_DIR)) {
+    const dir = join(IMG_DIR, page);
+    if (!statSync(dir).isDirectory()) continue;
+    const files = readdirSync(dir).filter((f) => /\.(jpe?g|png|webp|avif)$/i.test(f)).sort();
+    if (!files.length) continue;
+    const slots = manifest.images.filter((e) => e.page === page && !e.src);
+    if (!slots.length) {
+      console.log(`  img/${page}/: ${files.length}枚あるが空き枠なし（images.json で明示的に割り当ててください）`);
+      continue;
+    }
+    files.forEach((f, i) => { if (slots[i]) slots[i].src = `assets/img/${page}/${f}`; });
+    const used = Math.min(files.length, slots.length);
+    console.log(`  img/${page}/: ${used}枚を自動割り当て` +
+      (files.length > slots.length ? `（${files.length - slots.length}枚は空き枠がないため未使用）` : ''));
+  }
+}
 const js = read(join(SRC, 'assets/app.js'));
 
 /**
