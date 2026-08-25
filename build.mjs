@@ -91,7 +91,15 @@ function pageHead(meta) {
     crumbs.push(`<li><a href="${href}">${label}</a></li>`);
   }
   crumbs.push(`<li aria-current="page">${meta.title}</li>`);
-  return `<section class="phd">
+  const head = meta.head === 'light'
+    ? `<section class="phd phd--light">
+  <span class="phd__diag" aria-hidden="true"></span>
+  <div class="wrap phd__in">
+    <h1 class="phd__en">${meta.en}</h1>
+    <p class="phd__ja">${meta.title}</p>
+  </div>
+</section>`
+    : `<section class="phd">
   <div class="phd__media">
     <div class="ph ph--fill ph--dark" data-img="${meta.slug}-header"></div>
   </div>
@@ -100,7 +108,8 @@ function pageHead(meta) {
     <h1 class="phd__en">${meta.en}</h1>
     <p class="phd__ja">${meta.title}</p>
   </div>
-</section>
+</section>`;
+  return `${head}
 <nav class="bc" aria-label="パンくずリスト"><div class="wrap"><ol>${crumbs.join('')}</ol></div></nav>`;
 }
 
