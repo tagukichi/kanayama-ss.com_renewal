@@ -2,23 +2,13 @@
   "_readme": "src にURLを入れると <img> に置き換わります。空欄の枠はプレースホルダー表示のまま。現在の割り当ては画像の中身を未確認のままの暫定です — prototype/assign.html で差し替えられます。",
   "images": [
     {
-      "id": "index-01",
-      "page": "index",
-      "kind": "写真",
-      "label": "メインビジュアル ／ 屋根上でのソーラーパネル施工",
-      "size": "2000×1125px 以上",
-      "eager": true,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150043.jpg",
-      "alt": ""
-    },
-    {
       "id": "index-02",
       "page": "index",
       "kind": "写真",
       "label": "太陽光パネル設置の施工風景",
       "size": "1600×1000px",
       "eager": false,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150042.jpg",
+      "src": "",
       "alt": ""
     },
     {
@@ -28,7 +18,7 @@
       "label": "電気工事・水道工事の作業風景",
       "size": "1600×1000px",
       "eager": false,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150041.jpg",
+      "src": "",
       "alt": ""
     },
     {
@@ -38,7 +28,7 @@
       "label": "施工事例サムネイル",
       "size": "1200×900px",
       "eager": false,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_2187.jpg",
+      "src": "",
       "alt": ""
     },
     {
@@ -48,7 +38,7 @@
       "label": "施工事例サムネイル",
       "size": "1200×900px",
       "eager": false,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150037.jpg",
+      "src": "",
       "alt": ""
     },
     {
@@ -58,18 +48,18 @@
       "label": "施工事例サムネイル",
       "size": "1200×900px",
       "eager": false,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150018.jpg",
+      "src": "",
       "alt": ""
     },
     {
       "id": "index-07",
       "page": "index",
       "kind": "写真",
-      "label": "チームでの作業風景・集合写真",
+      "label": "チームでの作業風景・集合写真（支給いただいた写真）",
       "size": "1800×1013px",
       "eager": false,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150035.jpg",
-      "alt": ""
+      "src": "assets/img/recruit-team.jpg",
+      "alt": "社用車の前に並ぶ金山製作所のスタッフ3名"
     },
     {
       "id": "concept-header",
@@ -138,8 +128,8 @@
       "label": "HEMSモニター画面",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150043.jpg",
+      "alt": "発電量と使用量を表示するHEMSモニター"
     },
     {
       "id": "solar-05",
@@ -148,8 +138,8 @@
       "label": "IHクッキングヒーター・エコキュート",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150018.jpg",
+      "alt": "設置したIHクッキングヒーター"
     },
     {
       "id": "solar-06",
@@ -178,7 +168,7 @@
       "label": "配線・分電盤の作業",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150042.jpg",
       "alt": ""
     },
     {
@@ -208,7 +198,7 @@
       "label": "給湯器の交換作業",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
+      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_2187.jpg",
       "alt": ""
     },
     {
@@ -375,11 +365,11 @@
       "id": "recruit-01",
       "page": "recruit",
       "kind": "写真",
-      "label": "社員の作業風景",
+      "label": "社員の作業風景（支給いただいた写真）",
       "size": "1800×1013px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/recruit-team.jpg",
+      "alt": "社用車の前に並ぶ金山製作所のスタッフ3名"
     },
     {
       "id": "interview-header",

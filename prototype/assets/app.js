@@ -13,6 +13,25 @@
   }
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ファーストビューの実績数をカウントアップ（最終値はHTML側に持たせてあるのでJSが動かなくても表示は正しい）
+  var counter = document.querySelector('[data-count]');
+  if (counter && !reduce) {
+    var goal = parseInt(counter.textContent.replace(/[^0-9]/g, ''), 10);
+    if (goal > 0) {
+      var t0 = null, dur = 1500, delay = 700;
+      counter.textContent = '0';
+      var step = function (t) {
+        if (t0 === null) t0 = t;
+        var p = Math.min((t - t0) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        counter.textContent = Math.round(goal * eased).toLocaleString('ja-JP');
+        if (p < 1) requestAnimationFrame(step);
+      };
+      setTimeout(function () { requestAnimationFrame(step); }, delay);
+    }
+  }
+
   var targets = document.querySelectorAll('.reveal');
   if (reduce || !('IntersectionObserver' in window)) {
     targets.forEach(function (el) { el.classList.add('is-in'); });

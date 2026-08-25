@@ -4,7 +4,7 @@
  *   → prototype/*.html          … 通常の静的サイト
  *   → prototype/preview.html    … 全ページを1ファイルにまとめた確認用（CSS/JSインライン）
  */
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, cpSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, cpSync, rmSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 const SRC = 'src', OUT = 'prototype';
@@ -27,8 +27,12 @@ function renderSlots(html) {
   return html.replace(/<div class="([^"]*)"\s+data-img="([^"]+)"\s*><\/div>/g, (_m, cls, id) => {
     const e = byId.get(id);
     if (!e) throw new Error(`images.json に画像スロット "${id}" の定義がありません`);
-    if (!e.src) {
-      const label = `［${e.kind}］${e.label}${e.size ? ' ／ ' + e.size : ''}`;
+    // ローカル参照は実ファイルが置かれるまでプレースホルダーのまま（壊れ画像を出さない）
+    const pending = e.src && !/^https?:/.test(e.src) && !existsSync(join(SRC, e.src));
+    if (!e.src || pending) {
+      const label = pending
+        ? `［${e.kind}］${e.label} ／ ${e.src} を配置すると表示されます`
+        : `［${e.kind}］${e.label}${e.size ? ' ／ ' + e.size : ''}`;
       return `<div class="${cls}" data-ph="${label}"></div>`;
     }
     const mods = cls.split(/\s+/)
@@ -218,7 +222,7 @@ ${css}
 </style>
 ${artifact}`);
 
-const filled = manifest.images.filter((e) => e.src).length;
+const filled = manifest.images.filter((e) => e.src && (/^https?:/.test(e.src) || existsSync(join(SRC, e.src)))).length;
 console.log(`画像スロット: ${filled}/${manifest.images.length} 件にURL設定済み`);
 await import('./make-assigner.mjs');
 console.log('built ' + pages.length + ' pages -> ' + OUT + '/ (+ preview.html, preview.artifact.html)');

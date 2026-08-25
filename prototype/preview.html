@@ -142,14 +142,13 @@ table{ border-collapse:collapse; width:100%; }
 .ph--3x4{ aspect-ratio:3/4; }
 .ph--fill{ position:absolute; inset:0; height:100%; border:0; }
 /* 全面背景に敷くプレースホルダーは、ラベルを右上に逃がして本文と重ねない */
-.hero__media .ph, .phd__media .ph{ place-items:start end; }
-.hero__media .ph::after, .phd__media .ph::after{
+.phd__media .ph{ place-items:start end; }
+.phd__media .ph::after{
   margin:16px 16px 0 0; max-width:min(46%, 420px);
   background:rgba(8,20,8,.7); color:rgba(255,255,255,.86); border-color:rgba(255,255,255,.2);
 }
 @media (max-width:700px){
-  .hero__media .ph::after, .phd__media .ph::after{ font-size:10.5px; max-width:62%; margin:12px 12px 0 0; }
-  .hero__in{ padding-top:136px; }
+  .phd__media .ph::after{ font-size:10.5px; max-width:62%; margin:12px 12px 0 0; }
   .phd__in{ padding-top:112px; }
 }
 .ph--dark{ background:
@@ -214,25 +213,116 @@ table{ border-collapse:collapse; width:100%; }
 .nav__mobileCta{ display:none; }
 @media (max-width:1180px){ .nav__mobileCta{ display:grid; } }
 
-/* ---------- Hero (トップ) ---------- */
-.hero{ position:relative; background:var(--green-ink); color:#fff; overflow:hidden; }
-.hero__media{ position:absolute; inset:0; }
-.hero__media .ph{ height:100%; border:0; }
-.hero__veil{ position:absolute; inset:0; background:linear-gradient(105deg, rgba(7,54,7,.86) 0%, rgba(7,54,7,.62) 46%, rgba(7,54,7,.30) 100%); }
-.hero__grid{ position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px); background-size:74px 74px; }
-.hero__in{ position:relative; padding-block:clamp(86px,15vw,168px); }
-.hero__eyebrow{ font-family:var(--en); font-size:13px; letter-spacing:.24em; color:#9BE49C; display:flex; align-items:center; gap:12px; }
-.hero__eyebrow::before{ content:""; width:40px; height:2px; background:var(--orange); }
-.hero__ttl{ font-size:var(--fs-display); font-weight:700; line-height:1.06; letter-spacing:.005em; margin-top:22px; text-wrap:balance; }
-.hero__ttl em{ font-style:normal; color:#9BE49C; }
-.hero__sub{ margin-top:26px; max-width:30em; font-size:clamp(15px,1.35vw,17.5px); line-height:2.1; color:rgba(255,255,255,.9); }
-.hero__acts{ display:flex; flex-wrap:wrap; gap:14px; margin-top:38px; }
-.hero__stats{ position:relative; display:flex; flex-wrap:wrap; gap:0; border-top:1px solid rgba(255,255,255,.22); }
-.hero__stat{ flex:1 1 190px; padding:26px 0 30px; border-right:1px solid rgba(255,255,255,.22); }
-.hero__stat:last-child{ border-right:0; }
-.hero__stat b{ font-family:var(--en); font-size:clamp(38px,5vw,60px); font-weight:700; line-height:1; display:block; letter-spacing:.01em; }
-.hero__stat b i{ font-style:normal; font-size:.44em; margin-left:6px; letter-spacing:.04em; }
-.hero__stat span{ font-size:12.5px; letter-spacing:.1em; color:rgba(255,255,255,.72); }
+/* ============================================================
+   ファーストビュー
+   写真を使わず、題材そのもの（太陽光パネルの配列）で画をつくる。
+   遠近をつけたセル格子＝屋根面のパネル、その上を光が横切る。
+   ============================================================ */
+.fv{
+  position:relative; isolation:isolate; overflow:hidden;
+  background:linear-gradient(168deg, #0A3D0B 0%, #062C07 46%, #041D05 100%);
+  color:#fff;
+  clip-path:polygon(0 0, 100% 0, 100% calc(100% - 44px), 0 100%);
+}
+.fv__bg{ position:absolute; inset:0; z-index:-1; }
+
+/* 陽の当たり（右上） */
+.fv__sun{
+  position:absolute; top:-24%; right:-8%; width:min(70vw,860px); aspect-ratio:1; border-radius:50%;
+  background:radial-gradient(circle,
+    rgba(255,196,120,.20) 0%, rgba(255,140,40,.10) 34%, rgba(255,105,0,.04) 55%, transparent 72%);
+}
+
+/* パネル面（遠近） */
+.fv__array{ position:absolute; left:-14%; right:-14%; bottom:-4%; height:66%; perspective:720px; perspective-origin:50% 0%; }
+.fv__plane{ position:absolute; inset:0; transform:rotateX(64deg); transform-origin:50% 100%; }
+.fv__grid,.fv__sweep{ position:absolute; inset:-40% -20% 0; }
+.fv__grid{
+  background-image:
+    /* セル */
+    linear-gradient(rgba(155,228,156,.17) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(155,228,156,.17) 1px, transparent 1px),
+    /* モジュール枠 */
+    linear-gradient(rgba(155,228,156,.52) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(155,228,156,.52) 2px, transparent 2px);
+  background-size:27px 27px, 27px 27px, 162px 135px, 162px 135px;
+  -webkit-mask-image:linear-gradient(to top, #000 4%, rgba(0,0,0,.5) 46%, transparent 84%);
+          mask-image:linear-gradient(to top, #000 4%, rgba(0,0,0,.5) 46%, transparent 84%);
+}
+/* パネルを横切る光 */
+.fv__sweep{
+  background:linear-gradient(102deg, transparent 40%, rgba(190,255,190,.14) 50%, transparent 60%);
+  animation:fvSweep 11s linear infinite;
+}
+@keyframes fvSweep{ from{ transform:translate3d(-42%,0,0) } to{ transform:translate3d(42%,0,0) } }
+
+/* ---- 内容 ---- */
+.fv{ min-height:calc(100svh - var(--head-h)); display:flex; flex-direction:column; justify-content:center; }
+.fv__in{ position:relative; width:100%; padding-block:clamp(56px,7vw,92px) clamp(48px,6vw,76px); }
+
+.fv__eyebrow{ display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  font-family:var(--en); font-size:12.5px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#9BE49C; }
+.fv__eyebrow i{ width:26px; height:1px; background:rgba(155,228,156,.5); }
+
+.fv__ttl{ margin-top:24px; font-size:var(--fs-display); font-weight:700; line-height:1.04; letter-spacing:.005em; }
+.fv__ttl .l{ display:block; }
+.fv__ttl em{ font-style:normal; color:#9BE49C; }
+
+.fv__sub{ margin-top:26px; max-width:31em; font-size:clamp(15px,1.35vw,17.5px); line-height:2.05; color:rgba(255,255,255,.88); }
+.fv__acts{ display:flex; flex-wrap:wrap; gap:14px; margin-top:38px; }
+
+.fv__stats{ display:flex; flex-wrap:wrap; gap:0; margin:clamp(30px,4vw,52px) 0 0; border-top:1px solid rgba(155,228,156,.28); }
+.fv__stat{ flex:1 1 186px; padding:24px 22px 0 0; position:relative; }
+.fv__stat + .fv__stat{ padding-left:26px; border-left:1px solid rgba(155,228,156,.28); }
+.fv__stat::before{ content:""; position:absolute; top:-1px; left:0; width:34px; height:3px; background:var(--orange); }
+.fv__stat + .fv__stat::before{ left:26px; }
+.fv__stat dd{ margin:0; display:flex; align-items:baseline; gap:7px; }
+.fv__stat b{ font-family:var(--en); font-size:clamp(40px,5.4vw,64px); font-weight:700; line-height:1; letter-spacing:.01em; font-variant-numeric:tabular-nums; }
+.fv__stat i{ font-style:normal; font-family:var(--en); font-size:clamp(15px,1.5vw,19px); font-weight:600; letter-spacing:.06em; color:#9BE49C; }
+.fv__stat dt{ margin-top:9px; font-size:12.5px; letter-spacing:.08em; color:rgba(255,255,255,.76); }
+@media (max-width:620px){
+  .fv__stats{ display:grid; grid-template-columns:1fr 1fr; gap:18px 20px; border-top:0; }
+  .fv__stat{ padding:16px 0 0; border-top:1px solid rgba(155,228,156,.28); }
+  .fv__stat + .fv__stat{ padding-left:0; border-left:0; }
+  .fv__stat::before, .fv__stat + .fv__stat::before{ left:0; width:26px; }
+  .fv__stat:first-child{ grid-column:1 / -1; }
+}
+
+.fv__scroll{ position:absolute; right:clamp(16px,3vw,38px); bottom:58px; display:flex; align-items:center; gap:10px;
+  font-family:var(--en); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(255,255,255,.5);
+  writing-mode:vertical-rl; }
+.fv__scroll i{ width:1px; height:54px; background:rgba(255,255,255,.28); position:relative; overflow:hidden; }
+.fv__scroll i::after{ content:""; position:absolute; inset:0 0 auto; height:18px; background:#9BE49C; animation:fvScroll 2.2s ease-in-out infinite; }
+@keyframes fvScroll{ 0%{ transform:translateY(-100%) } 60%,100%{ transform:translateY(300%) } }
+@media (max-width:700px){ .fv__scroll{ display:none; } }
+
+/* 読み込み時の立ち上がり（1回だけ、順番に） */
+.fv__eyebrow,.fv__ttl .l,.fv__sub,.fv__acts,.fv__stats{
+  opacity:0; transform:translateY(18px); animation:fvIn .9s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.fv__eyebrow{ animation-delay:.08s }
+.fv__ttl .l:nth-child(1){ animation-delay:.18s }
+.fv__ttl .l:nth-child(2){ animation-delay:.30s }
+.fv__sub{ animation-delay:.46s }
+.fv__acts{ animation-delay:.58s }
+.fv__stats{ animation-delay:.70s }
+@keyframes fvIn{ to{ opacity:1; transform:none } }
+
+/* 画面が低いノートPCでは見出しと余白を詰める */
+@media (min-width:900px) and (max-height:800px){
+  .fv{ --fs-display:clamp(40px,6vw,74px); }
+  .fv__in{ padding-block:44px 38px; }
+  .fv__ttl{ margin-top:18px; }
+  .fv__sub{ margin-top:20px; }
+  .fv__acts{ margin-top:28px; }
+  .fv__stats{ margin-top:32px; }
+}
+@media (max-width:620px){
+  .fv__in{ padding-block:44px 40px; }
+}
+
+/* 汎用のボタン並び（下層でも使う） */
+.acts{ display:flex; flex-wrap:wrap; gap:14px; }
 
 /* ---------- 下層ページヘッダー ---------- */
 .phd{ position:relative; background:var(--green-ink); color:#fff; overflow:hidden; }
@@ -465,26 +555,34 @@ table{ border-collapse:collapse; width:100%; }
   </div>
 </header>
 
-<main><section class="hero">
-  <div class="hero__media">
-    <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150043.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
+<main><section class="fv">
+  <div class="fv__bg" aria-hidden="true">
+    <span class="fv__sun"></span>
+    <div class="fv__array">
+      <div class="fv__plane">
+        <div class="fv__grid"></div>
+        <div class="fv__sweep"></div>
+      </div>
+    </div>
+    <div class="fv__horizon"></div>
   </div>
-  <div class="hero__veil"></div>
-  <div class="hero__grid"></div>
-  <div class="wrap hero__in">
-    <p class="hero__eyebrow">Solar &amp; Storage / Electric &amp; Plumbing</p>
-    <h1 class="hero__ttl">屋根の上に、<br><em>確かな仕事</em>を。</h1>
-    <p class="hero__sub">2011年から住宅の屋根に上がり続けてきました。太陽光発電システムの設置と、電気・水道工事。その両方を自社で手がけられることが、私たちの強みです。</p>
-    <div class="hero__acts">
+
+  <div class="wrap fv__in">
+    <p class="fv__eyebrow"><span>Solar &amp; Storage</span><i></i><span>Electric &amp; Plumbing</span></p>
+    <h1 class="fv__ttl"><span class="l">屋根の上に、</span><span class="l"><em>確かな仕事</em>を。</span></h1>
+    <p class="fv__sub">2011年から住宅の屋根に上がり続けてきました。太陽光発電システムの設置と、電気・水道工事。その両方を自社で手がけられることが、私たちの強みです。</p>
+    <div class="fv__acts">
       <a class="btn btn--accent" href="contact.html">無料で現地調査を依頼する</a>
       <a class="btn btn--onDark" href="works.html">工事実績を見る</a>
     </div>
-    <div class="hero__stats mt-l">
-      <div class="hero__stat"><b>5,000<i>棟 +</i></b><span>これまでに上がった屋根</span></div>
-      <div class="hero__stat"><b>2011<i>年 –</i></b><span>太陽光施工に取り組んで</span></div>
-      <div class="hero__stat"><b>2<i>事業</i></b><span>太陽光 ＋ 電気・水道</span></div>
-    </div>
+    <dl class="fv__stats">
+      <div class="fv__stat"><dd><b data-count>5,000</b><i>棟 +</i></dd><dt>これまでに上がった屋根</dt></div>
+      <div class="fv__stat"><dd><b>2011</b><i>年 –</i></dd><dt>太陽光施工に取り組んで</dt></div>
+      <div class="fv__stat"><dd><b>2</b><i>事業</i></dd><dt>太陽光 ＋ 電気・水道</dt></div>
+    </dl>
   </div>
+
+  <span class="fv__scroll" aria-hidden="true"><i></i>Scroll</span>
 </section>
 
 <section class="sec">
@@ -515,7 +613,7 @@ table{ border-collapse:collapse; width:100%; }
       <a class="biz__card" href="solar.html">
         <div class="biz__fig">
           <span class="biz__no">01</span>
-          <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150042.jpg" alt="" loading="lazy" decoding="async">
+          <div class="ph ph--fill" data-ph="［写真］太陽光パネル設置の施工風景 ／ 1600×1000px"></div>
         </div>
         <div class="biz__body">
           <h3 class="biz__ttl"><span class="en">Solar &amp; Storage</span>太陽光発電・蓄電</h3>
@@ -529,7 +627,7 @@ table{ border-collapse:collapse; width:100%; }
       <a class="biz__card" href="electric.html">
         <div class="biz__fig">
           <span class="biz__no">02</span>
-          <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150041.jpg" alt="" loading="lazy" decoding="async">
+          <div class="ph ph--fill" data-ph="［写真］電気工事・水道工事の作業風景 ／ 1600×1000px"></div>
         </div>
         <div class="biz__body">
           <h3 class="biz__ttl"><span class="en">Electric &amp; Plumbing</span>電気・水道工事</h3>
@@ -586,7 +684,7 @@ table{ border-collapse:collapse; width:100%; }
       <a class="work" href="works-detail.html">
         <div class="work__fig">
           <span class="work__cat">太陽光＋蓄電池</span>
-          <img class="media media--4x3" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_2187.jpg" alt="施工事例サムネイル" loading="lazy" decoding="async">
+          <div class="ph ph--4x3" data-ph="［写真］施工事例サムネイル ／ 1200×900px"></div>
         </div>
         <h3 class="work__ttl">ソーラーパネルと蓄電池設置（東京都墨田区）</h3>
         <p class="work__meta"><span class="en">2024.11</span><span>東京都墨田区</span></p>
@@ -594,7 +692,7 @@ table{ border-collapse:collapse; width:100%; }
       <a class="work" href="works-detail.html">
         <div class="work__fig">
           <span class="work__cat">太陽光</span>
-          <img class="media media--4x3" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150037.jpg" alt="施工事例サムネイル" loading="lazy" decoding="async">
+          <div class="ph ph--4x3" data-ph="［写真］施工事例サムネイル ／ 1200×900px"></div>
         </div>
         <h3 class="work__ttl">ソーラーパネル設置：築10年での新規設置（神奈川県横浜市）</h3>
         <p class="work__meta"><span class="en">2024.09</span><span>神奈川県横浜市</span></p>
@@ -602,7 +700,7 @@ table{ border-collapse:collapse; width:100%; }
       <a class="work" href="works-detail.html">
         <div class="work__fig">
           <span class="work__cat">電気・水道</span>
-          <img class="media media--4x3" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150018.jpg" alt="施工事例サムネイル" loading="lazy" decoding="async">
+          <div class="ph ph--4x3" data-ph="［写真］施工事例サムネイル ／ 1200×900px"></div>
         </div>
         <h3 class="work__ttl">給湯器交換とエアコン新設（東京都江東区）</h3>
         <p class="work__meta"><span class="en">2024.08</span><span>東京都江東区</span></p>
@@ -619,10 +717,10 @@ table{ border-collapse:collapse; width:100%; }
       <h2 class="h-sec">採用情報</h2>
     </div>
     <div>
-      <img class="media media--16x9" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150035.jpg" alt="チームでの作業風景・集合写真" loading="lazy" decoding="async">
+      <div class="ph ph--16x9" data-ph="［写真］チームでの作業風景・集合写真（支給いただいた写真） ／ assets/img/recruit-team.jpg を配置すると表示されます"></div>
       <p class="lead mt-m">未経験からでも、屋根の上で一人前になれます。</p>
       <p class="p">現在、施工スタッフを募集しています。資格取得の支援制度あり。まずは職場の雰囲気を、社員紹介のページからご覧ください。</p>
-      <p class="hero__acts" style="margin-top:26px">
+      <p class="acts" style="margin-top:26px">
         <a class="btn" href="recruit.html">募集要項を見る</a>
         <a class="btn btn--ghost" href="interview.html">社員紹介</a>
       </p>
@@ -852,7 +950,7 @@ table{ border-collapse:collapse; width:100%; }
       <p class="lead">新しい時代の到来に、<br>一軒ずつ関わっていく。</p>
       <p class="p mt-m">脱炭素社会へのシフトが進むなかで、太陽光による自家発電と、蓄電池に貯めた電気の有効活用は、これからの住まいの当たり前になっていきます。その入口に立ち会えていることを、私たちは誇りに思っています。</p>
       <p class="p">大きなことを掲げるつもりはありません。目の前の一軒の屋根に、きちんと上がること。その積み重ねの先にしか、次の時代はないと思っています。</p>
-      <p class="hero__acts" style="margin-top:28px">
+      <p class="acts" style="margin-top:28px">
         <a class="btn" href="message.html">代表メッセージ</a>
         <a class="btn btn--ghost" href="about.html">会社案内</a>
       </p>
@@ -1047,12 +1145,12 @@ table{ border-collapse:collapse; width:100%; }
         <p class="pt__d">屋根に載せられない場合や、発電量をさらに増やしたい場合の選択肢です。</p>
       </div>
       <div class="work">
-        <div class="work__fig"><span class="work__cat">04</span><div class="ph ph--4x3" data-ph="［写真］HEMSモニター画面 ／ 1200×900px"></div></div>
+        <div class="work__fig"><span class="work__cat">04</span><img class="media media--4x3" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150043.jpg" alt="発電量と使用量を表示するHEMSモニター" loading="lazy" decoding="async"></div>
         <h3 class="work__ttl">HEMS設置</h3>
         <p class="pt__d">発電量と使用量をモニターでリアルタイムに確認。電気の使い方が目に見えるようになります。</p>
       </div>
       <div class="work">
-        <div class="work__fig"><span class="work__cat">05</span><div class="ph ph--4x3" data-ph="［写真］IHクッキングヒーター・エコキュート ／ 1200×900px"></div></div>
+        <div class="work__fig"><span class="work__cat">05</span><img class="media media--4x3" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150018.jpg" alt="設置したIHクッキングヒーター" loading="lazy" decoding="async"></div>
         <h3 class="work__ttl">オール電化</h3>
         <p class="pt__d">給湯・調理を電気にまとめ、発電した電気を活かしきる住まいへ。給湯器工事も自社対応です。</p>
       </div>
@@ -1278,7 +1376,7 @@ table{ border-collapse:collapse; width:100%; }
     </div>
     <div class="works mt-l reveal">
       <div class="work">
-        <div class="work__fig"><span class="work__cat">01</span><div class="ph ph--4x3" data-ph="［写真］配線・分電盤の作業 ／ 1200×900px"></div></div>
+        <div class="work__fig"><span class="work__cat">01</span><img class="media media--4x3" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150042.jpg" alt="配線・分電盤の作業" loading="lazy" decoding="async"></div>
         <h3 class="work__ttl">電気工事全般</h3>
         <p class="pt__d">コンセント・スイッチの増設、照明器具の交換、分電盤の交換、屋内外の配線工事など。</p>
       </div>
@@ -1293,7 +1391,7 @@ table{ border-collapse:collapse; width:100%; }
         <p class="pt__d">新規取り付けから入れ替え、引っ越しに伴う移設まで。専用回路の増設も同時に対応できます。</p>
       </div>
       <div class="work">
-        <div class="work__fig"><span class="work__cat">04</span><div class="ph ph--4x3" data-ph="［写真］給湯器の交換作業 ／ 1200×900px"></div></div>
+        <div class="work__fig"><span class="work__cat">04</span><img class="media media--4x3" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_2187.jpg" alt="給湯器の交換作業" loading="lazy" decoding="async"></div>
         <h3 class="work__ttl">給湯器の交換</h3>
         <p class="pt__d">ガス給湯器・エコキュートの交換に対応。オール電化への切り替えもあわせてご相談いただけます。</p>
       </div>
@@ -2072,7 +2170,7 @@ table{ border-collapse:collapse; width:100%; }
     <div>
       <p class="p">［仮テキスト］屋根の上の仕事は、正直に言えば楽ではありません。夏は暑いし、冬は風が冷たい。それでも続けている人間が、この会社には何人もいます。理由は単純で、自分の手でやったことが、そのまま形になって残るからです。</p>
       <p class="p">［仮テキスト］未経験でも構いません。必要なのは、面倒な工程をきちんと踏める人であること。それだけです。資格は入社後に取ってもらえば十分間に合います。</p>
-      <p class="hero__acts" style="margin-top:28px">
+      <p class="acts" style="margin-top:28px">
         <a class="btn" href="recruit.html">募集要項を見る</a>
         <a class="btn btn--ghost" href="interview.html">社員紹介を読む</a>
       </p>
@@ -2289,7 +2387,7 @@ table{ border-collapse:collapse; width:100%; }
       <h2 class="h-sec">先輩の声</h2>
     </div>
     <div>
-      <div class="ph ph--16x9" data-ph="［写真］社員の作業風景 ／ 1800×1013px"></div>
+      <div class="ph ph--16x9" data-ph="［写真］社員の作業風景（支給いただいた写真） ／ assets/img/recruit-team.jpg を配置すると表示されます"></div>
       <p class="p mt-m">実際に働くスタッフに、仕事のやりがいや一日の流れを聞きました。</p>
       <p class="mt-m"><a class="btn btn--ghost" href="interview.html">社員紹介を読む</a></p>
     </div>
@@ -3178,6 +3276,25 @@ table{ border-collapse:collapse; width:100%; }
   }
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ファーストビューの実績数をカウントアップ（最終値はHTML側に持たせてあるのでJSが動かなくても表示は正しい）
+  var counter = document.querySelector('[data-count]');
+  if (counter && !reduce) {
+    var goal = parseInt(counter.textContent.replace(/[^0-9]/g, ''), 10);
+    if (goal > 0) {
+      var t0 = null, dur = 1500, delay = 700;
+      counter.textContent = '0';
+      var step = function (t) {
+        if (t0 === null) t0 = t;
+        var p = Math.min((t - t0) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        counter.textContent = Math.round(goal * eased).toLocaleString('ja-JP');
+        if (p < 1) requestAnimationFrame(step);
+      };
+      setTimeout(function () { requestAnimationFrame(step); }, delay);
+    }
+  }
+
   var targets = document.querySelectorAll('.reveal');
   if (reduce || !('IntersectionObserver' in window)) {
     targets.forEach(function (el) { el.classList.add('is-in'); });

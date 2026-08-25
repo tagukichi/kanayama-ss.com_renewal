@@ -132,14 +132,13 @@ table{ border-collapse:collapse; width:100%; }
 .ph--3x4{ aspect-ratio:3/4; }
 .ph--fill{ position:absolute; inset:0; height:100%; border:0; }
 /* 全面背景に敷くプレースホルダーは、ラベルを右上に逃がして本文と重ねない */
-.hero__media .ph, .phd__media .ph{ place-items:start end; }
-.hero__media .ph::after, .phd__media .ph::after{
+.phd__media .ph{ place-items:start end; }
+.phd__media .ph::after{
   margin:16px 16px 0 0; max-width:min(46%, 420px);
   background:rgba(8,20,8,.7); color:rgba(255,255,255,.86); border-color:rgba(255,255,255,.2);
 }
 @media (max-width:700px){
-  .hero__media .ph::after, .phd__media .ph::after{ font-size:10.5px; max-width:62%; margin:12px 12px 0 0; }
-  .hero__in{ padding-top:136px; }
+  .phd__media .ph::after{ font-size:10.5px; max-width:62%; margin:12px 12px 0 0; }
   .phd__in{ padding-top:112px; }
 }
 .ph--dark{ background:
@@ -204,25 +203,116 @@ table{ border-collapse:collapse; width:100%; }
 .nav__mobileCta{ display:none; }
 @media (max-width:1180px){ .nav__mobileCta{ display:grid; } }
 
-/* ---------- Hero (トップ) ---------- */
-.hero{ position:relative; background:var(--green-ink); color:#fff; overflow:hidden; }
-.hero__media{ position:absolute; inset:0; }
-.hero__media .ph{ height:100%; border:0; }
-.hero__veil{ position:absolute; inset:0; background:linear-gradient(105deg, rgba(7,54,7,.86) 0%, rgba(7,54,7,.62) 46%, rgba(7,54,7,.30) 100%); }
-.hero__grid{ position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px); background-size:74px 74px; }
-.hero__in{ position:relative; padding-block:clamp(86px,15vw,168px); }
-.hero__eyebrow{ font-family:var(--en); font-size:13px; letter-spacing:.24em; color:#9BE49C; display:flex; align-items:center; gap:12px; }
-.hero__eyebrow::before{ content:""; width:40px; height:2px; background:var(--orange); }
-.hero__ttl{ font-size:var(--fs-display); font-weight:700; line-height:1.06; letter-spacing:.005em; margin-top:22px; text-wrap:balance; }
-.hero__ttl em{ font-style:normal; color:#9BE49C; }
-.hero__sub{ margin-top:26px; max-width:30em; font-size:clamp(15px,1.35vw,17.5px); line-height:2.1; color:rgba(255,255,255,.9); }
-.hero__acts{ display:flex; flex-wrap:wrap; gap:14px; margin-top:38px; }
-.hero__stats{ position:relative; display:flex; flex-wrap:wrap; gap:0; border-top:1px solid rgba(255,255,255,.22); }
-.hero__stat{ flex:1 1 190px; padding:26px 0 30px; border-right:1px solid rgba(255,255,255,.22); }
-.hero__stat:last-child{ border-right:0; }
-.hero__stat b{ font-family:var(--en); font-size:clamp(38px,5vw,60px); font-weight:700; line-height:1; display:block; letter-spacing:.01em; }
-.hero__stat b i{ font-style:normal; font-size:.44em; margin-left:6px; letter-spacing:.04em; }
-.hero__stat span{ font-size:12.5px; letter-spacing:.1em; color:rgba(255,255,255,.72); }
+/* ============================================================
+   ファーストビュー
+   写真を使わず、題材そのもの（太陽光パネルの配列）で画をつくる。
+   遠近をつけたセル格子＝屋根面のパネル、その上を光が横切る。
+   ============================================================ */
+.fv{
+  position:relative; isolation:isolate; overflow:hidden;
+  background:linear-gradient(168deg, #0A3D0B 0%, #062C07 46%, #041D05 100%);
+  color:#fff;
+  clip-path:polygon(0 0, 100% 0, 100% calc(100% - 44px), 0 100%);
+}
+.fv__bg{ position:absolute; inset:0; z-index:-1; }
+
+/* 陽の当たり（右上） */
+.fv__sun{
+  position:absolute; top:-24%; right:-8%; width:min(70vw,860px); aspect-ratio:1; border-radius:50%;
+  background:radial-gradient(circle,
+    rgba(255,196,120,.20) 0%, rgba(255,140,40,.10) 34%, rgba(255,105,0,.04) 55%, transparent 72%);
+}
+
+/* パネル面（遠近） */
+.fv__array{ position:absolute; left:-14%; right:-14%; bottom:-4%; height:66%; perspective:720px; perspective-origin:50% 0%; }
+.fv__plane{ position:absolute; inset:0; transform:rotateX(64deg); transform-origin:50% 100%; }
+.fv__grid,.fv__sweep{ position:absolute; inset:-40% -20% 0; }
+.fv__grid{
+  background-image:
+    /* セル */
+    linear-gradient(rgba(155,228,156,.17) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(155,228,156,.17) 1px, transparent 1px),
+    /* モジュール枠 */
+    linear-gradient(rgba(155,228,156,.52) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(155,228,156,.52) 2px, transparent 2px);
+  background-size:27px 27px, 27px 27px, 162px 135px, 162px 135px;
+  -webkit-mask-image:linear-gradient(to top, #000 4%, rgba(0,0,0,.5) 46%, transparent 84%);
+          mask-image:linear-gradient(to top, #000 4%, rgba(0,0,0,.5) 46%, transparent 84%);
+}
+/* パネルを横切る光 */
+.fv__sweep{
+  background:linear-gradient(102deg, transparent 40%, rgba(190,255,190,.14) 50%, transparent 60%);
+  animation:fvSweep 11s linear infinite;
+}
+@keyframes fvSweep{ from{ transform:translate3d(-42%,0,0) } to{ transform:translate3d(42%,0,0) } }
+
+/* ---- 内容 ---- */
+.fv{ min-height:calc(100svh - var(--head-h)); display:flex; flex-direction:column; justify-content:center; }
+.fv__in{ position:relative; width:100%; padding-block:clamp(56px,7vw,92px) clamp(48px,6vw,76px); }
+
+.fv__eyebrow{ display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  font-family:var(--en); font-size:12.5px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#9BE49C; }
+.fv__eyebrow i{ width:26px; height:1px; background:rgba(155,228,156,.5); }
+
+.fv__ttl{ margin-top:24px; font-size:var(--fs-display); font-weight:700; line-height:1.04; letter-spacing:.005em; }
+.fv__ttl .l{ display:block; }
+.fv__ttl em{ font-style:normal; color:#9BE49C; }
+
+.fv__sub{ margin-top:26px; max-width:31em; font-size:clamp(15px,1.35vw,17.5px); line-height:2.05; color:rgba(255,255,255,.88); }
+.fv__acts{ display:flex; flex-wrap:wrap; gap:14px; margin-top:38px; }
+
+.fv__stats{ display:flex; flex-wrap:wrap; gap:0; margin:clamp(30px,4vw,52px) 0 0; border-top:1px solid rgba(155,228,156,.28); }
+.fv__stat{ flex:1 1 186px; padding:24px 22px 0 0; position:relative; }
+.fv__stat + .fv__stat{ padding-left:26px; border-left:1px solid rgba(155,228,156,.28); }
+.fv__stat::before{ content:""; position:absolute; top:-1px; left:0; width:34px; height:3px; background:var(--orange); }
+.fv__stat + .fv__stat::before{ left:26px; }
+.fv__stat dd{ margin:0; display:flex; align-items:baseline; gap:7px; }
+.fv__stat b{ font-family:var(--en); font-size:clamp(40px,5.4vw,64px); font-weight:700; line-height:1; letter-spacing:.01em; font-variant-numeric:tabular-nums; }
+.fv__stat i{ font-style:normal; font-family:var(--en); font-size:clamp(15px,1.5vw,19px); font-weight:600; letter-spacing:.06em; color:#9BE49C; }
+.fv__stat dt{ margin-top:9px; font-size:12.5px; letter-spacing:.08em; color:rgba(255,255,255,.76); }
+@media (max-width:620px){
+  .fv__stats{ display:grid; grid-template-columns:1fr 1fr; gap:18px 20px; border-top:0; }
+  .fv__stat{ padding:16px 0 0; border-top:1px solid rgba(155,228,156,.28); }
+  .fv__stat + .fv__stat{ padding-left:0; border-left:0; }
+  .fv__stat::before, .fv__stat + .fv__stat::before{ left:0; width:26px; }
+  .fv__stat:first-child{ grid-column:1 / -1; }
+}
+
+.fv__scroll{ position:absolute; right:clamp(16px,3vw,38px); bottom:58px; display:flex; align-items:center; gap:10px;
+  font-family:var(--en); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(255,255,255,.5);
+  writing-mode:vertical-rl; }
+.fv__scroll i{ width:1px; height:54px; background:rgba(255,255,255,.28); position:relative; overflow:hidden; }
+.fv__scroll i::after{ content:""; position:absolute; inset:0 0 auto; height:18px; background:#9BE49C; animation:fvScroll 2.2s ease-in-out infinite; }
+@keyframes fvScroll{ 0%{ transform:translateY(-100%) } 60%,100%{ transform:translateY(300%) } }
+@media (max-width:700px){ .fv__scroll{ display:none; } }
+
+/* 読み込み時の立ち上がり（1回だけ、順番に） */
+.fv__eyebrow,.fv__ttl .l,.fv__sub,.fv__acts,.fv__stats{
+  opacity:0; transform:translateY(18px); animation:fvIn .9s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.fv__eyebrow{ animation-delay:.08s }
+.fv__ttl .l:nth-child(1){ animation-delay:.18s }
+.fv__ttl .l:nth-child(2){ animation-delay:.30s }
+.fv__sub{ animation-delay:.46s }
+.fv__acts{ animation-delay:.58s }
+.fv__stats{ animation-delay:.70s }
+@keyframes fvIn{ to{ opacity:1; transform:none } }
+
+/* 画面が低いノートPCでは見出しと余白を詰める */
+@media (min-width:900px) and (max-height:800px){
+  .fv{ --fs-display:clamp(40px,6vw,74px); }
+  .fv__in{ padding-block:44px 38px; }
+  .fv__ttl{ margin-top:18px; }
+  .fv__sub{ margin-top:20px; }
+  .fv__acts{ margin-top:28px; }
+  .fv__stats{ margin-top:32px; }
+}
+@media (max-width:620px){
+  .fv__in{ padding-block:44px 40px; }
+}
+
+/* 汎用のボタン並び（下層でも使う） */
+.acts{ display:flex; flex-wrap:wrap; gap:14px; }
 
 /* ---------- 下層ページヘッダー ---------- */
 .phd{ position:relative; background:var(--green-ink); color:#fff; overflow:hidden; }
