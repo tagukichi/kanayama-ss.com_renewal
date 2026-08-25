@@ -69,7 +69,8 @@
       "size": "1920×540px",
       "eager": true,
       "src": "assets/img/bg_01.jpg",
-      "alt": ""
+      "alt": "",
+      "pos": "50% 85%"
     },
     {
       "id": "concept-photo",
@@ -479,7 +480,8 @@
       "size": "1920×540px",
       "eager": true,
       "src": "assets/img/bg_01.jpg",
-      "alt": ""
+      "alt": "",
+      "pos": "50% 85%"
     },
     {
       "id": "contact-header",
@@ -499,7 +501,8 @@
       "size": "1920×540px",
       "eager": true,
       "src": "assets/img/bg_01.jpg",
-      "alt": ""
+      "alt": "",
+      "pos": "50% 85%"
     }
   ]
 }

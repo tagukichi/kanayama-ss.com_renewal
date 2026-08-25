@@ -67,7 +67,9 @@ function renderSlots(html) {
     // 見出しの背後に敷く写真は装飾扱い（alt=""）。本文中の写真は必ず alt を持たせる
     const alt = e.alt ? e.alt : (isBackdrop ? '' : e.label.split(' ／ ')[0]);
     const load = e.eager ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
-    return `<img class="media ${mods.join(' ')}" src="${e.src}" alt="${alt.replace(/"/g, '&quot;')}" ${load} decoding="async">`;
+    // pos が指定されていれば表示位置を上書きする（切り取り位置の微調整用）
+    const pos = e.pos ? ` style="object-position:${e.pos}"` : '';
+    return `<img class="media ${mods.join(' ')}" src="${e.src}" alt="${alt.replace(/"/g, '&quot;')}" ${load} decoding="async"${pos}>`;
   });
 }
 
