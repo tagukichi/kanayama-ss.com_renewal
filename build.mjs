@@ -4,7 +4,7 @@
  *   → prototype/*.html          … 通常の静的サイト
  *   → prototype/preview.html    … 全ページを1ファイルにまとめた確認用（CSS/JSインライン）
  */
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, cpSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 
 const SRC = 'src', OUT = 'prototype';
@@ -58,9 +58,9 @@ function markCurrent(html, slug) {
 }
 
 rmSync(OUT, { recursive: true, force: true });
-mkdirSync(join(OUT, 'assets'), { recursive: true });
-copyFileSync(join(SRC, 'assets/style.css'), join(OUT, 'assets/style.css'));
-copyFileSync(join(SRC, 'assets/app.js'), join(OUT, 'assets/app.js'));
+mkdirSync(OUT, { recursive: true });
+// src/assets をまるごと複製（style.css / app.js / img/ …）
+cpSync(join(SRC, 'assets'), join(OUT, 'assets'), { recursive: true });
 
 // ページ順（プレビューの並び順にもなる）
 const ORDER = ['index', 'concept', 'solar', 'electric', 'works', 'works-detail',

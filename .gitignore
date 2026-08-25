@@ -1,3 +1,8 @@
 node_modules/
 *.tmp.mjs
 .DS_Store
+Thumbs.db
+
+# メディア本体は git に入れない方針（docs/asset-handoff.md 参照）
+# 一時的に置く場合に備えた保険
+assets/wp-uploads/
