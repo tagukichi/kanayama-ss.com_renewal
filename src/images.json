@@ -1,5 +1,5 @@
 {
-  "_readme": "src にURLを入れると <img> に置き換わります。空欄の枠はプレースホルダー表示のまま。現在の割り当ては画像の中身を未確認のままの暫定です — prototype/assign.html で差し替えられます。",
+  "_readme": "src にURLまたは assets/img/... のパスを入れると <img> に置き換わります。空欄の枠はプレースホルダー表示のまま。ローカル参照は実ファイルが置かれるまで待機します。",
   "images": [
     {
       "id": "index-02",
@@ -8,8 +8,8 @@
       "label": "太陽光パネル設置の施工風景",
       "size": "1600×1000px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/service_01.jpg",
+      "alt": "工場屋根に設置した大規模な太陽光パネル"
     },
     {
       "id": "index-03",
@@ -18,8 +18,8 @@
       "label": "電気工事・水道工事の作業風景",
       "size": "1600×1000px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/service_02.jpg",
+      "alt": "分電盤の配線作業"
     },
     {
       "id": "index-04",
@@ -28,8 +28,8 @@
       "label": "施工事例サムネイル",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/DSC01045-1-760x530.jpg",
+      "alt": "金属屋根に設置した太陽光パネル"
     },
     {
       "id": "index-05",
@@ -38,8 +38,8 @@
       "label": "施工事例サムネイル",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/IMG_9921-760x530.jpg",
+      "alt": "足場を組んで施工中の太陽光パネル"
     },
     {
       "id": "index-06",
@@ -48,17 +48,17 @@
       "label": "施工事例サムネイル",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/IMG_1615-760x530.jpg",
+      "alt": "施工を終えた屋根上の太陽光パネル"
     },
     {
       "id": "index-07",
       "page": "index",
       "kind": "写真",
-      "label": "チームでの作業風景・集合写真（支給いただいた写真）",
+      "label": "チームでの作業風景・集合写真",
       "size": "1800×1013px",
       "eager": false,
-      "src": "assets/img/recruit-team.jpg",
+      "src": "assets/img/recruit_01.jpg",
       "alt": "社用車の前に並ぶ金山製作所のスタッフ3名"
     },
     {
@@ -68,7 +68,7 @@
       "label": "屋根の上の作業風景（引き）",
       "size": "1920×540px",
       "eager": true,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150002.jpg",
+      "src": "assets/img/bg_01.jpg",
       "alt": ""
     },
     {
@@ -78,8 +78,8 @@
       "label": "代表または職人の手元のカット",
       "size": "1800×1013px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/slide_05.jpg",
+      "alt": "空を背に屋根の上に立つ職人"
     },
     {
       "id": "solar-header",
@@ -88,7 +88,7 @@
       "label": "屋根に設置されたソーラーパネル",
       "size": "1920×540px",
       "eager": true,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_9921-scaled.jpg",
+      "src": "assets/img/slide_03.jpg",
       "alt": ""
     },
     {
@@ -98,8 +98,8 @@
       "label": "太陽光パネル設置",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/service_01.jpg",
+      "alt": "屋根一面に敷き詰めた太陽光パネル"
     },
     {
       "id": "solar-02",
@@ -158,7 +158,7 @@
       "label": "電気工事の作業風景",
       "size": "1920×540px",
       "eager": true,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_5376-scaled.jpg",
+      "src": "assets/img/service_02.jpg",
       "alt": ""
     },
     {
@@ -208,7 +208,7 @@
       "label": "完成後の屋根（引き）",
       "size": "1920×540px",
       "eager": true,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_3406-scaled.jpg",
+      "src": "assets/img/bg_02.jpg",
       "alt": ""
     },
     {
@@ -218,8 +218,8 @@
       "label": "施工事例",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/DSC01045-1-760x530.jpg",
+      "alt": "金属屋根に設置した太陽光パネル"
     },
     {
       "id": "works-02",
@@ -228,8 +228,8 @@
       "label": "施工事例",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/IMG_9921-760x530.jpg",
+      "alt": "足場を組んで施工中の太陽光パネル"
     },
     {
       "id": "works-03",
@@ -238,8 +238,8 @@
       "label": "施工事例",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/IMG_1615-760x530.jpg",
+      "alt": "施工を終えた屋根上の太陽光パネル"
     },
     {
       "id": "works-04",
@@ -248,8 +248,8 @@
       "label": "施工事例",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/slide_04.jpg",
+      "alt": "陸屋根に架台で設置した太陽光パネル"
     },
     {
       "id": "works-05",
@@ -258,8 +258,8 @@
       "label": "施工事例",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/slide_07.jpg",
+      "alt": "屋根の上で作業する2名の職人"
     },
     {
       "id": "works-06",
@@ -268,8 +268,8 @@
       "label": "施工事例",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/service_01.jpg",
+      "alt": "工場屋根の大規模な太陽光パネル"
     },
     {
       "id": "works-detail-header",
@@ -278,7 +278,7 @@
       "label": "この事例のメイン写真",
       "size": "1920×540px",
       "eager": true,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1615.jpg",
+      "src": "assets/img/slide_04.jpg",
       "alt": ""
     },
     {
@@ -298,8 +298,8 @@
       "label": "施工中（架台設置）",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/slide_03.jpg",
+      "alt": "太陽光パネルを担いで運ぶ職人"
     },
     {
       "id": "works-detail-03",
@@ -308,8 +308,8 @@
       "label": "施工後",
       "size": "1200×900px",
       "eager": false,
-      "src": "",
-      "alt": ""
+      "src": "assets/img/DSC01045-1-760x530.jpg",
+      "alt": "設置が完了した太陽光パネル"
     },
     {
       "id": "about-header",
@@ -318,7 +318,7 @@
       "label": "社屋または作業車",
       "size": "1920×540px",
       "eager": true,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1609.jpg",
+      "src": "assets/img/slide_07.jpg",
       "alt": ""
     },
     {
@@ -338,7 +338,7 @@
       "label": "代表者ポートレート",
       "size": "1920×540px",
       "eager": true,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/06/b922a090f4fec8beda83191428714a0a.jpg",
+      "src": "assets/img/slide_05.jpg",
       "alt": ""
     },
     {
@@ -358,17 +358,17 @@
       "label": "現場のチーム",
       "size": "1920×540px",
       "eager": true,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1610.jpg",
+      "src": "assets/img/bg_02.jpg",
       "alt": ""
     },
     {
       "id": "recruit-01",
       "page": "recruit",
       "kind": "写真",
-      "label": "社員の作業風景（支給いただいた写真）",
+      "label": "社員の作業風景",
       "size": "1800×1013px",
       "eager": false,
-      "src": "assets/img/recruit-team.jpg",
+      "src": "assets/img/recruit_01.jpg",
       "alt": "社用車の前に並ぶ金山製作所のスタッフ3名"
     },
     {
@@ -378,7 +378,7 @@
       "label": "社員の集合カット",
       "size": "1920×540px",
       "eager": true,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_3347-scaled.jpg",
+      "src": "assets/img/recruit_01.jpg",
       "alt": ""
     },
     {
@@ -418,7 +418,7 @@
       "label": "事務所または作業風景",
       "size": "1920×540px",
       "eager": true,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/a3c0a17351e772e04774f332595e85c5-scaled.jpg",
+      "src": "assets/img/bg_01.jpg",
       "alt": ""
     },
     {
@@ -428,7 +428,7 @@
       "label": "打ち合わせ風景",
       "size": "1920×540px",
       "eager": true,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1616.jpg",
+      "src": "assets/img/slide_07.jpg",
       "alt": ""
     },
     {
@@ -438,7 +438,7 @@
       "label": "ページヘッダー背景",
       "size": "1920×540px",
       "eager": true,
-      "src": "https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150002.jpg",
+      "src": "assets/img/bg_01.jpg",
       "alt": ""
     }
   ]

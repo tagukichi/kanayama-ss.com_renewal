@@ -161,10 +161,10 @@ table{ border-collapse:collapse; width:100%; }
 .hd .wrap{ max-width:1380px; }
 .hd__in{ display:flex; align-items:center; gap:clamp(14px,2vw,32px); height:var(--head-h); }
 .logo{ display:flex; align-items:center; gap:11px; flex:none; }
-.logo__mark{ width:34px; height:34px; flex:none; }
+.logo__mark{ width:46px; height:34px; flex:none; color:var(--green); }
 .logo__txt{ display:flex; flex-direction:column; line-height:1; }
 .logo__ja{ font-weight:700; font-size:16px; letter-spacing:.04em; }
-.logo__en{ font-family:var(--en); font-size:10.5px; letter-spacing:.18em; color:var(--muted); margin-top:4px; text-transform:uppercase; }
+.logo__biz{ font-size:10px; letter-spacing:.02em; color:var(--muted); margin-bottom:5px; }
 
 .nav{ margin-left:auto; min-width:0; }
 .nav__list{ display:flex; align-items:center; gap:clamp(10px,1.4vw,24px); }
@@ -208,89 +208,78 @@ table{ border-collapse:collapse; width:100%; }
 
 /* ============================================================
    ファーストビュー
-   写真を使わず、題材そのもの（太陽光パネルの配列）で画をつくる。
-   遠近をつけたセル格子＝屋根面のパネル、その上を光が横切る。
+   明るい空の写真を主役に、左からの白いウォッシュで文字の場所をつくる。
    ============================================================ */
 .fv{
-  position:relative; isolation:isolate; overflow:hidden;
-  background:linear-gradient(168deg, #0A3D0B 0%, #062C07 46%, #041D05 100%);
-  color:#fff;
-  clip-path:polygon(0 0, 100% 0, 100% calc(100% - 44px), 0 100%);
+  position:relative; isolation:isolate; overflow:hidden; background:#E8F1F7; color:var(--ink);
+  min-height:calc(100svh - var(--head-h)); display:flex; flex-direction:column; justify-content:center;
 }
-.fv__bg{ position:absolute; inset:0; z-index:-1; }
+.fv__media{ position:absolute; inset:0; z-index:-1; }
+.fv__photo{ width:100%; height:100%; object-fit:cover; object-position:8% 50%; }
 
-/* 陽の当たり（右上） */
-.fv__sun{
-  position:absolute; top:-24%; right:-8%; width:min(70vw,860px); aspect-ratio:1; border-radius:50%;
-  background:radial-gradient(circle,
-    rgba(255,196,120,.20) 0%, rgba(255,140,40,.10) 34%, rgba(255,105,0,.04) 55%, transparent 72%);
+/* 文字が乗る側を白く抜く */
+.fv__wash{
+  position:absolute; inset:0;
+  background:linear-gradient(96deg,
+    rgba(255,255,255,.97) 0%, rgba(255,255,255,.95) 26%, rgba(255,255,255,.82) 42%,
+    rgba(255,255,255,.42) 56%, rgba(255,255,255,.08) 70%, rgba(255,255,255,0) 80%);
+}
+/* 陽の回り込み */
+.fv__flare{
+  position:absolute; top:-26%; right:4%; width:min(56vw,680px); aspect-ratio:1; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.72) 0%, rgba(255,246,225,.34) 34%, transparent 68%);
 }
 
-/* パネル面（遠近） */
-.fv__array{ position:absolute; left:-14%; right:-14%; bottom:-4%; height:66%; perspective:720px; perspective-origin:50% 0%; }
-.fv__plane{ position:absolute; inset:0; transform:rotateX(64deg); transform-origin:50% 100%; }
-.fv__grid,.fv__sweep{ position:absolute; inset:-40% -20% 0; }
-.fv__grid{
-  background-image:
-    /* セル */
-    linear-gradient(rgba(155,228,156,.17) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(155,228,156,.17) 1px, transparent 1px),
-    /* モジュール枠 */
-    linear-gradient(rgba(155,228,156,.52) 2px, transparent 2px),
-    linear-gradient(90deg, rgba(155,228,156,.52) 2px, transparent 2px);
-  background-size:27px 27px, 27px 27px, 162px 135px, 162px 135px;
-  -webkit-mask-image:linear-gradient(to top, #000 4%, rgba(0,0,0,.5) 46%, transparent 84%);
-          mask-image:linear-gradient(to top, #000 4%, rgba(0,0,0,.5) 46%, transparent 84%);
-}
-/* パネルを横切る光 */
-.fv__sweep{
-  background:linear-gradient(102deg, transparent 40%, rgba(190,255,190,.14) 50%, transparent 60%);
-  animation:fvSweep 11s linear infinite;
-}
-@keyframes fvSweep{ from{ transform:translate3d(-42%,0,0) } to{ transform:translate3d(42%,0,0) } }
-
-/* ---- 内容 ---- */
-.fv{ min-height:calc(100svh - var(--head-h)); display:flex; flex-direction:column; justify-content:center; }
-.fv__in{ position:relative; width:100%; padding-block:clamp(56px,7vw,92px) clamp(48px,6vw,76px); }
+.fv__in{ position:relative; width:100%; padding-block:clamp(52px,7vw,88px) clamp(128px,14vw,178px); }
 
 .fv__eyebrow{ display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-  font-family:var(--en); font-size:12.5px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#9BE49C; }
-.fv__eyebrow i{ width:26px; height:1px; background:rgba(155,228,156,.5); }
+  font-family:var(--en); font-size:12.5px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--green); }
+.fv__eyebrow i{ width:26px; height:2px; background:var(--orange); }
 
-.fv__ttl{ margin-top:24px; font-size:var(--fs-display); font-weight:700; line-height:1.04; letter-spacing:.005em; }
+.fv__ttl{ margin-top:22px; font-size:var(--fs-display); font-weight:700; line-height:1.04; letter-spacing:.005em;
+  color:var(--ink); text-shadow:0 2px 32px rgba(255,255,255,.88), 0 0 14px rgba(255,255,255,.6); }
 .fv__ttl .l{ display:block; }
-.fv__ttl em{ font-style:normal; color:#9BE49C; }
+.fv__ttl em{ font-style:normal; color:var(--green); }
 
-.fv__sub{ margin-top:26px; max-width:31em; font-size:clamp(15px,1.35vw,17.5px); line-height:2.05; color:rgba(255,255,255,.88); }
-.fv__acts{ display:flex; flex-wrap:wrap; gap:14px; margin-top:38px; }
+.fv__sub{ margin-top:24px; max-width:29em; font-size:clamp(15px,1.3vw,17px); line-height:2.05; color:var(--ink-2); }
+.fv__acts{ display:flex; flex-wrap:wrap; gap:14px; margin-top:34px; }
 
-.fv__stats{ display:flex; flex-wrap:wrap; gap:0; margin:clamp(30px,4vw,52px) 0 0; border-top:1px solid rgba(155,228,156,.28); }
-.fv__stat{ flex:1 1 186px; padding:24px 22px 0 0; position:relative; }
-.fv__stat + .fv__stat{ padding-left:26px; border-left:1px solid rgba(155,228,156,.28); }
-.fv__stat::before{ content:""; position:absolute; top:-1px; left:0; width:34px; height:3px; background:var(--orange); }
-.fv__stat + .fv__stat::before{ left:26px; }
+/* 下端の実績バー */
+.fv__bar{ position:absolute; left:0; right:0; bottom:0;
+  background:rgba(255,255,255,.84); backdrop-filter:blur(10px) saturate(150%);
+  border-top:1px solid rgba(23,153,24,.22); }
+.fv__stats{ display:flex; flex-wrap:wrap; margin:0; }
+.fv__stat{ flex:1 1 180px; padding:18px 20px 20px 0; position:relative; }
+.fv__stat + .fv__stat{ padding-left:24px; border-left:1px solid var(--line); }
 .fv__stat dd{ margin:0; display:flex; align-items:baseline; gap:7px; }
-.fv__stat b{ font-family:var(--en); font-size:clamp(40px,5.4vw,64px); font-weight:700; line-height:1; letter-spacing:.01em; font-variant-numeric:tabular-nums; }
-.fv__stat i{ font-style:normal; font-family:var(--en); font-size:clamp(15px,1.5vw,19px); font-weight:600; letter-spacing:.06em; color:#9BE49C; }
-.fv__stat dt{ margin-top:9px; font-size:12.5px; letter-spacing:.08em; color:rgba(255,255,255,.76); }
-@media (max-width:620px){
-  .fv__stats{ display:grid; grid-template-columns:1fr 1fr; gap:18px 20px; border-top:0; }
-  .fv__stat{ padding:16px 0 0; border-top:1px solid rgba(155,228,156,.28); }
+.fv__stat b{ font-family:var(--en); font-size:clamp(32px,3.6vw,46px); font-weight:700; line-height:1;
+  letter-spacing:.01em; font-variant-numeric:tabular-nums; color:var(--green); }
+.fv__stat i{ font-style:normal; font-family:var(--en); font-size:clamp(13px,1.2vw,16px); font-weight:700;
+  letter-spacing:.06em; color:var(--orange); }
+.fv__stat dt{ margin-top:6px; font-size:12px; letter-spacing:.06em; color:var(--muted); }
+
+@media (max-width:760px){
+  /* 縦画面は「写真の帯 → 白地の内容 → 実績バー」と縦に積む */
+  .fv{ min-height:auto; display:block; background:#fff; }
+  .fv__media{ position:relative; inset:auto; z-index:auto; height:min(44vh,340px); }
+  .fv__photo{ object-position:46% 42%; }
+  .fv__wash{ background:linear-gradient(to top,
+      #fff 0%, rgba(255,255,255,.72) 26%, rgba(255,255,255,.16) 58%, rgba(255,255,255,0) 82%); }
+  .fv__flare{ display:none; }
+  .fv__in{ padding-block:14px 34px; }
+  .fv__ttl{ margin-top:16px; }
+  .fv__sub{ max-width:none; margin-top:20px; }
+  .fv__acts{ margin-top:26px; }
+  .fv__acts .btn{ width:100%; justify-content:space-between; }
+  .fv__bar{ position:static; background:var(--soft); backdrop-filter:none; }
+  .fv__stats{ display:grid; grid-template-columns:1fr 1fr; gap:16px 18px; padding-block:20px; }
+  .fv__stat{ padding:0; }
   .fv__stat + .fv__stat{ padding-left:0; border-left:0; }
-  .fv__stat::before, .fv__stat + .fv__stat::before{ left:0; width:26px; }
   .fv__stat:first-child{ grid-column:1 / -1; }
 }
 
-.fv__scroll{ position:absolute; right:clamp(16px,3vw,38px); bottom:58px; display:flex; align-items:center; gap:10px;
-  font-family:var(--en); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(255,255,255,.5);
-  writing-mode:vertical-rl; }
-.fv__scroll i{ width:1px; height:54px; background:rgba(255,255,255,.28); position:relative; overflow:hidden; }
-.fv__scroll i::after{ content:""; position:absolute; inset:0 0 auto; height:18px; background:#9BE49C; animation:fvScroll 2.2s ease-in-out infinite; }
-@keyframes fvScroll{ 0%{ transform:translateY(-100%) } 60%,100%{ transform:translateY(300%) } }
-@media (max-width:700px){ .fv__scroll{ display:none; } }
-
 /* 読み込み時の立ち上がり（1回だけ、順番に） */
-.fv__eyebrow,.fv__ttl .l,.fv__sub,.fv__acts,.fv__stats{
+.fv__eyebrow,.fv__ttl .l,.fv__sub,.fv__acts,.fv__bar{
   opacity:0; transform:translateY(18px); animation:fvIn .9s cubic-bezier(.2,.7,.2,1) forwards;
 }
 .fv__eyebrow{ animation-delay:.08s }
@@ -298,20 +287,15 @@ table{ border-collapse:collapse; width:100%; }
 .fv__ttl .l:nth-child(2){ animation-delay:.30s }
 .fv__sub{ animation-delay:.46s }
 .fv__acts{ animation-delay:.58s }
-.fv__stats{ animation-delay:.70s }
+.fv__bar{ animation-delay:.72s }
 @keyframes fvIn{ to{ opacity:1; transform:none } }
 
-/* 画面が低いノートPCでは見出しと余白を詰める */
 @media (min-width:900px) and (max-height:800px){
   .fv{ --fs-display:clamp(40px,6vw,74px); }
-  .fv__in{ padding-block:44px 38px; }
-  .fv__ttl{ margin-top:18px; }
-  .fv__sub{ margin-top:20px; }
-  .fv__acts{ margin-top:28px; }
-  .fv__stats{ margin-top:32px; }
-}
-@media (max-width:620px){
-  .fv__in{ padding-block:44px 40px; }
+  .fv__in{ padding-block:40px 120px; }
+  .fv__ttl{ margin-top:16px; }
+  .fv__sub{ margin-top:18px; }
+  .fv__acts{ margin-top:26px; }
 }
 
 /* 汎用のボタン並び（下層でも使う） */
@@ -399,7 +383,7 @@ table{ border-collapse:collapse; width:100%; }
 .ft{ background:var(--ink); color:rgba(255,255,255,.76); padding-block:clamp(48px,6vw,76px) 0; }
 .ft__top{ display:grid; grid-template-columns:minmax(240px,1fr) 2fr; gap:clamp(30px,5vw,70px); padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,.14); }
 @media (max-width:860px){ .ft__top{ grid-template-columns:1fr; } }
-.ft .logo__ja{ color:#fff; } .ft .logo__en{ color:rgba(255,255,255,.55); }
+.ft .logo__ja{ color:#fff; } .ft .logo__biz{ color:rgba(255,255,255,.55); } .ft .logo__mark{ color:#4ECA50; }
 .ft__addr{ margin-top:20px; font-size:13.5px; line-height:2; font-style:normal; }
 .ft__nav{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
 @media (max-width:600px){ .ft__nav{ grid-template-columns:repeat(2,1fr); } }
@@ -490,16 +474,12 @@ table{ border-collapse:collapse; width:100%; }
 <header class="hd">
   <div class="wrap hd__in">
     <a class="logo" href="index.html" aria-label="有限会社金山製作所 トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-        <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-        <g stroke="#fff" stroke-width="1.4" opacity=".85">
-          <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-        </g>
+      <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+        <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
       </svg>
       <span class="logo__txt">
-        <span class="logo__ja">有限会社金山製作所</span>
-        <span class="logo__en">Kanayama Seisakusho</span>
+        <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+        <span class="logo__ja">有限会社 金山製作所</span>
       </span>
     </a>
 
@@ -546,15 +526,10 @@ table{ border-collapse:collapse; width:100%; }
 </header>
 
 <main><section class="fv">
-  <div class="fv__bg" aria-hidden="true">
-    <span class="fv__sun"></span>
-    <div class="fv__array">
-      <div class="fv__plane">
-        <div class="fv__grid"></div>
-        <div class="fv__sweep"></div>
-      </div>
-    </div>
-    <div class="fv__horizon"></div>
+  <div class="fv__media">
+    <img class="fv__photo" src="assets/img/slide_01_full.jpg" alt="" fetchpriority="high" decoding="async">
+    <span class="fv__wash" aria-hidden="true"></span>
+    <span class="fv__flare" aria-hidden="true"></span>
   </div>
 
   <div class="wrap fv__in">
@@ -563,16 +538,17 @@ table{ border-collapse:collapse; width:100%; }
     <p class="fv__sub">2011年から住宅の屋根に上がり続けてきました。太陽光発電システムの設置と、電気・水道工事。その両方を自社で手がけられることが、私たちの強みです。</p>
     <div class="fv__acts">
       <a class="btn btn--accent" href="contact.html">無料で現地調査を依頼する</a>
-      <a class="btn btn--onDark" href="works.html">工事実績を見る</a>
+      <a class="btn btn--ghost" href="works.html">工事実績を見る</a>
     </div>
-    <dl class="fv__stats">
+  </div>
+
+  <div class="fv__bar">
+    <dl class="wrap fv__stats">
       <div class="fv__stat"><dd><b data-count>5,000</b><i>棟 +</i></dd><dt>これまでに上がった屋根</dt></div>
       <div class="fv__stat"><dd><b>2011</b><i>年 –</i></dd><dt>太陽光施工に取り組んで</dt></div>
       <div class="fv__stat"><dd><b>2</b><i>事業</i></dd><dt>太陽光 ＋ 電気・水道</dt></div>
     </dl>
   </div>
-
-  <span class="fv__scroll" aria-hidden="true"><i></i>Scroll</span>
 </section>
 
 <section class="sec">
@@ -603,7 +579,7 @@ table{ border-collapse:collapse; width:100%; }
       <a class="biz__card" href="solar.html">
         <div class="biz__fig">
           <span class="biz__no">01</span>
-          <div class="ph ph--fill" data-ph="［写真］太陽光パネル設置の施工風景 ／ 1600×1000px"></div>
+          <img class="media media--fill" src="assets/img/service_01.jpg" alt="工場屋根に設置した大規模な太陽光パネル" loading="lazy" decoding="async">
         </div>
         <div class="biz__body">
           <h3 class="biz__ttl"><span class="en">Solar &amp; Storage</span>太陽光発電・蓄電</h3>
@@ -617,7 +593,7 @@ table{ border-collapse:collapse; width:100%; }
       <a class="biz__card" href="electric.html">
         <div class="biz__fig">
           <span class="biz__no">02</span>
-          <div class="ph ph--fill" data-ph="［写真］電気工事・水道工事の作業風景 ／ 1600×1000px"></div>
+          <img class="media media--fill" src="assets/img/service_02.jpg" alt="分電盤の配線作業" loading="lazy" decoding="async">
         </div>
         <div class="biz__body">
           <h3 class="biz__ttl"><span class="en">Electric &amp; Plumbing</span>電気・水道工事</h3>
@@ -674,7 +650,7 @@ table{ border-collapse:collapse; width:100%; }
       <a class="work" href="works-detail.html">
         <div class="work__fig">
           <span class="work__cat">太陽光＋蓄電池</span>
-          <div class="ph ph--4x3" data-ph="［写真］施工事例サムネイル ／ 1200×900px"></div>
+          <img class="media media--4x3" src="assets/img/DSC01045-1-760x530.jpg" alt="金属屋根に設置した太陽光パネル" loading="lazy" decoding="async">
         </div>
         <h3 class="work__ttl">ソーラーパネルと蓄電池設置（東京都墨田区）</h3>
         <p class="work__meta"><span class="en">2024.11</span><span>東京都墨田区</span></p>
@@ -682,7 +658,7 @@ table{ border-collapse:collapse; width:100%; }
       <a class="work" href="works-detail.html">
         <div class="work__fig">
           <span class="work__cat">太陽光</span>
-          <div class="ph ph--4x3" data-ph="［写真］施工事例サムネイル ／ 1200×900px"></div>
+          <img class="media media--4x3" src="assets/img/IMG_9921-760x530.jpg" alt="足場を組んで施工中の太陽光パネル" loading="lazy" decoding="async">
         </div>
         <h3 class="work__ttl">ソーラーパネル設置：築10年での新規設置（神奈川県横浜市）</h3>
         <p class="work__meta"><span class="en">2024.09</span><span>神奈川県横浜市</span></p>
@@ -690,7 +666,7 @@ table{ border-collapse:collapse; width:100%; }
       <a class="work" href="works-detail.html">
         <div class="work__fig">
           <span class="work__cat">電気・水道</span>
-          <div class="ph ph--4x3" data-ph="［写真］施工事例サムネイル ／ 1200×900px"></div>
+          <img class="media media--4x3" src="assets/img/IMG_1615-760x530.jpg" alt="施工を終えた屋根上の太陽光パネル" loading="lazy" decoding="async">
         </div>
         <h3 class="work__ttl">給湯器交換とエアコン新設（東京都江東区）</h3>
         <p class="work__meta"><span class="en">2024.08</span><span>東京都江東区</span></p>
@@ -707,7 +683,7 @@ table{ border-collapse:collapse; width:100%; }
       <h2 class="h-sec">採用情報</h2>
     </div>
     <div>
-      <div class="ph ph--16x9" data-ph="［写真］チームでの作業風景・集合写真（支給いただいた写真） ／ assets/img/recruit-team.jpg を配置すると表示されます"></div>
+      <img class="media media--16x9" src="assets/img/recruit_01.jpg" alt="社用車の前に並ぶ金山製作所のスタッフ3名" loading="lazy" decoding="async">
       <p class="lead mt-m">未経験からでも、屋根の上で一人前になれます。</p>
       <p class="p">現在、施工スタッフを募集しています。資格取得の支援制度あり。まずは職場の雰囲気を、社員紹介のページからご覧ください。</p>
       <p class="acts" style="margin-top:26px">
@@ -771,16 +747,12 @@ table{ border-collapse:collapse; width:100%; }
     <div class="ft__top">
       <div>
         <div class="logo">
-          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-            <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-            <g stroke="#fff" stroke-width="1.4" opacity=".85">
-              <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-            </g>
-          </svg>
+          <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+            <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
+      </svg>
           <span class="logo__txt">
-            <span class="logo__ja">有限会社金山製作所</span>
-            <span class="logo__en">Kanayama Seisakusho</span>
+            <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+            <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
         <address class="ft__addr">
@@ -829,16 +801,12 @@ table{ border-collapse:collapse; width:100%; }
 <header class="hd">
   <div class="wrap hd__in">
     <a class="logo" href="index.html" aria-label="有限会社金山製作所 トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-        <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-        <g stroke="#fff" stroke-width="1.4" opacity=".85">
-          <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-        </g>
+      <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+        <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
       </svg>
       <span class="logo__txt">
-        <span class="logo__ja">有限会社金山製作所</span>
-        <span class="logo__en">Kanayama Seisakusho</span>
+        <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+        <span class="logo__ja">有限会社 金山製作所</span>
       </span>
     </a>
 
@@ -886,7 +854,7 @@ table{ border-collapse:collapse; width:100%; }
 
 <main><section class="phd">
   <div class="phd__media">
-    <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150002.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <img class="media media--fill" src="assets/img/bg_01.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
   </div>
   <div class="phd__veil"></div>
   <div class="wrap phd__in">
@@ -911,7 +879,7 @@ table{ border-collapse:collapse; width:100%; }
 
 <section class="sec sec--soft">
   <div class="wrap">
-    <div class="ph ph--16x9 reveal" data-ph="［写真］代表または職人の手元のカット ／ 1800×1013px"></div>
+    <img class="media media--16x9" src="assets/img/slide_05.jpg" alt="空を背に屋根の上に立つ職人" loading="lazy" decoding="async">
   </div>
 </section>
 
@@ -970,16 +938,12 @@ table{ border-collapse:collapse; width:100%; }
     <div class="ft__top">
       <div>
         <div class="logo">
-          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-            <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-            <g stroke="#fff" stroke-width="1.4" opacity=".85">
-              <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-            </g>
-          </svg>
+          <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+            <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
+      </svg>
           <span class="logo__txt">
-            <span class="logo__ja">有限会社金山製作所</span>
-            <span class="logo__en">Kanayama Seisakusho</span>
+            <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+            <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
         <address class="ft__addr">
@@ -1028,16 +992,12 @@ table{ border-collapse:collapse; width:100%; }
 <header class="hd">
   <div class="wrap hd__in">
     <a class="logo" href="index.html" aria-label="有限会社金山製作所 トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-        <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-        <g stroke="#fff" stroke-width="1.4" opacity=".85">
-          <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-        </g>
+      <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+        <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
       </svg>
       <span class="logo__txt">
-        <span class="logo__ja">有限会社金山製作所</span>
-        <span class="logo__en">Kanayama Seisakusho</span>
+        <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+        <span class="logo__ja">有限会社 金山製作所</span>
       </span>
     </a>
 
@@ -1085,7 +1045,7 @@ table{ border-collapse:collapse; width:100%; }
 
 <main><section class="phd">
   <div class="phd__media">
-    <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_9921-scaled.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <img class="media media--fill" src="assets/img/slide_03.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
   </div>
   <div class="phd__veil"></div>
   <div class="wrap phd__in">
@@ -1120,7 +1080,7 @@ table{ border-collapse:collapse; width:100%; }
 
     <div class="works mt-l reveal">
       <div class="work">
-        <div class="work__fig"><span class="work__cat">01</span><div class="ph ph--4x3" data-ph="［写真］太陽光パネル設置 ／ 1200×900px"></div></div>
+        <div class="work__fig"><span class="work__cat">01</span><img class="media media--4x3" src="assets/img/service_01.jpg" alt="屋根一面に敷き詰めた太陽光パネル" loading="lazy" decoding="async"></div>
         <h3 class="work__ttl">太陽光パネル設置</h3>
         <p class="pt__d">新築・既築どちらにも対応。屋根材と築年数に応じて工法を選定し、防水処理を徹底します。</p>
       </div>
@@ -1217,16 +1177,12 @@ table{ border-collapse:collapse; width:100%; }
     <div class="ft__top">
       <div>
         <div class="logo">
-          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-            <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-            <g stroke="#fff" stroke-width="1.4" opacity=".85">
-              <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-            </g>
-          </svg>
+          <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+            <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
+      </svg>
           <span class="logo__txt">
-            <span class="logo__ja">有限会社金山製作所</span>
-            <span class="logo__en">Kanayama Seisakusho</span>
+            <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+            <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
         <address class="ft__addr">
@@ -1275,16 +1231,12 @@ table{ border-collapse:collapse; width:100%; }
 <header class="hd">
   <div class="wrap hd__in">
     <a class="logo" href="index.html" aria-label="有限会社金山製作所 トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-        <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-        <g stroke="#fff" stroke-width="1.4" opacity=".85">
-          <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-        </g>
+      <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+        <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
       </svg>
       <span class="logo__txt">
-        <span class="logo__ja">有限会社金山製作所</span>
-        <span class="logo__en">Kanayama Seisakusho</span>
+        <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+        <span class="logo__ja">有限会社 金山製作所</span>
       </span>
     </a>
 
@@ -1332,7 +1284,7 @@ table{ border-collapse:collapse; width:100%; }
 
 <main><section class="phd">
   <div class="phd__media">
-    <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_5376-scaled.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <img class="media media--fill" src="assets/img/service_02.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
   </div>
   <div class="phd__veil"></div>
   <div class="wrap phd__in">
@@ -1437,16 +1389,12 @@ table{ border-collapse:collapse; width:100%; }
     <div class="ft__top">
       <div>
         <div class="logo">
-          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-            <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-            <g stroke="#fff" stroke-width="1.4" opacity=".85">
-              <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-            </g>
-          </svg>
+          <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+            <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
+      </svg>
           <span class="logo__txt">
-            <span class="logo__ja">有限会社金山製作所</span>
-            <span class="logo__en">Kanayama Seisakusho</span>
+            <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+            <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
         <address class="ft__addr">
@@ -1495,16 +1443,12 @@ table{ border-collapse:collapse; width:100%; }
 <header class="hd">
   <div class="wrap hd__in">
     <a class="logo" href="index.html" aria-label="有限会社金山製作所 トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-        <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-        <g stroke="#fff" stroke-width="1.4" opacity=".85">
-          <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-        </g>
+      <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+        <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
       </svg>
       <span class="logo__txt">
-        <span class="logo__ja">有限会社金山製作所</span>
-        <span class="logo__en">Kanayama Seisakusho</span>
+        <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+        <span class="logo__ja">有限会社 金山製作所</span>
       </span>
     </a>
 
@@ -1552,7 +1496,7 @@ table{ border-collapse:collapse; width:100%; }
 
 <main><section class="phd">
   <div class="phd__media">
-    <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_3406-scaled.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <img class="media media--fill" src="assets/img/bg_02.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
   </div>
   <div class="phd__veil"></div>
   <div class="wrap phd__in">
@@ -1573,32 +1517,32 @@ table{ border-collapse:collapse; width:100%; }
 
     <div class="works mt-l reveal">
       <a class="work" href="works-detail.html">
-        <div class="work__fig"><span class="work__cat">太陽光＋蓄電池</span><div class="ph ph--4x3" data-ph="［写真］施工事例 ／ 1200×900px"></div></div>
+        <div class="work__fig"><span class="work__cat">太陽光＋蓄電池</span><img class="media media--4x3" src="assets/img/DSC01045-1-760x530.jpg" alt="金属屋根に設置した太陽光パネル" loading="lazy" decoding="async"></div>
         <h3 class="work__ttl">ソーラーパネルと蓄電池設置（東京都墨田区）</h3>
         <p class="work__meta"><span class="en">2024.11</span><span>東京都墨田区</span></p>
       </a>
       <a class="work" href="works-detail.html">
-        <div class="work__fig"><span class="work__cat">太陽光</span><div class="ph ph--4x3" data-ph="［写真］施工事例 ／ 1200×900px"></div></div>
+        <div class="work__fig"><span class="work__cat">太陽光</span><img class="media media--4x3" src="assets/img/IMG_9921-760x530.jpg" alt="足場を組んで施工中の太陽光パネル" loading="lazy" decoding="async"></div>
         <h3 class="work__ttl">ソーラーパネル設置：築10年での新規設置（神奈川県横浜市）</h3>
         <p class="work__meta"><span class="en">2024.09</span><span>神奈川県横浜市</span></p>
       </a>
       <a class="work" href="works-detail.html">
-        <div class="work__fig"><span class="work__cat">電気・水道</span><div class="ph ph--4x3" data-ph="［写真］施工事例 ／ 1200×900px"></div></div>
+        <div class="work__fig"><span class="work__cat">電気・水道</span><img class="media media--4x3" src="assets/img/IMG_1615-760x530.jpg" alt="施工を終えた屋根上の太陽光パネル" loading="lazy" decoding="async"></div>
         <h3 class="work__ttl">給湯器交換とエアコン新設（東京都江東区）</h3>
         <p class="work__meta"><span class="en">2024.08</span><span>東京都江東区</span></p>
       </a>
       <a class="work" href="works-detail.html">
-        <div class="work__fig"><span class="work__cat">オール電化</span><div class="ph ph--4x3" data-ph="［写真］施工事例 ／ 1200×900px"></div></div>
+        <div class="work__fig"><span class="work__cat">オール電化</span><img class="media media--4x3" src="assets/img/slide_04.jpg" alt="陸屋根に架台で設置した太陽光パネル" loading="lazy" decoding="async"></div>
         <h3 class="work__ttl">［仮テキスト］オール電化への切り替え工事（千葉県市川市）</h3>
         <p class="work__meta"><span class="en">2024.06</span><span>千葉県市川市</span></p>
       </a>
       <a class="work" href="works-detail.html">
-        <div class="work__fig"><span class="work__cat">太陽光</span><div class="ph ph--4x3" data-ph="［写真］施工事例 ／ 1200×900px"></div></div>
+        <div class="work__fig"><span class="work__cat">太陽光</span><img class="media media--4x3" src="assets/img/slide_07.jpg" alt="屋根の上で作業する2名の職人" loading="lazy" decoding="async"></div>
         <h3 class="work__ttl">［仮テキスト］スレート屋根への新規設置（東京都葛飾区）</h3>
         <p class="work__meta"><span class="en">2024.04</span><span>東京都葛飾区</span></p>
       </a>
       <a class="work" href="works-detail.html">
-        <div class="work__fig"><span class="work__cat">蓄電池</span><div class="ph ph--4x3" data-ph="［写真］施工事例 ／ 1200×900px"></div></div>
+        <div class="work__fig"><span class="work__cat">蓄電池</span><img class="media media--4x3" src="assets/img/service_01.jpg" alt="工場屋根の大規模な太陽光パネル" loading="lazy" decoding="async"></div>
         <h3 class="work__ttl">［仮テキスト］既設の太陽光に蓄電池を追加（神奈川県川崎市）</h3>
         <p class="work__meta"><span class="en">2024.02</span><span>神奈川県川崎市</span></p>
       </a>
@@ -1630,16 +1574,12 @@ table{ border-collapse:collapse; width:100%; }
     <div class="ft__top">
       <div>
         <div class="logo">
-          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-            <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-            <g stroke="#fff" stroke-width="1.4" opacity=".85">
-              <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-            </g>
-          </svg>
+          <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+            <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
+      </svg>
           <span class="logo__txt">
-            <span class="logo__ja">有限会社金山製作所</span>
-            <span class="logo__en">Kanayama Seisakusho</span>
+            <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+            <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
         <address class="ft__addr">
@@ -1688,16 +1628,12 @@ table{ border-collapse:collapse; width:100%; }
 <header class="hd">
   <div class="wrap hd__in">
     <a class="logo" href="index.html" aria-label="有限会社金山製作所 トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-        <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-        <g stroke="#fff" stroke-width="1.4" opacity=".85">
-          <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-        </g>
+      <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+        <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
       </svg>
       <span class="logo__txt">
-        <span class="logo__ja">有限会社金山製作所</span>
-        <span class="logo__en">Kanayama Seisakusho</span>
+        <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+        <span class="logo__ja">有限会社 金山製作所</span>
       </span>
     </a>
 
@@ -1745,7 +1681,7 @@ table{ border-collapse:collapse; width:100%; }
 
 <main><section class="phd">
   <div class="phd__media">
-    <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1615.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <img class="media media--fill" src="assets/img/slide_04.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
   </div>
   <div class="phd__veil"></div>
   <div class="wrap phd__in">
@@ -1780,8 +1716,8 @@ table{ border-collapse:collapse; width:100%; }
 
     <div class="works mt-l reveal">
       <div class="work"><div class="ph ph--4x3" data-ph="［写真］施工前 ／ 1200×900px"></div><h3 class="work__ttl">施工前</h3></div>
-      <div class="work"><div class="ph ph--4x3" data-ph="［写真］施工中（架台設置） ／ 1200×900px"></div><h3 class="work__ttl">施工中</h3></div>
-      <div class="work"><div class="ph ph--4x3" data-ph="［写真］施工後 ／ 1200×900px"></div><h3 class="work__ttl">施工後</h3></div>
+      <div class="work"><img class="media media--4x3" src="assets/img/slide_03.jpg" alt="太陽光パネルを担いで運ぶ職人" loading="lazy" decoding="async"><h3 class="work__ttl">施工中</h3></div>
+      <div class="work"><img class="media media--4x3" src="assets/img/DSC01045-1-760x530.jpg" alt="設置が完了した太陽光パネル" loading="lazy" decoding="async"><h3 class="work__ttl">施工後</h3></div>
     </div>
 
     <p class="mt-l center"><a class="btn btn--ghost" href="works.html">工事実績一覧へ戻る</a></p>
@@ -1810,16 +1746,12 @@ table{ border-collapse:collapse; width:100%; }
     <div class="ft__top">
       <div>
         <div class="logo">
-          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-            <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-            <g stroke="#fff" stroke-width="1.4" opacity=".85">
-              <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-            </g>
-          </svg>
+          <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+            <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
+      </svg>
           <span class="logo__txt">
-            <span class="logo__ja">有限会社金山製作所</span>
-            <span class="logo__en">Kanayama Seisakusho</span>
+            <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+            <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
         <address class="ft__addr">
@@ -1868,16 +1800,12 @@ table{ border-collapse:collapse; width:100%; }
 <header class="hd">
   <div class="wrap hd__in">
     <a class="logo" href="index.html" aria-label="有限会社金山製作所 トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-        <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-        <g stroke="#fff" stroke-width="1.4" opacity=".85">
-          <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-        </g>
+      <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+        <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
       </svg>
       <span class="logo__txt">
-        <span class="logo__ja">有限会社金山製作所</span>
-        <span class="logo__en">Kanayama Seisakusho</span>
+        <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+        <span class="logo__ja">有限会社 金山製作所</span>
       </span>
     </a>
 
@@ -1925,7 +1853,7 @@ table{ border-collapse:collapse; width:100%; }
 
 <main><section class="phd">
   <div class="phd__media">
-    <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1609.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <img class="media media--fill" src="assets/img/slide_07.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
   </div>
   <div class="phd__veil"></div>
   <div class="wrap phd__in">
@@ -2010,16 +1938,12 @@ table{ border-collapse:collapse; width:100%; }
     <div class="ft__top">
       <div>
         <div class="logo">
-          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-            <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-            <g stroke="#fff" stroke-width="1.4" opacity=".85">
-              <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-            </g>
-          </svg>
+          <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+            <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
+      </svg>
           <span class="logo__txt">
-            <span class="logo__ja">有限会社金山製作所</span>
-            <span class="logo__en">Kanayama Seisakusho</span>
+            <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+            <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
         <address class="ft__addr">
@@ -2068,16 +1992,12 @@ table{ border-collapse:collapse; width:100%; }
 <header class="hd">
   <div class="wrap hd__in">
     <a class="logo" href="index.html" aria-label="有限会社金山製作所 トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-        <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-        <g stroke="#fff" stroke-width="1.4" opacity=".85">
-          <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-        </g>
+      <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+        <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
       </svg>
       <span class="logo__txt">
-        <span class="logo__ja">有限会社金山製作所</span>
-        <span class="logo__en">Kanayama Seisakusho</span>
+        <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+        <span class="logo__ja">有限会社 金山製作所</span>
       </span>
     </a>
 
@@ -2125,7 +2045,7 @@ table{ border-collapse:collapse; width:100%; }
 
 <main><section class="phd">
   <div class="phd__media">
-    <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/06/b922a090f4fec8beda83191428714a0a.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <img class="media media--fill" src="assets/img/slide_05.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
   </div>
   <div class="phd__veil"></div>
   <div class="wrap phd__in">
@@ -2190,16 +2110,12 @@ table{ border-collapse:collapse; width:100%; }
     <div class="ft__top">
       <div>
         <div class="logo">
-          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-            <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-            <g stroke="#fff" stroke-width="1.4" opacity=".85">
-              <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-            </g>
-          </svg>
+          <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+            <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
+      </svg>
           <span class="logo__txt">
-            <span class="logo__ja">有限会社金山製作所</span>
-            <span class="logo__en">Kanayama Seisakusho</span>
+            <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+            <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
         <address class="ft__addr">
@@ -2248,16 +2164,12 @@ table{ border-collapse:collapse; width:100%; }
 <header class="hd">
   <div class="wrap hd__in">
     <a class="logo" href="index.html" aria-label="有限会社金山製作所 トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-        <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-        <g stroke="#fff" stroke-width="1.4" opacity=".85">
-          <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-        </g>
+      <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+        <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
       </svg>
       <span class="logo__txt">
-        <span class="logo__ja">有限会社金山製作所</span>
-        <span class="logo__en">Kanayama Seisakusho</span>
+        <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+        <span class="logo__ja">有限会社 金山製作所</span>
       </span>
     </a>
 
@@ -2305,7 +2217,7 @@ table{ border-collapse:collapse; width:100%; }
 
 <main><section class="phd">
   <div class="phd__media">
-    <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1610.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <img class="media media--fill" src="assets/img/bg_02.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
   </div>
   <div class="phd__veil"></div>
   <div class="wrap phd__in">
@@ -2377,7 +2289,7 @@ table{ border-collapse:collapse; width:100%; }
       <h2 class="h-sec">先輩の声</h2>
     </div>
     <div>
-      <div class="ph ph--16x9" data-ph="［写真］社員の作業風景（支給いただいた写真） ／ assets/img/recruit-team.jpg を配置すると表示されます"></div>
+      <img class="media media--16x9" src="assets/img/recruit_01.jpg" alt="社用車の前に並ぶ金山製作所のスタッフ3名" loading="lazy" decoding="async">
       <p class="p mt-m">実際に働くスタッフに、仕事のやりがいや一日の流れを聞きました。</p>
       <p class="mt-m"><a class="btn btn--ghost" href="interview.html">社員紹介を読む</a></p>
     </div>
@@ -2406,16 +2318,12 @@ table{ border-collapse:collapse; width:100%; }
     <div class="ft__top">
       <div>
         <div class="logo">
-          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-            <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-            <g stroke="#fff" stroke-width="1.4" opacity=".85">
-              <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-            </g>
-          </svg>
+          <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+            <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
+      </svg>
           <span class="logo__txt">
-            <span class="logo__ja">有限会社金山製作所</span>
-            <span class="logo__en">Kanayama Seisakusho</span>
+            <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+            <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
         <address class="ft__addr">
@@ -2464,16 +2372,12 @@ table{ border-collapse:collapse; width:100%; }
 <header class="hd">
   <div class="wrap hd__in">
     <a class="logo" href="index.html" aria-label="有限会社金山製作所 トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-        <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-        <g stroke="#fff" stroke-width="1.4" opacity=".85">
-          <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-        </g>
+      <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+        <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
       </svg>
       <span class="logo__txt">
-        <span class="logo__ja">有限会社金山製作所</span>
-        <span class="logo__en">Kanayama Seisakusho</span>
+        <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+        <span class="logo__ja">有限会社 金山製作所</span>
       </span>
     </a>
 
@@ -2521,7 +2425,7 @@ table{ border-collapse:collapse; width:100%; }
 
 <main><section class="phd">
   <div class="phd__media">
-    <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_3347-scaled.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <img class="media media--fill" src="assets/img/recruit_01.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
   </div>
   <div class="phd__veil"></div>
   <div class="wrap phd__in">
@@ -2617,16 +2521,12 @@ table{ border-collapse:collapse; width:100%; }
     <div class="ft__top">
       <div>
         <div class="logo">
-          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-            <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-            <g stroke="#fff" stroke-width="1.4" opacity=".85">
-              <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-            </g>
-          </svg>
+          <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+            <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
+      </svg>
           <span class="logo__txt">
-            <span class="logo__ja">有限会社金山製作所</span>
-            <span class="logo__en">Kanayama Seisakusho</span>
+            <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+            <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
         <address class="ft__addr">
@@ -2675,16 +2575,12 @@ table{ border-collapse:collapse; width:100%; }
 <header class="hd">
   <div class="wrap hd__in">
     <a class="logo" href="index.html" aria-label="有限会社金山製作所 トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-        <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-        <g stroke="#fff" stroke-width="1.4" opacity=".85">
-          <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-        </g>
+      <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+        <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
       </svg>
       <span class="logo__txt">
-        <span class="logo__ja">有限会社金山製作所</span>
-        <span class="logo__en">Kanayama Seisakusho</span>
+        <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+        <span class="logo__ja">有限会社 金山製作所</span>
       </span>
     </a>
 
@@ -2732,7 +2628,7 @@ table{ border-collapse:collapse; width:100%; }
 
 <main><section class="phd">
   <div class="phd__media">
-    <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/a3c0a17351e772e04774f332595e85c5-scaled.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <img class="media media--fill" src="assets/img/bg_01.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
   </div>
   <div class="phd__veil"></div>
   <div class="wrap phd__in">
@@ -2797,16 +2693,12 @@ table{ border-collapse:collapse; width:100%; }
     <div class="ft__top">
       <div>
         <div class="logo">
-          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-            <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-            <g stroke="#fff" stroke-width="1.4" opacity=".85">
-              <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-            </g>
-          </svg>
+          <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+            <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
+      </svg>
           <span class="logo__txt">
-            <span class="logo__ja">有限会社金山製作所</span>
-            <span class="logo__en">Kanayama Seisakusho</span>
+            <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+            <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
         <address class="ft__addr">
@@ -2855,16 +2747,12 @@ table{ border-collapse:collapse; width:100%; }
 <header class="hd">
   <div class="wrap hd__in">
     <a class="logo" href="index.html" aria-label="有限会社金山製作所 トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-        <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-        <g stroke="#fff" stroke-width="1.4" opacity=".85">
-          <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-        </g>
+      <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+        <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
       </svg>
       <span class="logo__txt">
-        <span class="logo__ja">有限会社金山製作所</span>
-        <span class="logo__en">Kanayama Seisakusho</span>
+        <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+        <span class="logo__ja">有限会社 金山製作所</span>
       </span>
     </a>
 
@@ -2912,7 +2800,7 @@ table{ border-collapse:collapse; width:100%; }
 
 <main><section class="phd">
   <div class="phd__media">
-    <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/IMG_1616.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <img class="media media--fill" src="assets/img/slide_07.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
   </div>
   <div class="phd__veil"></div>
   <div class="wrap phd__in">
@@ -3000,16 +2888,12 @@ table{ border-collapse:collapse; width:100%; }
     <div class="ft__top">
       <div>
         <div class="logo">
-          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-            <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-            <g stroke="#fff" stroke-width="1.4" opacity=".85">
-              <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-            </g>
-          </svg>
+          <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+            <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
+      </svg>
           <span class="logo__txt">
-            <span class="logo__ja">有限会社金山製作所</span>
-            <span class="logo__en">Kanayama Seisakusho</span>
+            <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+            <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
         <address class="ft__addr">
@@ -3058,16 +2942,12 @@ table{ border-collapse:collapse; width:100%; }
 <header class="hd">
   <div class="wrap hd__in">
     <a class="logo" href="index.html" aria-label="有限会社金山製作所 トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-        <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-        <g stroke="#fff" stroke-width="1.4" opacity=".85">
-          <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-        </g>
+      <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+        <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
       </svg>
       <span class="logo__txt">
-        <span class="logo__ja">有限会社金山製作所</span>
-        <span class="logo__en">Kanayama Seisakusho</span>
+        <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+        <span class="logo__ja">有限会社 金山製作所</span>
       </span>
     </a>
 
@@ -3115,7 +2995,7 @@ table{ border-collapse:collapse; width:100%; }
 
 <main><section class="phd">
   <div class="phd__media">
-    <img class="media media--fill" src="https://kanayama-ss.com/wp/wp-content/uploads/2021/07/P2150002.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <img class="media media--fill" src="assets/img/bg_01.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
   </div>
   <div class="phd__veil"></div>
   <div class="wrap phd__in">
@@ -3172,16 +3052,12 @@ table{ border-collapse:collapse; width:100%; }
     <div class="ft__top">
       <div>
         <div class="logo">
-          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M20 3 38 15v22H2V15z" fill="#179918"/>
-            <path d="M20 3 38 15H2z" fill="#0B4A0C"/>
-            <g stroke="#fff" stroke-width="1.4" opacity=".85">
-              <path d="M8 20h24M8 26h24M8 32h24M16 17v18M24 17v18"/>
-            </g>
-          </svg>
+          <svg class="logo__mark" viewBox="0 0 81.962 59.95" role="img" aria-label="金山製作所">
+            <path d="M3717.073,589.63a15.734,15.734,0,0,0-28.672-7.651,15.037,15.037,0,0,0-20.822-4.32q-.606.4-1.172.853a20.335,20.335,0,1,0-7.6,37.191V599.928a5.763,5.763,0,1,1,2.137-5.353c.024.171.042.344.051.517l0,20.97a4.305,4.305,0,0,1-2.821,4.074,17.429,17.429,0,0,1-12.358-1.3v14.225a24.951,24.951,0,0,0,22.126-1.221,17.725,17.725,0,0,0,8.254-15.671l.01-24.166a2.469,2.469,0,0,1,4.938.019c0,.026,0,.053,0,.079v24.065h15.891V591.638a2.091,2.091,0,0,1,4.175-.069v24.57l15.869.008-.009-26.518" transform="translate(-3635.12 -575.126)" fill="currentColor"/>
+      </svg>
           <span class="logo__txt">
-            <span class="logo__ja">有限会社金山製作所</span>
-            <span class="logo__en">Kanayama Seisakusho</span>
+            <span class="logo__biz">太陽光発電・蓄電池工事／電気・水道工事</span>
+            <span class="logo__ja">有限会社 金山製作所</span>
           </span>
         </div>
         <address class="ft__addr">
