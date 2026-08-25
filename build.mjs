@@ -14,7 +14,33 @@ const layout = read(join(SRC, 'layout.html'));
 const header = read(join(SRC, 'partials/header.html'));
 const footer = read(join(SRC, 'partials/footer.html'));
 const css = read(join(SRC, 'assets/style.css'));
+const manifest = JSON.parse(read(join(SRC, 'images.json')));
+const byId = new Map(manifest.images.map((e) => [e.id, e]));
 const js = read(join(SRC, 'assets/app.js'));
+
+/**
+ * 画像スロットを描画する。
+ *  images.json に src があれば <img>、無ければプレースホルダーのまま。
+ *  → URL を1行入れるだけで実画像に切り替わる
+ */
+function renderSlots(html) {
+  return html.replace(/<div class="([^"]*)"\s+data-img="([^"]+)"\s*><\/div>/g, (_m, cls, id) => {
+    const e = byId.get(id);
+    if (!e) throw new Error(`images.json に画像スロット "${id}" の定義がありません`);
+    if (!e.src) {
+      const label = `［${e.kind}］${e.label}${e.size ? ' ／ ' + e.size : ''}`;
+      return `<div class="${cls}" data-ph="${label}"></div>`;
+    }
+    const mods = cls.split(/\s+/)
+      .filter((c) => c.startsWith('ph--') && c !== 'ph--dark')
+      .map((c) => 'media--' + c.slice(4));
+    const isBackdrop = cls.includes('ph--fill');
+    // 見出しの背後に敷く写真は装飾扱い（alt=""）。本文中の写真は必ず alt を持たせる
+    const alt = e.alt ? e.alt : (isBackdrop ? '' : e.label.split(' ／ ')[0]);
+    const load = e.eager ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
+    return `<img class="media ${mods.join(' ')}" src="${e.src}" alt="${alt.replace(/"/g, '&quot;')}" ${load} decoding="async">`;
+  });
+}
 
 /** ページ本文の先頭 <!--meta ... --> を読む */
 function parse(raw) {
@@ -38,7 +64,7 @@ function pageHead(meta) {
   crumbs.push(`<li aria-current="page">${meta.title}</li>`);
   return `<section class="phd">
   <div class="phd__media">
-    <div class="ph ph--fill ph--dark" data-ph="${meta.ph || '［写真］ページヘッダー背景 ／ 1920×540px'}"></div>
+    <div class="ph ph--fill ph--dark" data-img="${meta.slug}-header"></div>
   </div>
   <div class="phd__veil"></div>
   <div class="wrap phd__in">
@@ -77,7 +103,7 @@ const missing = pages.filter((p) => ORDER.indexOf(p.meta.slug) === -1);
 if (missing.length) throw new Error('ORDER 未登録: ' + missing.map((p) => p.meta.slug).join(', '));
 
 for (const { meta, body } of pages) {
-  const inner = meta.slug === 'index' ? body : pageHead(meta) + '\n' + body;
+  const inner = renderSlots(meta.slug === 'index' ? body : pageHead(meta) + '\n' + body);
   const html = layout
     .replace('{{TITLE}}', meta.title)
     .replace('{{DESC}}', meta.desc || '')
@@ -94,7 +120,7 @@ const tabs = pages.map((p, i) =>
 ).join('');
 
 const frames = pages.map((p, i) => {
-  const inner = p.meta.slug === 'index' ? p.body : pageHead(p.meta) + '\n' + p.body;
+  const inner = renderSlots(p.meta.slug === 'index' ? p.body : pageHead(p.meta) + '\n' + p.body);
   return `<div class="pv__page" id="pv-${p.meta.slug}"${i === 0 ? '' : ' hidden'}>
 ${markCurrent(header, p.meta.slug)}
 <main>${inner}</main>
@@ -189,4 +215,6 @@ ${css}
 </style>
 ${artifact}`);
 
+const filled = manifest.images.filter((e) => e.src).length;
+console.log(`画像スロット: ${filled}/${manifest.images.length} 件にURL設定済み`);
 console.log('built ' + pages.length + ' pages -> ' + OUT + '/ (+ preview.html, preview.artifact.html)');

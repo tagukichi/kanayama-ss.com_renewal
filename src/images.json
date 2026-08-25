@@ -1,0 +1,455 @@
+{
+  "_readme": "src にURLを入れると <img> に置き換わります。空欄の枠はプレースホルダー表示のまま。alt が空なら label から補完します。",
+  "images": [
+    {
+      "id": "index-01",
+      "page": "index",
+      "kind": "写真",
+      "label": "メインビジュアル ／ 屋根上でのソーラーパネル施工",
+      "size": "2000×1125px 以上",
+      "eager": true,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "index-02",
+      "page": "index",
+      "kind": "写真",
+      "label": "太陽光パネル設置の施工風景",
+      "size": "1600×1000px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "index-03",
+      "page": "index",
+      "kind": "写真",
+      "label": "電気工事・水道工事の作業風景",
+      "size": "1600×1000px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "index-04",
+      "page": "index",
+      "kind": "写真",
+      "label": "施工事例サムネイル",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "index-05",
+      "page": "index",
+      "kind": "写真",
+      "label": "施工事例サムネイル",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "index-06",
+      "page": "index",
+      "kind": "写真",
+      "label": "施工事例サムネイル",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "index-07",
+      "page": "index",
+      "kind": "写真",
+      "label": "チームでの作業風景・集合写真",
+      "size": "1800×1013px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "concept-header",
+      "page": "concept",
+      "kind": "写真",
+      "label": "屋根の上の作業風景（引き）",
+      "size": "1920×540px",
+      "eager": true,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "concept-01",
+      "page": "concept",
+      "kind": "写真",
+      "label": "代表または職人の手元のカット",
+      "size": "1800×1013px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "solar-header",
+      "page": "solar",
+      "kind": "写真",
+      "label": "屋根に設置されたソーラーパネル",
+      "size": "1920×540px",
+      "eager": true,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "solar-01",
+      "page": "solar",
+      "kind": "写真",
+      "label": "太陽光パネル設置",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "solar-02",
+      "page": "solar",
+      "kind": "写真",
+      "label": "蓄電池ユニット",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "solar-03",
+      "page": "solar",
+      "kind": "写真",
+      "label": "ソーラーカーポート",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "solar-04",
+      "page": "solar",
+      "kind": "写真",
+      "label": "HEMSモニター画面",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "solar-05",
+      "page": "solar",
+      "kind": "写真",
+      "label": "IHクッキングヒーター・エコキュート",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "solar-06",
+      "page": "solar",
+      "kind": "写真",
+      "label": "独立電源システム",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "electric-header",
+      "page": "electric",
+      "kind": "写真",
+      "label": "電気工事の作業風景",
+      "size": "1920×540px",
+      "eager": true,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "electric-01",
+      "page": "electric",
+      "kind": "写真",
+      "label": "配線・分電盤の作業",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "electric-02",
+      "page": "electric",
+      "kind": "写真",
+      "label": "給排水管の工事",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "electric-03",
+      "page": "electric",
+      "kind": "写真",
+      "label": "エアコン室外機の設置",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "electric-04",
+      "page": "electric",
+      "kind": "写真",
+      "label": "給湯器の交換作業",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "works-header",
+      "page": "works",
+      "kind": "写真",
+      "label": "完成後の屋根（引き）",
+      "size": "1920×540px",
+      "eager": true,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "works-01",
+      "page": "works",
+      "kind": "写真",
+      "label": "施工事例",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "works-02",
+      "page": "works",
+      "kind": "写真",
+      "label": "施工事例",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "works-03",
+      "page": "works",
+      "kind": "写真",
+      "label": "施工事例",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "works-04",
+      "page": "works",
+      "kind": "写真",
+      "label": "施工事例",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "works-05",
+      "page": "works",
+      "kind": "写真",
+      "label": "施工事例",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "works-06",
+      "page": "works",
+      "kind": "写真",
+      "label": "施工事例",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "works-detail-header",
+      "page": "works-detail",
+      "kind": "写真",
+      "label": "この事例のメイン写真",
+      "size": "1920×540px",
+      "eager": true,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "works-detail-01",
+      "page": "works-detail",
+      "kind": "写真",
+      "label": "施工前",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "works-detail-02",
+      "page": "works-detail",
+      "kind": "写真",
+      "label": "施工中（架台設置）",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "works-detail-03",
+      "page": "works-detail",
+      "kind": "写真",
+      "label": "施工後",
+      "size": "1200×900px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "about-header",
+      "page": "about",
+      "kind": "写真",
+      "label": "社屋または作業車",
+      "size": "1920×540px",
+      "eager": true,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "about-01",
+      "page": "about",
+      "kind": "地図",
+      "label": "Google マップ埋め込み ／ 所在地確定後に差し替え",
+      "size": "",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "message-header",
+      "page": "message",
+      "kind": "写真",
+      "label": "代表者ポートレート",
+      "size": "1920×540px",
+      "eager": true,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "message-01",
+      "page": "message",
+      "kind": "写真",
+      "label": "代表者ポートレート（縦）",
+      "size": "900×1200px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "recruit-header",
+      "page": "recruit",
+      "kind": "写真",
+      "label": "現場のチーム",
+      "size": "1920×540px",
+      "eager": true,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "recruit-01",
+      "page": "recruit",
+      "kind": "写真",
+      "label": "社員の作業風景",
+      "size": "1800×1013px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "interview-header",
+      "page": "interview",
+      "kind": "写真",
+      "label": "社員の集合カット",
+      "size": "1920×540px",
+      "eager": true,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "interview-01",
+      "page": "interview",
+      "kind": "写真",
+      "label": "社員ポートレート（縦）",
+      "size": "900×1200px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "interview-02",
+      "page": "interview",
+      "kind": "写真",
+      "label": "社員ポートレート（縦）",
+      "size": "900×1200px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "interview-03",
+      "page": "interview",
+      "kind": "写真",
+      "label": "社員ポートレート（縦）",
+      "size": "900×1200px",
+      "eager": false,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "news-header",
+      "page": "news",
+      "kind": "写真",
+      "label": "事務所または作業風景",
+      "size": "1920×540px",
+      "eager": true,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "contact-header",
+      "page": "contact",
+      "kind": "写真",
+      "label": "打ち合わせ風景",
+      "size": "1920×540px",
+      "eager": true,
+      "src": "",
+      "alt": ""
+    },
+    {
+      "id": "privacy-header",
+      "page": "privacy",
+      "kind": "写真",
+      "label": "ページヘッダー背景",
+      "size": "1920×540px",
+      "eager": true,
+      "src": "",
+      "alt": ""
+    }
+  ]
+}
