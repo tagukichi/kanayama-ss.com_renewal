@@ -14,11 +14,9 @@
     {
       "id": "ladder",
       "src": "assets/img/slide_01_full.jpg",
-      "tall": "assets/img/bg_01.jpg",
       "alt": "",
       "overlay": true,
-      "pos": "8% 50%",
-      "posTall": "50% 62%"
+      "pos": "8% 50%"
     }
   ]
 }

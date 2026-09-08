@@ -56,12 +56,8 @@ function renderSlider(html) {
       .filter(Boolean).join(';');
     const media = missing
       ? `<div class="fv__ph"><span>［画像］${sl.alt || sl.id}<br><small>${sl.src} を配置すると表示されます</small></span></div>`
-      : (sl.tall
-          ? `<picture>
-          <source media="(max-width: 900px), (max-aspect-ratio: 7/5)" srcset="${sl.tall}">
-          <img class="fv__photo" src="${sl.src}" alt="${sl.alt}" style="object-position:${sl.pos || '50% 50%'}"${i ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async">
-        </picture>`
-          : `<img class="fv__photo" src="${sl.src}" alt="${sl.alt}" style="object-position:${sl.pos || '50% 50%'}"${i ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async">`);
+      // 画面幅で画像を出し分けると1枚目と2枚目の見え方がずれるため、どの幅でも同じ画像を使う
+      : `<img class="fv__photo" src="${sl.src}" alt="${sl.alt}" style="object-position:${sl.pos || '50% 50%'}"${i ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async">`;
     return `      <div class="fv__slide" data-overlay="${sl.overlay !== false}"${style ? ` style="${style}"` : ''}${i === 0 ? ' data-active' : ''} aria-hidden="${i !== 0}">
         ${media}
         <span class="fv__wash" aria-hidden="true"></span>
@@ -69,16 +65,16 @@ function renderSlider(html) {
       </div>`;
   }).join('\n');
 
-  const pager = `<div class="wrap fv__pagerIn"><div class="fv__pins" role="tablist" aria-label="スライドの選択">`
+  // インジケーターはスライダーの中（下端中央）に置く
+  const pager = `      <div class="fv__pager"><div class="fv__pins" role="tablist" aria-label="スライドの選択">`
     + slider.slides.map((sl, i) =>
         `<button type="button" class="fv__pin" role="tab" data-go="${i}" aria-label="${i + 1}枚目を表示"${i === 0 ? ' aria-current="true"' : ''}></button>`
       ).join('')
     + `</div></div>`;
 
   return html
-    .replace('<div class="fv__pager" data-slider-pager></div>', `<div class="fv__pager">${pager}</div>`)
     .replace('<div class="fv__media" data-slider></div>',
-      `<div class="fv__media" data-slider data-interval="${slider.interval}" role="group" aria-roledescription="カルーセル" aria-label="メインビジュアル">\n${slides}\n    </div>`);
+      `<div class="fv__media" data-slider data-interval="${slider.interval}" role="group" aria-roledescription="カルーセル" aria-label="メインビジュアル">\n${slides}\n${pager}\n    </div>`);
 }
 
 /**
