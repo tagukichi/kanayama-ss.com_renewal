@@ -69,21 +69,9 @@ function renderSlider(html) {
       </div>`;
   }).join('\n');
 
-  const dots = slider.slides.map((sl, i) =>
-    `<li><button type="button" class="fv__dot" data-go="${i}" aria-label="スライド${i + 1}へ"${i === 0 ? ' aria-current="true"' : ''}></button></li>`
-  ).join('');
-
-  const nav = `<div class="wrap fv__navIn">
-    <button type="button" class="fv__arrow" data-move="-1" aria-label="前のスライド"></button>
-    <ol class="fv__dots">${dots}</ol>
-    <button type="button" class="fv__arrow fv__arrow--next" data-move="1" aria-label="次のスライド"></button>
-    <button type="button" class="fv__play" data-toggle aria-label="自動切り替えを止める" aria-pressed="false"></button>
-  </div>`;
-
   return html
     .replace('<div class="fv__media" data-slider></div>',
-      `<div class="fv__media" data-slider data-interval="${slider.interval}" role="group" aria-roledescription="カルーセル" aria-label="メインビジュアル">\n${slides}\n    </div>`)
-    .replace('<div class="fv__nav" data-slider-nav></div>', `<div class="fv__nav">${nav}</div>`);
+      `<div class="fv__media" data-slider data-interval="${slider.interval}" role="group" aria-roledescription="カルーセル" aria-label="メインビジュアル">\n${slides}\n    </div>`);
 }
 
 /**
