@@ -241,8 +241,10 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
    明るい空の写真を主役に、左からの白いウォッシュで文字の場所をつくる。
    ============================================================ */
 .fv{
+  --slide-ratio: 1360 / 540;   /* 1枚目のバナーの比率。両スライドの高さの基準になる */
   position:relative; isolation:isolate; overflow:hidden; background:#E8F1F7; color:var(--ink);
-  min-height:calc(100svh - var(--head-h)); display:flex; flex-direction:column; justify-content:center;
+  aspect-ratio:var(--slide-ratio); min-height:440px;
+  display:flex; flex-direction:column; justify-content:center;
 }
 .fv__media{ position:absolute; inset:0; z-index:-1; }
 .fv__media picture{ display:block; width:100%; height:100%; }
@@ -275,8 +277,7 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
 .fv__ph small{ font-weight:400; font-size:11.5px; }
 
 /* 何枚目かを示すインジケーター（クリックでその枚へ移動できる） */
-.fv__pager{ position:absolute; left:0; right:0; bottom:clamp(96px,11vw,132px); z-index:3; pointer-events:none; }
-.fv__pagerIn{ pointer-events:none; }
+.fv__pagerIn{ padding:0; }
 .fv__pins{ display:inline-flex; align-items:center; gap:8px; padding:9px 13px;
   background:rgba(255,255,255,.72); border-radius:999px; backdrop-filter:blur(8px) saturate(150%);
   box-shadow:0 2px 14px rgba(11,74,12,.08); pointer-events:auto; }
@@ -289,26 +290,24 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
 .fv__in{ transition:opacity .5s ease, visibility .5s ease; }
 .fv--bare .fv__in{ opacity:0; visibility:hidden; }
 
-.fv__in{ position:relative; width:100%; padding-block:clamp(52px,7vw,88px) clamp(128px,14vw,178px); }
+.fv__in{ position:relative; width:100%; padding-block:clamp(20px,2.5vw,40px) clamp(104px,11vw,140px); }
 
 .fv__eyebrow{ display:flex; align-items:center; gap:12px; flex-wrap:wrap;
   font-family:var(--en); font-size:12.5px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--green); }
 .fv__eyebrow i{ width:26px; height:2px; background:var(--orange); }
 
-.fv__ttl{ margin-top:22px; font-size:var(--fs-display); font-weight:700; line-height:1.04; letter-spacing:.005em;
+.fv__ttl{ margin-top:16px; font-size:clamp(30px,5vw,72px); font-weight:700; line-height:1.04; letter-spacing:.005em;
   color:var(--ink); text-shadow:0 2px 32px rgba(255,255,255,.88), 0 0 14px rgba(255,255,255,.6); }
 .fv__ttl .l{ display:block; }
 .fv__ttl em{ font-style:normal; color:var(--green); }
 
-.fv__sub{ margin-top:24px; max-width:29em; font-size:clamp(15px,1.3vw,17px); line-height:2.05; color:var(--ink-2); }
-.fv__acts{ display:flex; flex-wrap:wrap; gap:14px; margin-top:34px; }
+.fv__sub{ margin-top:18px; max-width:29em; font-size:clamp(14px,1.15vw,16px); line-height:1.95; color:var(--ink-2); }
 
-/* 下端の実績バー */
-.fv__bar{ position:absolute; left:0; right:0; bottom:0;
-  background:rgba(255,255,255,.84); backdrop-filter:blur(10px) saturate(150%);
-  border-top:1px solid rgba(23,153,24,.22); }
+/* スライダーの下の帯：インジケーターと実績 */
+.fvfoot{ background:rgba(255,255,255,.9); border-top:1px solid rgba(23,153,24,.22); }
+.fvfoot__in{ padding-block:14px 20px; display:grid; gap:14px; }
 .fv__stats{ display:flex; flex-wrap:wrap; margin:0; }
-.fv__stat{ flex:1 1 180px; padding:18px 20px 20px 0; position:relative; }
+.fv__stat{ flex:1 1 180px; padding:0 20px 0 0; position:relative; }
 .fv__stat + .fv__stat{ padding-left:24px; border-left:1px solid var(--line); }
 .fv__stat dd{ margin:0; display:flex; align-items:baseline; gap:7px; }
 .fv__stat b{ font-family:var(--en); font-size:clamp(32px,3.6vw,46px); font-weight:700; line-height:1;
@@ -321,7 +320,8 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
   /* 画面が縦長のときは「写真の帯 → 白地の内容 → 実績バー」と縦に積む。
      横長の写真を縦長の枠に cover で収めると極端な拡大になるため */
   .fv{ min-height:auto; display:block; background:#fff; }
-  .fv__media{ position:relative; inset:auto; z-index:auto; height:min(42vh,420px); }
+  .fv{ aspect-ratio:auto; min-height:0; }
+  .fv__media{ position:relative; inset:auto; z-index:auto; height:auto; aspect-ratio:var(--slide-ratio); }
   .fv__photo{ object-position:50% 62%; }   /* bg_01 はパネルが下側にある */
   .fv__wash{ background:linear-gradient(to top,
       #fff 0%, rgba(255,255,255,.72) 26%, rgba(255,255,255,.16) 58%, rgba(255,255,255,0) 82%); }
@@ -329,39 +329,25 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
   .fv__in{ padding-block:14px 34px; }
   .fv__ttl{ margin-top:16px; }
   .fv__sub{ max-width:none; margin-top:20px; }
-  .fv__acts{ margin-top:26px; }
-  .fv__acts .btn{ flex:1 1 260px; justify-content:space-between; }
-  .fv__bar{ position:static; background:var(--soft); backdrop-filter:none; }
-  .fv__pager{ position:absolute; top:min(42vh,420px); bottom:auto; transform:translateY(-100%); padding-bottom:12px; }
-  .fv__stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px 24px; padding-block:20px; }
+  .fvfoot{ background:var(--soft); }
+  .fv__stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px 24px; }
   .fv__stat{ padding:0; }
   .fv__stat + .fv__stat{ padding-left:0; border-left:0; }
   @media (max-width:600px){
     .fv__stats{ grid-template-columns:1fr 1fr; }
     .fv__stat:first-child{ grid-column:1 / -1; }
-    .fv__acts .btn{ flex:1 1 100%; }
   }
 }
 
 /* 読み込み時の立ち上がり（1回だけ、順番に） */
-.fv__eyebrow,.fv__ttl .l,.fv__sub,.fv__acts,.fv__bar{
+.fv__eyebrow,.fv__ttl .l,.fv__sub{
   opacity:0; transform:translateY(18px); animation:fvIn .9s cubic-bezier(.2,.7,.2,1) forwards;
 }
 .fv__eyebrow{ animation-delay:.08s }
 .fv__ttl .l:nth-child(1){ animation-delay:.18s }
 .fv__ttl .l:nth-child(2){ animation-delay:.30s }
 .fv__sub{ animation-delay:.46s }
-.fv__acts{ animation-delay:.58s }
-.fv__bar{ animation-delay:.72s }
 @keyframes fvIn{ to{ opacity:1; transform:none } }
-
-@media (min-width:900px) and (max-height:800px){
-  .fv{ --fs-display:clamp(40px,6vw,74px); }
-  .fv__in{ padding-block:40px 120px; }
-  .fv__ttl{ margin-top:16px; }
-  .fv__sub{ margin-top:18px; }
-  .fv__acts{ margin-top:26px; }
-}
 
 /* 汎用のボタン並び（下層でも使う） */
 .acts{ display:flex; flex-wrap:wrap; gap:14px; }
@@ -706,38 +692,25 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
         <span class="fv__wash" aria-hidden="true"></span>
         <span class="fv__flare" aria-hidden="true"></span>
       </div>
-      <div class="fv__slide" data-overlay="true" aria-hidden="true">
-        <img class="fv__photo" src="assets/img/bg_01.jpg" alt="" style="object-position:50% 62%" loading="lazy" decoding="async">
-        <span class="fv__wash" aria-hidden="true"></span>
-        <span class="fv__flare" aria-hidden="true"></span>
-      </div>
-      <div class="fv__slide" data-overlay="true" aria-hidden="true">
-        <img class="fv__photo" src="assets/img/bg_02.jpg" alt="" style="object-position:50% 46%" loading="lazy" decoding="async">
-        <span class="fv__wash" aria-hidden="true"></span>
-        <span class="fv__flare" aria-hidden="true"></span>
-      </div>
     </div>
 
   <div class="wrap fv__in">
     <p class="fv__eyebrow"><span>Solar &amp; Storage</span><i></i><span>Electric &amp; Plumbing</span></p>
     <h1 class="fv__ttl"><span class="l">屋根の上に、</span><span class="l"><em>確かな仕事</em>を。</span></h1>
     <p class="fv__sub">2011年から住宅の屋根に上がり続けてきました。太陽光発電システムの設置と、電気・水道工事。その両方を自社で手がけられることが、私たちの強みです。</p>
-    <div class="fv__acts">
-      <a class="btn btn--accent" href="contact.html">無料で現地調査を依頼する</a>
-      <a class="btn btn--ghost" href="works.html">工事実績を見る</a>
-    </div>
   </div>
+</section>
 
-  <div class="fv__pager"><div class="wrap fv__pagerIn"><div class="fv__pins" role="tablist" aria-label="スライドの選択"><button type="button" class="fv__pin" role="tab" data-go="0" aria-label="1枚目を表示" aria-current="true"></button><button type="button" class="fv__pin" role="tab" data-go="1" aria-label="2枚目を表示"></button><button type="button" class="fv__pin" role="tab" data-go="2" aria-label="3枚目を表示"></button><button type="button" class="fv__pin" role="tab" data-go="3" aria-label="4枚目を表示"></button></div></div></div>
-
-  <div class="fv__bar">
-    <dl class="wrap fv__stats">
+<div class="fvfoot">
+  <div class="wrap fvfoot__in">
+    <div class="fv__pager"><div class="wrap fv__pagerIn"><div class="fv__pins" role="tablist" aria-label="スライドの選択"><button type="button" class="fv__pin" role="tab" data-go="0" aria-label="1枚目を表示" aria-current="true"></button><button type="button" class="fv__pin" role="tab" data-go="1" aria-label="2枚目を表示"></button></div></div></div>
+    <dl class="fv__stats">
       <div class="fv__stat"><dd><b data-count>25,000</b><i>棟以上</i></dd><dt>これまでに上がった屋根</dt></div>
       <div class="fv__stat"><dd><b>2011</b><i>年 –</i></dd><dt>太陽光施工に取り組んで</dt></div>
       <div class="fv__stat"><dd><b>2</b><i>事業</i></dd><dt>太陽光 ＋ 電気・水道</dt></div>
     </dl>
   </div>
-</section>
+</div>
 
 <section class="sec">
   <div class="wrap rail reveal">

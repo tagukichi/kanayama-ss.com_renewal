@@ -1,5 +1,5 @@
 {
-  "_readme": "FVスライダーの定義。WordPress では「スライド」のカスタム投稿またはACFの繰り返しフィールドに対応させる想定。overlay:false のスライドはキャッチコピーを隠し、画像だけを見せる（バナー等）。",
+  "_readme": "FVスライダーの定義。WordPress では「スライド」のカスタム投稿またはACFの繰り返しフィールドに対応させる想定。FVの高さは1枚目のバナー（1360×540）の比率に合わせてあるため、バナーは切り取られず枠いっぱいに収まる。",
   "interval": 6000,
   "slides": [
     {
@@ -19,20 +19,6 @@
       "overlay": true,
       "pos": "8% 50%",
       "posTall": "50% 62%"
-    },
-    {
-      "id": "panels",
-      "src": "assets/img/bg_01.jpg",
-      "alt": "",
-      "overlay": true,
-      "pos": "50% 62%"
-    },
-    {
-      "id": "roof",
-      "src": "assets/img/bg_02.jpg",
-      "alt": "",
-      "overlay": true,
-      "pos": "50% 46%"
     }
   ]
 }
