@@ -69,7 +69,14 @@ function renderSlider(html) {
       </div>`;
   }).join('\n');
 
+  const pager = `<div class="wrap fv__pagerIn"><div class="fv__pins" role="tablist" aria-label="スライドの選択">`
+    + slider.slides.map((sl, i) =>
+        `<button type="button" class="fv__pin" role="tab" data-go="${i}" aria-label="${i + 1}枚目を表示"${i === 0 ? ' aria-current="true"' : ''}></button>`
+      ).join('')
+    + `</div></div>`;
+
   return html
+    .replace('<div class="fv__pager" data-slider-pager></div>', `<div class="fv__pager">${pager}</div>`)
     .replace('<div class="fv__media" data-slider></div>',
       `<div class="fv__media" data-slider data-interval="${slider.interval}" role="group" aria-roledescription="カルーセル" aria-label="メインビジュアル">\n${slides}\n    </div>`);
 }

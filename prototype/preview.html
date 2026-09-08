@@ -331,7 +331,21 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
 .fv__slide{ position:absolute; inset:0; opacity:0; visibility:hidden;
   transition:opacity .9s ease, visibility .9s ease; }
 .fv__slide[data-active]{ opacity:1; visibility:visible; }
-.fv__slide .fv__photo{ object-fit:var(--fit, cover); }
+/* スライドの画像。fit はスライドごとに --fit で切り替える（バナーは contain） */
+.fv__photo{ width:100%; height:100%; object-fit:var(--fit, cover); }
+
+/* 文字が乗る側を白く抜く */
+.fv__wash{
+  position:absolute; inset:0;
+  background:linear-gradient(96deg,
+    rgba(255,255,255,.97) 0%, rgba(255,255,255,.95) 26%, rgba(255,255,255,.82) 42%,
+    rgba(255,255,255,.42) 56%, rgba(255,255,255,.08) 70%, rgba(255,255,255,0) 80%);
+}
+/* 陽の回り込み */
+.fv__flare{
+  position:absolute; top:-26%; right:4%; width:min(56vw,680px); aspect-ratio:1; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.72) 0%, rgba(255,246,225,.34) 34%, transparent 68%);
+}
 /* 全体を見せるスライド（バナー等）は余白側の白いウォッシュを出さない */
 .fv__slide[data-overlay="false"] .fv__wash,
 .fv__slide[data-overlay="false"] .fv__flare{ display:none; }
@@ -339,6 +353,17 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
   background:repeating-linear-gradient(135deg, rgba(23,153,24,.055) 0 11px, transparent 11px 22px), var(--soft);
   color:var(--muted); font-size:13px; font-weight:700; line-height:2; padding:20px; }
 .fv__ph small{ font-weight:400; font-size:11.5px; }
+
+/* 何枚目かを示すインジケーター（クリックでその枚へ移動できる） */
+.fv__pager{ position:absolute; left:0; right:0; bottom:clamp(96px,11vw,132px); z-index:3; pointer-events:none; }
+.fv__pagerIn{ pointer-events:none; }
+.fv__pins{ display:inline-flex; align-items:center; gap:8px; padding:9px 13px;
+  background:rgba(255,255,255,.72); border-radius:999px; backdrop-filter:blur(8px) saturate(150%);
+  box-shadow:0 2px 14px rgba(11,74,12,.08); pointer-events:auto; }
+.fv__pin{ width:9px; height:9px; padding:0; border:0; border-radius:999px; cursor:pointer;
+  background:rgba(22,26,21,.26); transition:width .32s cubic-bezier(.2,.7,.2,1), background .25s ease; }
+.fv__pin:hover{ background:rgba(22,26,21,.5); }
+.fv__pin[aria-current="true"]{ width:28px; background:var(--orange); }
 
 /* キャッチコピーは、画像だけを見せるスライドのときに退避させる */
 .fv__in{ transition:opacity .5s ease, visibility .5s ease; }
@@ -387,6 +412,7 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
   .fv__acts{ margin-top:26px; }
   .fv__acts .btn{ flex:1 1 260px; justify-content:space-between; }
   .fv__bar{ position:static; background:var(--soft); backdrop-filter:none; }
+  .fv__pager{ position:absolute; top:min(42vh,420px); bottom:auto; transform:translateY(-100%); padding-bottom:12px; }
   .fv__stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px 24px; padding-block:20px; }
   .fv__stat{ padding:0; }
   .fv__stat + .fv__stat{ padding-left:0; border-left:0; }
@@ -785,9 +811,11 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
     </div>
   </div>
 
+  <div class="fv__pager"><div class="wrap fv__pagerIn"><div class="fv__pins" role="tablist" aria-label="スライドの選択"><button type="button" class="fv__pin" role="tab" data-go="0" aria-label="1枚目を表示" aria-current="true"></button><button type="button" class="fv__pin" role="tab" data-go="1" aria-label="2枚目を表示"></button><button type="button" class="fv__pin" role="tab" data-go="2" aria-label="3枚目を表示"></button><button type="button" class="fv__pin" role="tab" data-go="3" aria-label="4枚目を表示"></button></div></div></div>
+
   <div class="fv__bar">
     <dl class="wrap fv__stats">
-      <div class="fv__stat"><dd><b data-count>5,000</b><i>棟 +</i></dd><dt>これまでに上がった屋根</dt></div>
+      <div class="fv__stat"><dd><b data-count>25,000</b><i>棟以上</i></dd><dt>これまでに上がった屋根</dt></div>
       <div class="fv__stat"><dd><b>2011</b><i>年 –</i></dd><dt>太陽光施工に取り組んで</dt></div>
       <div class="fv__stat"><dd><b>2</b><i>事業</i></dd><dt>太陽光 ＋ 電気・水道</dt></div>
     </dl>
@@ -863,7 +891,7 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
     <div class="pts mt-l reveal">
       <div class="pt">
         <p class="pt__n">Reason 01</p>
-        <h3 class="pt__t">5,000棟を超える屋根で<br>積み上げた施工</h3>
+        <h3 class="pt__t">25,000棟を超える屋根で<br>積み上げた施工</h3>
         <p class="pt__d">住宅用太陽光が広まる前から施工に携わってきました。屋根材の種類、築年数、勾配。条件が違えば正解も違うことを、現場の数だけ知っています。</p>
       </div>
       <div class="pt">
@@ -2139,7 +2167,7 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
       <table class="tbl">
         <tr><th><span class="en" style="font-size:17px">創業期</span></th><td>先代までの二代にわたり、墨田区にて精密金型の製造業を営む。</td></tr>
         <tr><th><span class="en" style="font-size:17px">2011</span></th><td>現代表が太陽光発電システムの施工事業を立ち上げ。住宅の屋根への施工を開始。</td></tr>
-        <tr><th><span class="en" style="font-size:17px">— 現在</span></th><td>累計5,000棟を超える屋根に施工。電気工事・水道工事を含めた住宅設備工事へ対応範囲を拡大。</td></tr>
+        <tr><th><span class="en" style="font-size:17px">— 現在</span></th><td>累計25,000棟を超える屋根に施工。電気工事・水道工事を含めた住宅設備工事へ対応範囲を拡大。</td></tr>
       </table>
     </div>
   </div>
@@ -2311,7 +2339,7 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
       <p class="lead mincho">「ものづくりの家」に生まれて、<br>屋根の上に居場所を見つけました。</p>
       <p class="p mt-m">私の祖父の代から、この会社はものづくりをしてきました。精巧な金型をつくる会社として、長いあいだ墨田区の製造業を支えてきたと聞いています。工場の音と機械油の匂いのなかで育った私にとって、「精度」という言葉は理屈ではなく、体に染み込んだ感覚でした。</p>
       <p class="p">大学を卒業したあと、私は別の会社で太陽光発電の工事を覚えました。屋根の上という、それまで想像もしなかった場所での仕事でした。けれど作業を重ねるうちに、ここでも問われているのは金型と同じ精度なのだと気づきました。数ミリの据え付けのずれが、10年後の雨漏りになる。見えなくなる部分の処理が、20年後の発電量を左右する。</p>
-      <p class="p">独立して、新しい家業として立ち上げてから10年あまり。おかげさまで5,000棟を超える屋根に上がらせていただきました。販売店や元請けの会社から声をかけていただけるようになったのは、派手な営業をしたからではありません。一軒ずつ、丁寧にやってきた結果だと思っています。</p>
+      <p class="p">独立して、新しい家業として立ち上げてから10年あまり。おかげさまで25,000棟を超える屋根に上がらせていただきました。販売店や元請けの会社から声をかけていただけるようになったのは、派手な営業をしたからではありません。一軒ずつ、丁寧にやってきた結果だと思っています。</p>
       <p class="p">脱炭素へと社会が動くなかで、私たちの仕事の意味は年々大きくなっています。それでもやることは変わりません。いい製品を、確かな材料で、きちんと据え付ける。この当たり前を続けられる会社であり続けたいと考えています。</p>
     </div>
   </div>
@@ -3592,6 +3620,7 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
     if (slides.length < 2) return;
 
     var fv = box.closest('.fv');
+    var pins = [].slice.call(document.querySelectorAll('.fv__pin'));
     var interval = parseInt(box.dataset.interval, 10) || 6000;
     var i = 0, timer = null, paused = reduce;
 
@@ -3602,12 +3631,19 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
         if (on) s.setAttribute('data-active', ''); else s.removeAttribute('data-active');
         s.setAttribute('aria-hidden', String(!on));
       });
+      pins.forEach(function (b, n) {
+        if (n === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+      });
       // 画像だけを見せるスライドではキャッチコピーを隠す
       fv.classList.toggle('fv--bare', slides[i].dataset.overlay === 'false');
     }
 
     function start() { stop(); if (!paused) timer = setInterval(function () { show(i + 1); }, interval); }
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+    pins.forEach(function (b) {
+      b.addEventListener('click', function () { show(Number(b.dataset.go)); start(); });
+    });
 
     // ポインタが乗っている間・タブが非表示の間は自動送りを止める
     fv.addEventListener('mouseenter', stop);

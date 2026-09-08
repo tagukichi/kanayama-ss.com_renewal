@@ -24,6 +24,7 @@
     if (slides.length < 2) return;
 
     var fv = box.closest('.fv');
+    var pins = [].slice.call(document.querySelectorAll('.fv__pin'));
     var interval = parseInt(box.dataset.interval, 10) || 6000;
     var i = 0, timer = null, paused = reduce;
 
@@ -34,12 +35,19 @@
         if (on) s.setAttribute('data-active', ''); else s.removeAttribute('data-active');
         s.setAttribute('aria-hidden', String(!on));
       });
+      pins.forEach(function (b, n) {
+        if (n === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+      });
       // 画像だけを見せるスライドではキャッチコピーを隠す
       fv.classList.toggle('fv--bare', slides[i].dataset.overlay === 'false');
     }
 
     function start() { stop(); if (!paused) timer = setInterval(function () { show(i + 1); }, interval); }
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+    pins.forEach(function (b) {
+      b.addEventListener('click', function () { show(Number(b.dataset.go)); start(); });
+    });
 
     // ポインタが乗っている間・タブが非表示の間は自動送りを止める
     fv.addEventListener('mouseenter', stop);

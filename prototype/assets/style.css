@@ -248,7 +248,21 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
 .fv__slide{ position:absolute; inset:0; opacity:0; visibility:hidden;
   transition:opacity .9s ease, visibility .9s ease; }
 .fv__slide[data-active]{ opacity:1; visibility:visible; }
-.fv__slide .fv__photo{ object-fit:var(--fit, cover); }
+/* スライドの画像。fit はスライドごとに --fit で切り替える（バナーは contain） */
+.fv__photo{ width:100%; height:100%; object-fit:var(--fit, cover); }
+
+/* 文字が乗る側を白く抜く */
+.fv__wash{
+  position:absolute; inset:0;
+  background:linear-gradient(96deg,
+    rgba(255,255,255,.97) 0%, rgba(255,255,255,.95) 26%, rgba(255,255,255,.82) 42%,
+    rgba(255,255,255,.42) 56%, rgba(255,255,255,.08) 70%, rgba(255,255,255,0) 80%);
+}
+/* 陽の回り込み */
+.fv__flare{
+  position:absolute; top:-26%; right:4%; width:min(56vw,680px); aspect-ratio:1; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.72) 0%, rgba(255,246,225,.34) 34%, transparent 68%);
+}
 /* 全体を見せるスライド（バナー等）は余白側の白いウォッシュを出さない */
 .fv__slide[data-overlay="false"] .fv__wash,
 .fv__slide[data-overlay="false"] .fv__flare{ display:none; }
@@ -256,6 +270,17 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
   background:repeating-linear-gradient(135deg, rgba(23,153,24,.055) 0 11px, transparent 11px 22px), var(--soft);
   color:var(--muted); font-size:13px; font-weight:700; line-height:2; padding:20px; }
 .fv__ph small{ font-weight:400; font-size:11.5px; }
+
+/* 何枚目かを示すインジケーター（クリックでその枚へ移動できる） */
+.fv__pager{ position:absolute; left:0; right:0; bottom:clamp(96px,11vw,132px); z-index:3; pointer-events:none; }
+.fv__pagerIn{ pointer-events:none; }
+.fv__pins{ display:inline-flex; align-items:center; gap:8px; padding:9px 13px;
+  background:rgba(255,255,255,.72); border-radius:999px; backdrop-filter:blur(8px) saturate(150%);
+  box-shadow:0 2px 14px rgba(11,74,12,.08); pointer-events:auto; }
+.fv__pin{ width:9px; height:9px; padding:0; border:0; border-radius:999px; cursor:pointer;
+  background:rgba(22,26,21,.26); transition:width .32s cubic-bezier(.2,.7,.2,1), background .25s ease; }
+.fv__pin:hover{ background:rgba(22,26,21,.5); }
+.fv__pin[aria-current="true"]{ width:28px; background:var(--orange); }
 
 /* キャッチコピーは、画像だけを見せるスライドのときに退避させる */
 .fv__in{ transition:opacity .5s ease, visibility .5s ease; }
@@ -304,6 +329,7 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
   .fv__acts{ margin-top:26px; }
   .fv__acts .btn{ flex:1 1 260px; justify-content:space-between; }
   .fv__bar{ position:static; background:var(--soft); backdrop-filter:none; }
+  .fv__pager{ position:absolute; top:min(42vh,420px); bottom:auto; transform:translateY(-100%); padding-bottom:12px; }
   .fv__stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px 24px; padding-block:20px; }
   .fv__stat{ padding:0; }
   .fv__stat + .fv__stat{ padding-left:0; border-left:0; }
