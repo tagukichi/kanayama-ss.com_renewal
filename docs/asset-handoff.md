@@ -188,3 +188,54 @@ AuthName "Prototype"
 AuthUserFile /home/<アカウント>/<ドメイン>/.htpasswd
 Require valid-user
 ```
+
+---
+
+## FVスライダー
+
+トップページのファーストビューはスライダーです。スライドの定義は `src/slides.json` にあります。
+
+```json
+{
+  "interval": 6000,
+  "slides": [
+    { "id": "eight-fields", "src": "assets/img/slider/01_eight-fields.png",
+      "alt": "エイトフィールズ株式会社 × 有限会社金山製作所",
+      "overlay": false, "fit": "contain", "bg": "#F2F2F2" },
+    { "id": "ladder", "src": "assets/img/slide_01_full.jpg",
+      "tall": "assets/img/bg_01.jpg", "alt": "", "overlay": true, "pos": "8% 50%" }
+  ]
+}
+```
+
+| 項目 | 意味 |
+|---|---|
+| `src` | 横長の画面で使う画像 |
+| `tall` | 縦長の画面（タブレット縦・スマホ）で使う画像。省略時は `src` を使う |
+| `alt` | 代替テキスト。装飾扱いのスライドは空文字 |
+| `overlay` | `true` でキャッチコピーとボタンを重ねる。`false` は画像だけを見せる（バナー等） |
+| `fit` | `cover`（既定）／`contain`。バナーのように全体を見せたい画像は `contain` |
+| `bg` | `contain` のときの余白の色 |
+| `pos` | 切り取り位置（`object-position`） |
+| `interval` | 自動切り替えの間隔（ミリ秒） |
+
+- 画像は `src/assets/img/slider/` に置いてください
+- **ファイルが未配置のスライドはプレースホルダー表示**になり、壊れ画像にはなりません
+- 操作UI：前へ／次へ、ドット、自動切り替えの停止ボタン
+- マウスが乗っている間・キーボードで操作中・タブが非表示の間は自動送りを止めます
+- 「動きを減らす」設定の環境では自動送りしません（手動操作のみ）
+
+### WordPress 化のときの対応
+
+`slides.json` の配列を、そのまま管理画面から編集できる形に置き換えます。
+
+| プロトタイプ | WordPress |
+|---|---|
+| `slides.json` の配列 | カスタム投稿タイプ「スライド」または ACF の繰り返しフィールド |
+| `src` / `tall` | 画像フィールド（PC用／SP用） |
+| `alt` | 画像の代替テキスト（メディアの設定を利用） |
+| `overlay` | 真偽値フィールド「キャッチコピーを重ねる」 |
+| 並び順 | 投稿の並び順、またはフィールドの並び |
+
+スライダーのJavaScript（`assets/app.js`）は**DOMの構造だけに依存**しているため、
+テンプレート側で同じ構造を出力すれば、そのまま使えます。

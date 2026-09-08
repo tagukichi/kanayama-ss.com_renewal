@@ -246,6 +246,45 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
 }
 .fv__media{ position:absolute; inset:0; z-index:-1; }
 .fv__media picture{ display:block; width:100%; height:100%; }
+
+/* ---- スライダー ---- */
+.fv__slide{ position:absolute; inset:0; opacity:0; visibility:hidden;
+  transition:opacity .9s ease, visibility .9s ease; }
+.fv__slide[data-active]{ opacity:1; visibility:visible; }
+.fv__slide .fv__photo{ object-fit:var(--fit, cover); }
+/* 全体を見せるスライド（バナー等）は余白側の白いウォッシュを出さない */
+.fv__slide[data-overlay="false"] .fv__wash,
+.fv__slide[data-overlay="false"] .fv__flare{ display:none; }
+.fv__ph{ position:absolute; inset:0; display:grid; place-items:center; text-align:center;
+  background:repeating-linear-gradient(135deg, rgba(23,153,24,.055) 0 11px, transparent 11px 22px), var(--soft);
+  color:var(--muted); font-size:13px; font-weight:700; line-height:2; padding:20px; }
+.fv__ph small{ font-weight:400; font-size:11.5px; }
+
+/* キャッチコピーは、画像だけを見せるスライドのときに退避させる */
+.fv__in{ transition:opacity .5s ease, visibility .5s ease; }
+.fv--bare .fv__in{ opacity:0; visibility:hidden; }
+
+/* 操作UI */
+.fv__nav{ position:absolute; left:0; right:0; bottom:calc(100% - 100%); z-index:3; pointer-events:none; }
+.fv__navIn{ display:flex; align-items:center; gap:14px; justify-content:flex-start; pointer-events:none; }
+.fv__navIn > *{ pointer-events:auto; }
+.fv__dots{ display:flex; gap:9px; }
+.fv__dot{ width:34px; height:4px; background:rgba(22,26,21,.22); border:0; padding:0; cursor:pointer;
+  transition:background .2s ease; }
+.fv__dot:hover{ background:rgba(22,26,21,.45); }
+.fv__dot[aria-current="true"]{ background:var(--green); }
+.fv__arrow, .fv__play{ width:34px; height:34px; border:1px solid var(--line-strong); background:rgba(255,255,255,.86);
+  display:grid; place-items:center; cursor:pointer; transition:.18s ease; flex:none; }
+.fv__arrow:hover, .fv__play:hover{ background:var(--green); border-color:var(--green); }
+.fv__arrow::before{ content:""; width:8px; height:8px; border-left:2px solid var(--ink); border-bottom:2px solid var(--ink);
+  transform:rotate(45deg) translate(1px,-1px); }
+.fv__arrow--next::before{ transform:rotate(-135deg) translate(1px,-1px); }
+.fv__arrow:hover::before{ border-color:#fff; }
+.fv__play::before{ content:""; width:9px; height:10px; background:var(--ink); }
+.fv__play[aria-pressed="false"]::before{ clip-path:polygon(0 0,35% 0,35% 100%,0 100%); box-shadow:6px 0 0 var(--ink); }
+.fv__play[aria-pressed="true"]::before{ clip-path:polygon(0 0,100% 50%,0 100%); box-shadow:none; }
+.fv__play:hover::before{ background:#fff; box-shadow:none; }
+.fv__play[aria-pressed="false"]:hover::before{ box-shadow:6px 0 0 #fff; }
 .fv__photo{ width:100%; height:100%; object-fit:cover; object-position:8% 50%; }
 
 /* 文字が乗る側を白く抜く */
@@ -276,6 +315,7 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
 .fv__acts{ display:flex; flex-wrap:wrap; gap:14px; margin-top:34px; }
 
 /* 下端の実績バー */
+.fv__nav{ position:absolute; left:0; right:0; bottom:clamp(96px,11vw,132px); }
 .fv__bar{ position:absolute; left:0; right:0; bottom:0;
   background:rgba(255,255,255,.84); backdrop-filter:blur(10px) saturate(150%);
   border-top:1px solid rgba(23,153,24,.22); }
@@ -304,6 +344,7 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
   .fv__acts{ margin-top:26px; }
   .fv__acts .btn{ flex:1 1 260px; justify-content:space-between; }
   .fv__bar{ position:static; background:var(--soft); backdrop-filter:none; }
+  .fv__nav{ position:absolute; top:min(42vh,420px); bottom:auto; transform:translateY(-100%); padding-bottom:12px; }
   .fv__stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px 24px; padding-block:20px; }
   .fv__stat{ padding:0; }
   .fv__stat + .fv__stat{ padding-left:0; border-left:0; }
@@ -663,14 +704,31 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
 </header>
 
 <main><section class="fv">
-  <div class="fv__media">
-    <picture>
-      <source media="(max-width: 900px), (max-aspect-ratio: 7/5)" srcset="assets/img/bg_01.jpg">
-      <img class="fv__photo" src="assets/img/slide_01_full.jpg" alt="" fetchpriority="high" decoding="async">
-    </picture>
-    <span class="fv__wash" aria-hidden="true"></span>
-    <span class="fv__flare" aria-hidden="true"></span>
-  </div>
+  <div class="fv__media" data-slider data-interval="6000" role="group" aria-roledescription="カルーセル" aria-label="メインビジュアル">
+      <div class="fv__slide" data-overlay="false" style="background:#F2F2F2;--fit:contain" data-active aria-hidden="false">
+        <div class="fv__ph"><span>［画像］エイトフィールズ株式会社 × 有限会社金山製作所<br><small>assets/img/slider/01_eight-fields.png を配置すると表示されます</small></span></div>
+        <span class="fv__wash" aria-hidden="true"></span>
+        <span class="fv__flare" aria-hidden="true"></span>
+      </div>
+      <div class="fv__slide" data-overlay="true" aria-hidden="true">
+        <picture>
+          <source media="(max-width: 900px), (max-aspect-ratio: 7/5)" srcset="assets/img/bg_01.jpg">
+          <img class="fv__photo" src="assets/img/slide_01_full.jpg" alt="" style="object-position:8% 50%" loading="lazy" decoding="async">
+        </picture>
+        <span class="fv__wash" aria-hidden="true"></span>
+        <span class="fv__flare" aria-hidden="true"></span>
+      </div>
+      <div class="fv__slide" data-overlay="true" aria-hidden="true">
+        <img class="fv__photo" src="assets/img/bg_01.jpg" alt="" style="object-position:50% 62%" loading="lazy" decoding="async">
+        <span class="fv__wash" aria-hidden="true"></span>
+        <span class="fv__flare" aria-hidden="true"></span>
+      </div>
+      <div class="fv__slide" data-overlay="true" aria-hidden="true">
+        <img class="fv__photo" src="assets/img/bg_02.jpg" alt="" style="object-position:50% 46%" loading="lazy" decoding="async">
+        <span class="fv__wash" aria-hidden="true"></span>
+        <span class="fv__flare" aria-hidden="true"></span>
+      </div>
+    </div>
 
   <div class="wrap fv__in">
     <p class="fv__eyebrow"><span>Solar &amp; Storage</span><i></i><span>Electric &amp; Plumbing</span></p>
@@ -681,6 +739,13 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
       <a class="btn btn--ghost" href="works.html">工事実績を見る</a>
     </div>
   </div>
+
+  <div class="fv__nav"><div class="wrap fv__navIn">
+    <button type="button" class="fv__arrow" data-move="-1" aria-label="前のスライド"></button>
+    <ol class="fv__dots"><li><button type="button" class="fv__dot" data-go="0" aria-label="スライド1へ" aria-current="true"></button></li><li><button type="button" class="fv__dot" data-go="1" aria-label="スライド2へ"></button></li><li><button type="button" class="fv__dot" data-go="2" aria-label="スライド3へ"></button></li><li><button type="button" class="fv__dot" data-go="3" aria-label="スライド4へ"></button></li></ol>
+    <button type="button" class="fv__arrow fv__arrow--next" data-move="1" aria-label="次のスライド"></button>
+    <button type="button" class="fv__play" data-toggle aria-label="自動切り替えを止める" aria-pressed="false"></button>
+  </div></div>
 
   <div class="fv__bar">
     <dl class="wrap fv__stats">
@@ -3478,6 +3543,65 @@ html.is-locked body > *:not(.gate){ visibility:hidden; }
   }
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- FVスライダー ----
+     画像の入れ替えだけを行う。キャッチコピーは data-overlay="false" のスライドで退避する。
+     WordPress 化の際は、スライドのDOMをテンプレート側で出力すればこのJSはそのまま使える。 */
+  (function () {
+    var box = document.querySelector('[data-slider]');
+    if (!box) return;
+    var slides = [].slice.call(box.querySelectorAll('.fv__slide'));
+    if (slides.length < 2) return;
+
+    var fv = box.closest('.fv');
+    var dots = [].slice.call(document.querySelectorAll('.fv__dot'));
+    var toggle = document.querySelector('[data-toggle]');
+    var interval = parseInt(box.dataset.interval, 10) || 6000;
+    var i = 0, timer = null, paused = reduce;
+
+    function show(next) {
+      i = (next + slides.length) % slides.length;
+      slides.forEach(function (s, n) {
+        var on = n === i;
+        if (on) s.setAttribute('data-active', ''); else s.removeAttribute('data-active');
+        s.setAttribute('aria-hidden', String(!on));
+      });
+      dots.forEach(function (d, n) {
+        if (n === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
+      });
+      // 画像だけを見せるスライドではキャッチコピーを隠す
+      fv.classList.toggle('fv--bare', slides[i].dataset.overlay === 'false');
+    }
+
+    function start() { stop(); if (!paused) timer = setInterval(function () { show(i + 1); }, interval); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+    document.querySelectorAll('[data-move]').forEach(function (btn) {
+      btn.addEventListener('click', function () { show(i + Number(btn.dataset.move)); start(); });
+    });
+    dots.forEach(function (d) {
+      d.addEventListener('click', function () { show(Number(d.dataset.go)); start(); });
+    });
+    if (toggle) {
+      toggle.setAttribute('aria-pressed', String(paused));
+      toggle.addEventListener('click', function () {
+        paused = !paused;
+        toggle.setAttribute('aria-pressed', String(paused));
+        toggle.setAttribute('aria-label', paused ? '自動切り替えを再開する' : '自動切り替えを止める');
+        if (paused) stop(); else start();
+      });
+    }
+
+    // 操作中・非表示中は自動送りを止める
+    fv.addEventListener('mouseenter', stop);
+    fv.addEventListener('mouseleave', start);
+    fv.addEventListener('focusin', stop);
+    fv.addEventListener('focusout', start);
+    document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+
+    show(0);
+    start();
+  })();
 
   // ファーストビューの実績数をカウントアップ（最終値はHTML側に持たせてあるのでJSが動かなくても表示は正しい）
   var counter = document.querySelector('[data-count]');

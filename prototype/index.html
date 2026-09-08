@@ -70,14 +70,31 @@
 
 <main>
 <section class="fv">
-  <div class="fv__media">
-    <picture>
-      <source media="(max-width: 900px), (max-aspect-ratio: 7/5)" srcset="assets/img/bg_01.jpg">
-      <img class="fv__photo" src="assets/img/slide_01_full.jpg" alt="" fetchpriority="high" decoding="async">
-    </picture>
-    <span class="fv__wash" aria-hidden="true"></span>
-    <span class="fv__flare" aria-hidden="true"></span>
-  </div>
+  <div class="fv__media" data-slider data-interval="6000" role="group" aria-roledescription="カルーセル" aria-label="メインビジュアル">
+      <div class="fv__slide" data-overlay="false" style="background:#F2F2F2;--fit:contain" data-active aria-hidden="false">
+        <div class="fv__ph"><span>［画像］エイトフィールズ株式会社 × 有限会社金山製作所<br><small>assets/img/slider/01_eight-fields.png を配置すると表示されます</small></span></div>
+        <span class="fv__wash" aria-hidden="true"></span>
+        <span class="fv__flare" aria-hidden="true"></span>
+      </div>
+      <div class="fv__slide" data-overlay="true" aria-hidden="true">
+        <picture>
+          <source media="(max-width: 900px), (max-aspect-ratio: 7/5)" srcset="assets/img/bg_01.jpg">
+          <img class="fv__photo" src="assets/img/slide_01_full.jpg" alt="" style="object-position:8% 50%" loading="lazy" decoding="async">
+        </picture>
+        <span class="fv__wash" aria-hidden="true"></span>
+        <span class="fv__flare" aria-hidden="true"></span>
+      </div>
+      <div class="fv__slide" data-overlay="true" aria-hidden="true">
+        <img class="fv__photo" src="assets/img/bg_01.jpg" alt="" style="object-position:50% 62%" loading="lazy" decoding="async">
+        <span class="fv__wash" aria-hidden="true"></span>
+        <span class="fv__flare" aria-hidden="true"></span>
+      </div>
+      <div class="fv__slide" data-overlay="true" aria-hidden="true">
+        <img class="fv__photo" src="assets/img/bg_02.jpg" alt="" style="object-position:50% 46%" loading="lazy" decoding="async">
+        <span class="fv__wash" aria-hidden="true"></span>
+        <span class="fv__flare" aria-hidden="true"></span>
+      </div>
+    </div>
 
   <div class="wrap fv__in">
     <p class="fv__eyebrow"><span>Solar &amp; Storage</span><i></i><span>Electric &amp; Plumbing</span></p>
@@ -88,6 +105,13 @@
       <a class="btn btn--ghost" href="works.html">工事実績を見る</a>
     </div>
   </div>
+
+  <div class="fv__nav"><div class="wrap fv__navIn">
+    <button type="button" class="fv__arrow" data-move="-1" aria-label="前のスライド"></button>
+    <ol class="fv__dots"><li><button type="button" class="fv__dot" data-go="0" aria-label="スライド1へ" aria-current="true"></button></li><li><button type="button" class="fv__dot" data-go="1" aria-label="スライド2へ"></button></li><li><button type="button" class="fv__dot" data-go="2" aria-label="スライド3へ"></button></li><li><button type="button" class="fv__dot" data-go="3" aria-label="スライド4へ"></button></li></ol>
+    <button type="button" class="fv__arrow fv__arrow--next" data-move="1" aria-label="次のスライド"></button>
+    <button type="button" class="fv__play" data-toggle aria-label="自動切り替えを止める" aria-pressed="false"></button>
+  </div></div>
 
   <div class="fv__bar">
     <dl class="wrap fv__stats">

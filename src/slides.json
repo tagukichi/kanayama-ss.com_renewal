@@ -1,0 +1,38 @@
+{
+  "_readme": "FVスライダーの定義。WordPress では「スライド」のカスタム投稿またはACFの繰り返しフィールドに対応させる想定。overlay:false のスライドはキャッチコピーを隠し、画像だけを見せる（バナー等）。",
+  "interval": 6000,
+  "slides": [
+    {
+      "id": "eight-fields",
+      "src": "assets/img/slider/01_eight-fields.png",
+      "alt": "エイトフィールズ株式会社 × 有限会社金山製作所",
+      "overlay": false,
+      "fit": "contain",
+      "bg": "#F2F2F2",
+      "note": "業務提携バナー。画像だけを見せるためキャッチコピーは非表示"
+    },
+    {
+      "id": "ladder",
+      "src": "assets/img/slide_01_full.jpg",
+      "tall": "assets/img/bg_01.jpg",
+      "alt": "",
+      "overlay": true,
+      "pos": "8% 50%",
+      "posTall": "50% 62%"
+    },
+    {
+      "id": "panels",
+      "src": "assets/img/bg_01.jpg",
+      "alt": "",
+      "overlay": true,
+      "pos": "50% 62%"
+    },
+    {
+      "id": "roof",
+      "src": "assets/img/bg_02.jpg",
+      "alt": "",
+      "overlay": true,
+      "pos": "50% 46%"
+    }
+  ]
+}

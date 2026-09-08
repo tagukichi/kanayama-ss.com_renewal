@@ -16,6 +16,7 @@ const footer = read(join(SRC, 'partials/footer.html'));
 const css = read(join(SRC, 'assets/style.css'));
 const gateJs = read(join(SRC, 'assets/gate.js'));
 const manifest = JSON.parse(read(join(SRC, 'images.json')));
+const slider = JSON.parse(read(join(SRC, 'slides.json')));
 const byId = new Map(manifest.images.map((e) => [e.id, e]));
 
 /**
@@ -42,6 +43,48 @@ if (existsSync(IMG_DIR)) {
   }
 }
 const js = read(join(SRC, 'assets/app.js'));
+
+/**
+ * FVスライダーを描画する。
+ *  slides.json の定義から <div class="fv__slide"> を並べ、操作UIも同時に生成する。
+ *  → WordPress ではこの配列をカスタム投稿／ACFの繰り返しフィールドに置き換える
+ */
+function renderSlider(html) {
+  const slides = slider.slides.map((sl, i) => {
+    const missing = !/^https?:/.test(sl.src) && !existsSync(join(SRC, sl.src));
+    const style = [sl.bg ? `background:${sl.bg}` : '', sl.fit ? `--fit:${sl.fit}` : '']
+      .filter(Boolean).join(';');
+    const media = missing
+      ? `<div class="fv__ph"><span>［画像］${sl.alt || sl.id}<br><small>${sl.src} を配置すると表示されます</small></span></div>`
+      : (sl.tall
+          ? `<picture>
+          <source media="(max-width: 900px), (max-aspect-ratio: 7/5)" srcset="${sl.tall}">
+          <img class="fv__photo" src="${sl.src}" alt="${sl.alt}" style="object-position:${sl.pos || '50% 50%'}"${i ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async">
+        </picture>`
+          : `<img class="fv__photo" src="${sl.src}" alt="${sl.alt}" style="object-position:${sl.pos || '50% 50%'}"${i ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async">`);
+    return `      <div class="fv__slide" data-overlay="${sl.overlay !== false}"${style ? ` style="${style}"` : ''}${i === 0 ? ' data-active' : ''} aria-hidden="${i !== 0}">
+        ${media}
+        <span class="fv__wash" aria-hidden="true"></span>
+        <span class="fv__flare" aria-hidden="true"></span>
+      </div>`;
+  }).join('\n');
+
+  const dots = slider.slides.map((sl, i) =>
+    `<li><button type="button" class="fv__dot" data-go="${i}" aria-label="スライド${i + 1}へ"${i === 0 ? ' aria-current="true"' : ''}></button></li>`
+  ).join('');
+
+  const nav = `<div class="wrap fv__navIn">
+    <button type="button" class="fv__arrow" data-move="-1" aria-label="前のスライド"></button>
+    <ol class="fv__dots">${dots}</ol>
+    <button type="button" class="fv__arrow fv__arrow--next" data-move="1" aria-label="次のスライド"></button>
+    <button type="button" class="fv__play" data-toggle aria-label="自動切り替えを止める" aria-pressed="false"></button>
+  </div>`;
+
+  return html
+    .replace('<div class="fv__media" data-slider></div>',
+      `<div class="fv__media" data-slider data-interval="${slider.interval}" role="group" aria-roledescription="カルーセル" aria-label="メインビジュアル">\n${slides}\n    </div>`)
+    .replace('<div class="fv__nav" data-slider-nav></div>', `<div class="fv__nav">${nav}</div>`);
+}
 
 /**
  * 画像スロットを描画する。
@@ -143,7 +186,7 @@ const missing = pages.filter((p) => ORDER.indexOf(p.meta.slug) === -1);
 if (missing.length) throw new Error('ORDER 未登録: ' + missing.map((p) => p.meta.slug).join(', '));
 
 for (const { meta, body } of pages) {
-  const inner = renderSlots(meta.slug === 'index' ? body : pageHead(meta) + '\n' + body);
+  const inner = renderSlider(renderSlots(meta.slug === 'index' ? body : pageHead(meta) + '\n' + body));
   const html = layout
     .replace('{{TITLE}}', meta.title)
     .replace('{{DESC}}', meta.desc || '')
@@ -160,7 +203,7 @@ const tabs = pages.map((p, i) =>
 ).join('');
 
 const frames = pages.map((p, i) => {
-  const inner = renderSlots(p.meta.slug === 'index' ? p.body : pageHead(p.meta) + '\n' + p.body);
+  const inner = renderSlider(renderSlots(p.meta.slug === 'index' ? p.body : pageHead(p.meta) + '\n' + p.body));
   return `<div class="pv__page" id="pv-${p.meta.slug}"${i === 0 ? '' : ' hidden'}>
 ${markCurrent(header, p.meta.slug)}
 <main>${inner}</main>
