@@ -10,3 +10,7 @@ assets/wp-uploads/
 # 検証用に playwright を入れたときの残骸（ビルド自体は依存パッケージ0）
 package.json
 package-lock.json
+
+# テーマのプレビュー出力とZIP（生成物）
+theme-preview/
+dist/
